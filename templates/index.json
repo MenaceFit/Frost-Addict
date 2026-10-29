@@ -403,7 +403,7 @@
       "settings": {
         "text": "Winter drop|Nouvelle saison|Livraison offerte en France dès 65 €|Doudounes|Sneakers",
         "style": "accent",
-        "rows": 2
+        "rows": "2"
       }
     },
     "band2": {
@@ -411,7 +411,7 @@
       "settings": {
         "text": "Built for the cold|Frost District|Stay frozen",
         "style": "dark",
-        "rows": 1
+        "rows": "1"
       }
     },
     "look": {

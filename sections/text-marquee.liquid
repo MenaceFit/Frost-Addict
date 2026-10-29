@@ -1,6 +1,7 @@
 {%- assign items = section.settings.text | split: '|' -%}
 <div class="kinetic{% if section.settings.style == 'dark' %} kinetic--dark{% elsif section.settings.style == 'accent' %} kinetic--accent{% endif %}" data-kinetic {{ section.shopify_attributes }} aria-label="{{ section.settings.text | replace: '|', ' · ' | escape }}" role="img">
-  {%- for row in (1..section.settings.rows) -%}
+  {%- assign row_count = section.settings.rows | plus: 0 -%}
+  {%- for row in (1..row_count) -%}
     <div class="kinetic__row{% if row == 2 %} kinetic__row--reverse{% endif %}" aria-hidden="true">
       <div class="kinetic__track">
         {%- for i in (1..4) -%}
@@ -18,7 +19,7 @@
   "name": "Bandeau texte animé",
   "settings": [
     { "type": "text", "id": "text", "label": "Textes (séparés par |)", "default": "Winter drop|Nouvelle saison|Doudounes|Sneakers|Accessoires" },
-    { "type": "range", "id": "rows", "min": 1, "max": 2, "step": 1, "label": "Nombre de lignes", "default": 2 },
+    { "type": "select", "id": "rows", "label": "Nombre de lignes", "default": "2", "options": [ { "value": "1", "label": "Une ligne" }, { "value": "2", "label": "Deux lignes (sens opposés)" } ] },
     { "type": "select", "id": "style", "label": "Style", "default": "dark", "options": [ { "value": "light", "label": "Clair" }, { "value": "dark", "label": "Noir" }, { "value": "accent", "label": "Turquoise" } ] }
   ],
   "presets": [ { "name": "Bandeau texte animé" } ]
