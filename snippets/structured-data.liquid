@@ -1,16 +1,76 @@
+{%- comment -%}
+  Structured data. Rule: emit each type once, never duplicate.
+  - Organization (home) with sameAs from the social settings
+  - Product: Shopify's own `structured_data` filter (offers, variants, availability)
+  - BreadcrumbList on product and collection pages (matches the visible breadcrumbs)
+  - Supplemental JSON-LD stored per entity in the `custom.json` metafield (multi-line text),
+    rendered verbatim — add only types the theme does not already emit (never a second Product).
+{%- endcomment -%}
+{%- assign origin = request.origin -%}
 {%- if request.page_type == 'index' -%}
+  {%- liquid
+    assign same_as = ''
+    assign social_keys = 'social_instagram,social_tiktok,social_snapchat,social_youtube' | split: ','
+    for key in social_keys
+      if settings[key] != blank
+        assign same_as = same_as | append: settings[key] | append: '|'
+      endif
+    endfor
+    assign same_as_list = same_as | split: '|'
+  -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": {{ shop.name | json }},
-      "url": {{ request.origin | append: routes.root_url | json }}
+      "url": {{ origin | append: routes.root_url | json }}
       {%- if settings.logo -%},
         "logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }}
       {%- endif -%}
+      {%- if same_as_list.size > 0 -%},
+        "sameAs": {{ same_as_list | json }}
+      {%- endif %}
     }
   </script>
 {%- endif -%}
+
 {%- if request.page_type == 'product' and product -%}
   <script type="application/ld+json">{{ product | structured_data }}</script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ 'general.home' | t | json }}, "item": {{ origin | append: routes.root_url | json }} }
+        {%- if collection -%},
+          { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ origin | append: collection.url | json }} },
+          { "@type": "ListItem", "position": 3, "name": {{ product.title | json }}, "item": {{ origin | append: product.url | json }} }
+        {%- else -%},
+          { "@type": "ListItem", "position": 2, "name": {{ product.title | json }}, "item": {{ origin | append: product.url | json }} }
+        {%- endif %}
+      ]
+    }
+  </script>
+{%- elsif request.page_type == 'collection' and collection -%}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ 'general.home' | t | json }}, "item": {{ origin | append: routes.root_url | json }} },
+        { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": {{ origin | append: collection.url | json }} }
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{%- comment -%} Supplemental schema from the custom.json metafield {%- endcomment -%}
+{%- if request.page_type == 'product' and product.metafields.custom.json != blank -%}
+  <script type="application/ld+json">{{ product.metafields.custom.json }}</script>
+{%- elsif request.page_type == 'collection' and collection.metafields.custom.json != blank -%}
+  <script type="application/ld+json">{{ collection.metafields.custom.json }}</script>
+{%- elsif request.page_type == 'page' and page.metafields.custom.json != blank -%}
+  <script type="application/ld+json">{{ page.metafields.custom.json }}</script>
+{%- elsif request.page_type == 'article' and article.metafields.custom.json != blank -%}
+  <script type="application/ld+json">{{ article.metafields.custom.json }}</script>
 {%- endif -%}

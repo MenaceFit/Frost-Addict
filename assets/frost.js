@@ -254,7 +254,7 @@
   function initTabs() {
     $$('[data-tabs]').forEach((wrap) => {
       const tabs = $$('[role="tab"]', wrap);
-      const select = (tab) => {
+      const select = (tab, animate = true) => {
         tabs.forEach((t) => {
           const on = t === tab;
           t.setAttribute('aria-selected', String(on));
@@ -265,19 +265,19 @@
             if (on) {
               panel.classList.remove('is-entering');
               void panel.offsetWidth;
-              panel.classList.add('is-entering');
+              if (animate) panel.classList.add('is-entering');
               $$('[data-reveal]', panel).forEach((el) => el.classList.add('is-revealed'));
             }
           }
         });
       };
       tabs.forEach((t, idx) => {
-        t.addEventListener('click', () => select(t));
+        t.addEventListener('click', (e) => select(t, e.detail > 0)); // no motion for keyboard activation
         t.addEventListener('keydown', (e) => {
           let n = null;
           if (e.key === 'ArrowRight') n = tabs[(idx + 1) % tabs.length];
           if (e.key === 'ArrowLeft') n = tabs[(idx - 1 + tabs.length) % tabs.length];
-          if (n) { e.preventDefault(); n.focus(); select(n); }
+          if (n) { e.preventDefault(); n.focus(); select(n, false); }
         });
       });
     });

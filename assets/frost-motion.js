@@ -215,7 +215,15 @@
     };
     const close = () => { pop.hidden = true; if (!$('.drawer.is-open')) document.body.classList.remove('is-locked'); lastFocus?.focus?.(); };
     $$('[data-popup-close]', pop).forEach((b) => b.addEventListener('click', close));
-    pop.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    pop.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+      if (e.key === 'Tab') { // keep focus inside the dialog
+        const f = $$('a[href], button:not([disabled]), input:not([type=hidden])', pop).filter((el) => el.offsetParent !== null);
+        if (!f.length) return;
+        if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+        else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+      }
+    });
     $$('[data-copy]', pop).forEach((b) => b.addEventListener('click', () => {
       navigator.clipboard?.writeText(b.dataset.copy).then(() => { const s = $('small', b); if (s) s.textContent = F.strings.copied || 'Copié'; });
     }));
@@ -250,7 +258,7 @@
       const dx = b.left + b.width / 2 - (a.left + a.width / 2); const dy = b.top + b.height / 2 - (a.top + a.height / 2);
       fly.style.transform = `translate(${dx}px, ${dy}px) scale(${Math.max(0.08, 36 / a.width)})`; fly.style.opacity = '0.2';
     });
-    setTimeout(() => fly.remove(), 800);
+    setTimeout(() => fly.remove(), 650);
   });
 
   let upsellFor = null;

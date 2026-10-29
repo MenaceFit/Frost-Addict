@@ -20,6 +20,6 @@
         {% render 'icon', name: 'truck' %} {{ 'cart.free_shipping_done' | t: zone: settings.free_shipping_zone }}
       {%- endif -%}
     </p>
-    <div class="ship-bar__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pct }}"><span style="--pct: {{ pct }}%"></span></div>
+    <div class="ship-bar__track" role="progressbar" aria-label="{{ 'cart.free_shipping_progress' | t }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pct }}"><span style="--p: {{ pct | divided_by: 100.0 }}"></span></div>
   </div>
 {%- endif -%}

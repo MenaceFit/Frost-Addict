@@ -1,12 +1,18 @@
 {%- comment -%}
-  Section heading: optional marker label, big title, optional subtitle.
-  Params: eyebrow, title, subtitle, align ('center' | 'left'), tag (default h2)
+  Section heading.
+  Params: eyebrow, title, subtitle, align ('center' | 'left'), tag (default h2),
+          link_url + link_label (optional "see all" link, shown on the right when align = left)
 {%- endcomment -%}
 {%- assign tag = tag | default: 'h2' -%}
 {%- if title != blank or eyebrow != blank or subtitle != blank -%}
   <div class="section-head{% if align == 'left' %} section-head--left{% endif %}">
-    {%- if eyebrow != blank -%}<p class="section-head__eyebrow" data-reveal>{{ eyebrow | escape }}</p>{%- endif -%}
-    {%- if title != blank -%}<{{ tag }} class="section-head__title h-display" data-split>{{ title | escape }}</{{ tag }}>{%- endif -%}
-    {%- if subtitle != blank -%}<p class="section-head__sub" data-reveal style="--delay:.12s">{{ subtitle | escape }}</p>{%- endif -%}
+    <div class="section-head__text">
+      {%- if eyebrow != blank -%}<p class="section-head__eyebrow" data-reveal>{{ eyebrow | escape }}</p>{%- endif -%}
+      {%- if title != blank -%}<{{ tag }} class="section-head__title h-display" data-split>{{ title | escape }}</{{ tag }}>{%- endif -%}
+      {%- if subtitle != blank -%}<p class="section-head__sub" data-reveal style="--delay:.12s">{{ subtitle | escape }}</p>{%- endif -%}
+    </div>
+    {%- if align == 'left' and link_url != blank and link_label != blank -%}
+      <a class="link-arrow section-head__link" href="{{ link_url }}">{{ link_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
+    {%- endif -%}
   </div>
 {%- endif -%}

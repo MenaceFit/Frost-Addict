@@ -62,7 +62,8 @@
     "upsell": "Complete the look",
     "add_short": "Add",
     "choose": "Choose",
-    "added_short": "Added ✓"
+    "added_short": "Added ✓",
+    "free_shipping_progress": "Progress towards free shipping"
   },
   "collections": {
     "apply": "Apply",

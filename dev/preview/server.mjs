@@ -200,7 +200,7 @@ async function renderSection(id, type, data, scope) {
 
 /* ---------------- Pages ---------------- */
 // Shopify exposes these objects everywhere, including inside {% render %}.
-const GLOBAL_KEYS = ['settings', 'shop', 'routes', 'linklists', 'collections', 'cart', 'localization', 'request', 'template', 'customer', 'predictive_search'];
+const GLOBAL_KEYS = ['settings', 'shop', 'routes', 'linklists', 'collections', 'cart', 'localization', 'request', 'template', 'customer', 'predictive_search', 'product', 'collection'];
 function globalsOf(scope) { return Object.fromEntries(GLOBAL_KEYS.filter((k) => k in scope).map((k) => [k, scope[k]])); }
 
 function baseScope(req, extra = {}) {

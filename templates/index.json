@@ -42,7 +42,7 @@
           "type": "item",
           "settings": {
             "icon": "truck",
-            "title": "Livraison offerte dès 65 €",
+            "title": "Livraison offerte dès 65 €",
             "text": "En France, livraison standard"
           }
         },
@@ -214,7 +214,7 @@
       "type": "featured-collection",
       "settings": {
         "anchor": "nouveautes",
-        "eyebrow": "Nouveautés",
+        "eyebrow": "Fraîchement arrivés",
         "heading": "Nos nouveautés",
         "subheading": "Les dernières pièces à découvrir.",
         "collection": "nouveautes",
@@ -225,7 +225,8 @@
         "background": "white",
         "demo_when_empty": true,
         "demo_vendor": "",
-        "demo_titles": ""
+        "demo_titles": "",
+        "heading_align": "left"
       }
     },
     "editorial": {
@@ -235,7 +236,7 @@
         "overlay": 30,
         "align": "left",
         "eyebrow": "Built for the cold",
-        "heading": "Les doudounes\nde la saison",
+        "heading": "Prêt pour\nle grand froid",
         "text": "Matelassées, techniques ou oversize : la pièce qui fait ton outfit cet hiver.",
         "button_label": "Voir les doudounes",
         "button_link": "shopify://collections/doudounes"
@@ -245,7 +246,7 @@
       "type": "featured-collection",
       "settings": {
         "anchor": "doudounes",
-        "eyebrow": "Doudounes",
+        "eyebrow": "Winter essentials",
         "heading": "Les doudounes de la saison",
         "subheading": "Les modèles disponibles en ce moment, photographiés tels quels.",
         "collection": "doudounes",
@@ -256,7 +257,8 @@
         "background": "soft",
         "demo_when_empty": true,
         "demo_vendor": "",
-        "demo_titles": "Doudoune Moncler,Doudoune Burberry,Veste Moncler maille,Doudoune Canada Goose"
+        "demo_titles": "Doudoune Moncler,Doudoune Burberry,Veste Moncler maille,Doudoune Canada Goose",
+        "heading_align": "left"
       }
     },
     "b30": {
@@ -354,14 +356,15 @@
         "limit": 8,
         "columns": 4,
         "view_all_label": "Voir tout",
-        "background": "white"
+        "background": "white",
+        "heading_align": "center"
       }
     },
     "accessories": {
       "type": "featured-collection",
       "settings": {
         "anchor": "accessoires",
-        "eyebrow": "Accessoires",
+        "eyebrow": "Finitions",
         "heading": "Accessoires d'hiver",
         "subheading": "Bonnets, écharpes et sacoches pour finir l'outfit.",
         "collection": "accessoires",
@@ -372,7 +375,8 @@
         "background": "soft",
         "demo_when_empty": true,
         "demo_vendor": "",
-        "demo_titles": "Bonnet en maille,Écharpe,Sacoche,Gants"
+        "demo_titles": "Bonnet en maille,Écharpe,Sacoche,Gants",
+        "heading_align": "left"
       }
     },
     "reviews": {
@@ -397,15 +401,17 @@
     "band1": {
       "type": "text-marquee",
       "settings": {
-        "text": "Winter drop|Nouvelle saison|Livraison offerte en France dès 65 €|Doudounes|Sneakers",
-        "style": "accent"
+        "text": "Winter drop|Nouvelle saison|Livraison offerte en France dès 65 €|Doudounes|Sneakers",
+        "style": "accent",
+        "rows": 2
       }
     },
     "band2": {
       "type": "text-marquee",
       "settings": {
         "text": "Built for the cold|Frost District|Stay frozen",
-        "style": "dark"
+        "style": "dark",
+        "rows": 1
       }
     },
     "look": {

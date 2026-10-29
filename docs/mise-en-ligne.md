@@ -1,10 +1,10 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — Frozen Arena (v3)** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v4 (audit design, a11y, SEO)** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209928323397
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209928323397/editor
-- Les anciennes versions (« Winter Edition », « Winter 3D (v2) ») peuvent être supprimées dans Thèmes une fois la v3 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209954701637
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209954701637/editor
+- Les anciennes versions (v1 à v3) peuvent être supprimées dans Thèmes une fois la v4 validée.
 
 ## Rendus 3D
 Les 13 rendus (`fd3d-*`) sont dans Contenu → Fichiers. Ils sont générés par `dev/renders/` (three.js) et peuvent être recalculés :
@@ -44,3 +44,8 @@ Les photos officielles des marques (Dior, Moncler, Burberry…) trouvées sur Go
 
 ## Non testé faute d'accès
 La boutique est protégée par mot de passe et n'est pas joignable depuis l'environnement de développement. Le rendu a été vérifié sur une prévisualisation locale qui exécute le même code Liquid avec des données de démonstration. À vérifier dans l'aperçu Shopify : paiement express, filtres réels, recherche prédictive, recommandations produits, formulaires (contact, newsletter, compte).
+
+## Audits v4 (skills design, accessibilité, animations, SEO)
+- **Accessibilité (axe-core, WCAG 2.1 AA)** : 0 erreur hors logo (les logos sont exemptés). Prix soldé assombri à #0B7C7F (5:1), onglets inactifs lisibles, double anneau de focus visible sur fond clair et sombre, zones cliquables ≥ 24 px, focus enfermé dans le popup. Script : `node dev/preview/a11y.mjs`.
+- **Animations** : uniquement transform/opacity, courbes fortes, survols réservés aux souris, rien d'animé au clavier, mode « réduire les animations » qui garde les fondus.
+- **SEO** : Organization (+ réseaux sociaux), Product (Shopify), BreadcrumbList sur produits et collections, et emplacement pour du JSON-LD complémentaire dans le metafield produit/collection/page `custom.json` (texte multiligne). À tester avec https://search.google.com/test/rich-results une fois la boutique ouverte.
