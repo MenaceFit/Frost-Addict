@@ -31,7 +31,8 @@
     "cart_reassurance": "Paiement 100 % sécurisé",
     "share_image": "shopify://shop_images/fd-hero-1.jpg",
     "free_shipping_threshold": 65,
-    "free_shipping_zone": "en France"
+    "free_shipping_zone": "en France",
+    "collection_banner": "shopify://shop_images/fd3d-x-banner.jpg"
   },
   "presets": {
     "Default": {

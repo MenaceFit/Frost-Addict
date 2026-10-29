@@ -168,6 +168,12 @@
         "label": "Animations d'apparition au défilement",
         "default": true,
         "info": "Désactivées automatiquement si le visiteur a réduit les animations dans son système."
+      },
+      {
+        "type": "image_picker",
+        "id": "collection_banner",
+        "label": "Bannière par défaut des collections",
+        "info": "Utilisée quand une collection n'a pas d'image."
       }
     ]
   },

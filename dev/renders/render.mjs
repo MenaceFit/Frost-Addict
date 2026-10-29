@@ -17,6 +17,9 @@ const SIZES = {
   'cat-sneakers': [1000, 1250], 'cat-doudounes': [1000, 1250], 'cat-accessoires': [1000, 1250], 'cat-marques': [1000, 1250],
   'prop-sneakers': [1000, 1250], 'prop-doudounes': [1000, 1250], 'prop-accessoires': [1000, 1250], 'prop-marques': [1000, 1250],
   'hero-flake': [2400, 1200], 'frost-type': [2400, 1000],
+  'arena-hero-bg': [2400, 1200], 'arena-hero-flake': [2400, 1200], 'arena-banner': [2400, 1000], 'arena-type': [2400, 1000],
+  'arena-cat-sneakers': [1000, 1250], 'arena-cat-doudounes': [1000, 1250], 'arena-cat-accessoires': [1000, 1250], 'arena-cat-marques': [1000, 1250],
+  'arena-prop-sneakers': [1000, 1250], 'arena-prop-doudounes': [1000, 1250], 'arena-prop-accessoires': [1000, 1250], 'arena-prop-marques': [1000, 1250],
 };
 const wanted = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(SIZES);
 
@@ -31,7 +34,7 @@ for (const name of wanted) {
     const u = new URL(route.request().url());
     let file;
     if (u.pathname.startsWith('/three/')) file = path.join(THREE_DIR, u.pathname.slice('/three/'.length));
-    else if (u.pathname === '/scenes.js') file = path.join(DIR, 'scenes.js');
+    else if (u.pathname === '/scenes.js' || u.pathname === '/arena.js') file = path.join(DIR, u.pathname.slice(1));
     else return route.fulfill({ status: 200, contentType: 'text/html', body: `<!doctype html><html><head><script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script></head><body style="margin:0;background:transparent"></body></html>` });
     const type = file.endsWith('.json') ? 'application/json' : 'text/javascript';
     return route.fulfill({ status: 200, contentType: type, body: fs.readFileSync(file) });

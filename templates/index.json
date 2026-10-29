@@ -3,12 +3,11 @@
     "hero": {
       "type": "hero-3d",
       "settings": {
-        "bg": "shopify://shop_images/fd3d-hero-bg.jpg",
-        "ice": "shopify://shop_images/fd3d-hero-ice.png",
-        "object": "shopify://shop_images/fd3d-hero-flake.png",
+        "bg": "shopify://shop_images/fd3d-x-hero-bg.jpg",
+        "object": "shopify://shop_images/fd3d-x-hero-flake.png",
         "cutout_width": 22,
-        "podium_x": 78,
-        "podium_y": 54,
+        "podium_x": 71,
+        "podium_y": 67,
         "snow": true,
         "eyebrow": "❄ WINTER DROP",
         "heading": "Ton style,\nmême en hiver.",
@@ -158,8 +157,8 @@
             "collection": "sneakers",
             "title": "Nos sneakers",
             "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg",
-            "bg3d": "shopify://shop_images/fd3d-cat-sneakers.jpg",
-            "prop": "shopify://shop_images/fd3d-prop-sneakers.png"
+            "bg3d": "shopify://shop_images/fd3d-x-cat-sneakers.jpg",
+            "prop": "shopify://shop_images/fd3d-x-prop-sneakers.png"
           }
         },
         "c2": {
@@ -168,8 +167,8 @@
             "collection": "doudounes",
             "title": "Nos doudounes",
             "image": "shopify://shop_images/fd-col-doudounes.jpg",
-            "bg3d": "shopify://shop_images/fd3d-cat-doudounes.jpg",
-            "prop": "shopify://shop_images/fd3d-prop-doudounes.png"
+            "bg3d": "shopify://shop_images/fd3d-x-cat-doudounes.jpg",
+            "prop": "shopify://shop_images/fd3d-x-prop-doudounes.png"
           }
         },
         "c3": {
@@ -178,8 +177,8 @@
             "collection": "accessoires",
             "title": "Nos accessoires",
             "image": "shopify://shop_images/photo-1602737131820-eafac4dd6f5e.jpg",
-            "bg3d": "shopify://shop_images/fd3d-cat-accessoires.jpg",
-            "prop": "shopify://shop_images/fd3d-prop-accessoires.png"
+            "bg3d": "shopify://shop_images/fd3d-x-cat-accessoires.jpg",
+            "prop": "shopify://shop_images/fd3d-x-prop-accessoires.png"
           }
         },
         "c4": {
@@ -188,8 +187,8 @@
             "title": "Nos marques",
             "image": "shopify://shop_images/fd-col-marques.jpg",
             "link": "/collections",
-            "bg3d": "shopify://shop_images/fd3d-cat-marques.jpg",
-            "prop": "shopify://shop_images/fd3d-prop-marques.png"
+            "bg3d": "shopify://shop_images/fd3d-x-cat-marques.jpg",
+            "prop": "shopify://shop_images/fd3d-x-prop-marques.png"
           }
         }
       },
@@ -232,8 +231,8 @@
     "editorial": {
       "type": "image-banner",
       "settings": {
-        "image": "shopify://shop_images/fd-hero-1.jpg",
-        "overlay": 40,
+        "image": "shopify://shop_images/fd3d-x-banner.jpg",
+        "overlay": 30,
         "align": "left",
         "eyebrow": "Built for the cold",
         "heading": "Les doudounes\nde la saison",
@@ -388,7 +387,7 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "image": "shopify://shop_images/fd3d-frost-type.jpg",
+        "image": "shopify://shop_images/fd3d-x-type.jpg",
         "heading": "Rejoins le Frost Club",
         "text": "Les nouveaux drops et les restocks, avant tout le monde.",
         "button_label": "Je m'inscris",

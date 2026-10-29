@@ -6,6 +6,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { buildArena, snowParticles as arenaSnow } from './arena.js';
 
 const TURQ = 0x31c9cc;
 const ICE = 0xb9d8ed;
@@ -261,8 +262,88 @@ function catScene(c, layer, { w, h }) {
   return { canvas: renderer.domElement, meta: { podiumTop: project(new THREE.Vector3(0, p.userData.top, 0), camera, w, h) } };
 }
 
+/* ---------------- Frozen arena scenes (v3) ---------------- */
+const HERO_CAM = { fov: 34, pos: [0, 2.6, 15], look: [0, 2.6, -10] };
+const CARD_CAM = { fov: 30, pos: [0, 2.4, 13.5], look: [0, 1.9, 0] };
+const BANNER_CAM = { fov: 32, pos: [0, 2.0, 15], look: [0, 3.2, -10] };
+
+function arenaRenderer(w, h, transparent) { const r = makeRenderer(w, h, transparent); r.toneMappingExposure = 1.05; return r; }
+
+function heroArena(layer, { w, h }) {
+  const transparent = layer !== 'bg';
+  const renderer = arenaRenderer(w, h, transparent);
+  let scene, camera;
+  const podiumPos = new THREE.Vector3(4.2, 0, -1.5);
+  if (layer === 'bg') {
+    ({ scene, camera } = buildArena(renderer, { w, h, palette: 'night', seed: 2, camera: HERO_CAM, valley: 10, rockX: 9.2 }));
+    const p = podium({ radius: 1.7, height: 0.8 }); p.position.copy(podiumPos); scene.add(p);
+    const glow = radialGlow('rgba(49,201,204,0.55)', 8, 0.6); glow.rotation.x = -Math.PI / 2; glow.position.set(podiumPos.x, 0.02, podiumPos.z); scene.add(glow);
+    snowDrift(scene, podiumPos.x, podiumPos.z + 0.3, 2.0, 10, 7);
+    arenaSnow(scene, 380, 3, [-14, 14, 0.3, 9, -10, 6]);
+  } else {
+    scene = new THREE.Scene(); env(renderer, scene, 1.1);
+    camera = new THREE.PerspectiveCamera(HERO_CAM.fov, w / h, 0.1, 600); camera.position.set(...HERO_CAM.pos); camera.lookAt(...HERO_CAM.look);
+    lights(scene, { keyI: 2.2, rimI: 60 });
+    const f = snowflake(1.2); f.position.set(podiumPos.x, 2.5, podiumPos.z); f.rotation.set(0.1, -0.45, 0.15); scene.add(f);
+  }
+  renderer.render(scene, camera);
+  return { canvas: renderer.domElement, meta: { podiumTop: project(new THREE.Vector3(podiumPos.x, 0.85, podiumPos.z), camera, w, h) } };
+}
+
+function cardArena(c, layer, { w, h }) {
+  const renderer = arenaRenderer(w, h, layer === 'prop');
+  let scene, camera;
+  const palette = { sneakers: 'day', doudounes: 'dusk', accessoires: 'day', marques: 'night' }[c.name];
+  if (layer === 'bg') {
+    ({ scene, camera } = buildArena(renderer, { w, h, palette, seed: c.seed + 4, camera: CARD_CAM, valley: 0, rocks: true, rockX: 4.4, foreground: false }));
+    scene.children.filter((o) => o.isGroup).forEach((g) => { g.scale.setScalar(0.7); g.position.z = -2.5; });
+    const p = podium({ radius: 1.7, height: 0.85, tint: c.tint, ring: true }); scene.add(p);
+    const glow = radialGlow('rgba(49,201,204,0.5)', 7, 0.55); glow.rotation.x = -Math.PI / 2; glow.position.y = 0.02; scene.add(glow);
+    snowDrift(scene, 0, 0.3, 1.9, 9, c.seed * 13);
+    arenaSnow(scene, 120, c.seed, [-5, 5, 0.4, 6, -4, 3]);
+  } else {
+    scene = new THREE.Scene(); env(renderer, scene, 1.1);
+    camera = new THREE.PerspectiveCamera(CARD_CAM.fov, w / h, 0.1, 600); camera.position.set(...CARD_CAM.pos); camera.lookAt(...CARD_CAM.look);
+    lights(scene, { keyI: 2.6, rimI: 25 });
+    const catcher = new THREE.Mesh(new THREE.CircleGeometry(1.6, 64), new THREE.ShadowMaterial({ opacity: 0.3 }));
+    catcher.rotation.x = -Math.PI / 2; catcher.position.y = 0.9; catcher.receiveShadow = true; scene.add(catcher);
+    const prop = c.prop(); prop.scale.setScalar(c.scale); prop.position.y = 0.9; scene.add(prop);
+  }
+  renderer.render(scene, camera);
+  return { canvas: renderer.domElement, meta: { podiumTop: project(new THREE.Vector3(0, 0.9, 0), camera, w, h) } };
+}
+
 /* ---------------- Scenes ---------------- */
 export const scenes = {
+  'arena-hero-bg': (o) => heroArena('bg', o),
+  'arena-hero-flake': (o) => heroArena('flake', o),
+  ...Object.fromEntries(CATS.flatMap((c) => [
+    ['arena-cat-' + c.name, (o) => cardArena(c, 'bg', o)],
+    ['arena-prop-' + c.name, (o) => cardArena(c, 'prop', o)],
+  ])),
+  'arena-banner': ({ w, h }) => {
+    const renderer = arenaRenderer(w, h, false);
+    const { scene, camera } = buildArena(renderer, { w, h, palette: 'dusk', seed: 9, camera: BANNER_CAM, valley: 12 });
+    arenaSnow(scene, 300, 5, [-14, 14, 0.3, 9, -10, 6]);
+    renderer.render(scene, camera);
+    return { canvas: renderer.domElement };
+  },
+  'arena-type': async ({ w, h }) => {
+    const renderer = arenaRenderer(w, h, false);
+    const { scene, camera } = buildArena(renderer, { w, h, palette: 'night', seed: 6, camera: { fov: 30, pos: [0, 2.2, 16], look: [0, 2.4, -10] }, valley: 0 });
+    const font = await new Promise((res) => new FontLoader().load('/three/examples/fonts/helvetiker_bold.typeface.json', res));
+    const geo = new TextGeometry('FROST', { font, size: 2.3, depth: 0.9, curveSegments: 12, bevelEnabled: true, bevelThickness: 0.12, bevelSize: 0.06, bevelSegments: 8 });
+    geo.center();
+    const text = new THREE.Mesh(geo, iceMaterial(0xe8f8ff, { roughness: 0.1, thickness: 0.9, attenuationColor: new THREE.Color(0x6fd6e0), attenuationDistance: 3, emissive: new THREE.Color(0x0b3a48), emissiveIntensity: 0.5 }));
+    text.position.set(0, 1.35, 0); text.castShadow = true; scene.add(text);
+    env(renderer, scene, 0.9);
+    const back = radialGlow('rgba(49,201,204,0.7)', 18, 0.45); back.position.set(0, 2, -4); scene.add(back);
+    snowDrift(scene, 0, 0.8, 4.2, 14, 5);
+    arenaSnow(scene, 300, 9, [-14, 14, 0.3, 9, -10, 6]);
+    renderer.render(scene, camera);
+    return { canvas: renderer.domElement };
+  },
+
   // Hero background: night studio, podium on the right, floor with soft reflections, snow dust.
   'hero-bg': ({ w, h }) => {
     const renderer = makeRenderer(w, h, false);

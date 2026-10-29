@@ -1,10 +1,10 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — Winter 3D (v2)** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — Frozen Arena (v3)** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209925374277
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209925374277/editor
-- L'ancienne version (« Winter Edition », sans 3D) peut être supprimée dans Thèmes une fois la v2 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209928323397
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209928323397/editor
+- Les anciennes versions (« Winter Edition », « Winter 3D (v2) ») peuvent être supprimées dans Thèmes une fois la v3 validée.
 
 ## Rendus 3D
 Les 13 rendus (`fd3d-*`) sont dans Contenu → Fichiers. Ils sont générés par `dev/renders/` (three.js) et peuvent être recalculés :
@@ -13,6 +13,12 @@ cd dev && npm install && cd ..
 node dev/renders/render.mjs          # → dev/renders/out/*.png
 ```
 Pour poser **ta vraie photo produit** sur un podium : détoure-la (Produits → image → Modifier → Supprimer l'arrière-plan), enregistre-la en PNG, puis choisis-la dans « Photo produit détourée » (hero 3D ou carte catégorie). Elle remplace l'objet 3D.
+
+## Photos produits (à faire toi-même)
+Les photos officielles des marques (Dior, Moncler, Burberry…) trouvées sur Google sont protégées : ne les utilise pas sans autorisation écrite de la marque, Shopify peut retirer les fiches signalées. Et en revente, la photo doit montrer la pièce réellement vendue.
+1. Photographie chaque pièce sur fond uni clair, lumière du jour, 3–5 vues (face, dos, détail logo/étiquette, semelle pour les sneakers).
+2. Ajoute les photos au produit, puis Modifier → **Supprimer l'arrière-plan** (outil gratuit Shopify) et enregistre en PNG.
+3. Pour la mise en avant 3D : choisis la photo détourée dans « Photo produit détourée » (hero 3D ou carte catégorie). Elle se pose sur le podium de glace à la place de l'objet 3D.
 
 ## Conversion : ce qui est déjà branché
 - Jauge « livraison offerte dès 65 € » dans le panier (seuil réel de tes tarifs d'expédition France). Si tu changes ce seuil dans Paramètres → Expédition, change-le aussi dans Réglages du thème → Panier.

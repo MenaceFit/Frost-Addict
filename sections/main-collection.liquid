@@ -1,5 +1,5 @@
 {%- liquid
-  assign hero_image = collection.image
+  assign hero_image = collection.image | default: settings.collection_banner
   if section.settings.show_image == false
     assign hero_image = nil
   endif
