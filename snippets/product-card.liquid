@@ -70,7 +70,7 @@
       endif
     endfor
   -%}
-  <article class="card" data-reveal style="--delay: {{ delay }}s; --card-ratio: {{ ratio }}; --card-fit: {{ settings.card_image_fit }}{% if settings.card_image_fit == 'cover' %}; --card-pad: 0{% endif %}">
+  <article class="card" data-tilt data-reveal style="--delay: {{ delay }}s; --card-ratio: {{ ratio }}; --card-fit: {{ settings.card_image_fit }}{% if settings.card_image_fit == 'cover' %}; --card-pad: 0{% endif %}">
     <a href="{{ product.url }}" class="card__media{% if second_image %} has-hover{% endif %}" tabindex="-1" aria-hidden="true">
       <div class="card__badges">
         {%- unless product.available -%}

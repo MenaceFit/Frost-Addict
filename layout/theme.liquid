@@ -26,6 +26,7 @@
     {% render 'theme-styles' %}
     {{ 'frost.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'frost.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'frost-motion.js' | asset_url }}" defer="defer"></script>
 
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
@@ -38,12 +39,16 @@
           predictiveSearch: {{ routes.predictive_search_url | json }}
         },
         cartType: {{ settings.cart_type | json }},
+        recommendations: {{ routes.product_recommendations_url | json }},
         strings: {
           added: {{ 'cart.added' | t | json }},
           error: {{ 'general.error' | t | json }},
           soldOut: {{ 'products.sold_out' | t | json }},
           addToCart: {{ 'products.add_to_cart' | t | json }},
-          unavailable: {{ 'products.unavailable' | t | json }}
+          unavailable: {{ 'products.unavailable' | t | json }},
+          added_short: {{ 'cart.added_short' | t | json }},
+          copied: {{ 'popup.copied' | t | json }},
+          deliveryBetween: {{ 'products.delivery_between' | t | json }}
         }
       };
     </script>
@@ -53,6 +58,7 @@
   </head>
 
   <body class="template-{{ template.name | handle }}{% if settings.animations %} has-motion{% endif %}">
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}

@@ -47,8 +47,11 @@ const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  $
   check('carousel scrolls', (await track.evaluate((t) => t.scrollLeft)) > scrollBefore);
 
   // Hero slide
-  await page.locator('[data-hero-next]').click();
-  check('hero next slide', (await page.locator('[data-slide].is-active').getAttribute('aria-label')).startsWith('2'));
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.mouse.move(300, 300); await page.mouse.move(1200, 600, { steps: 8 });
+  await page.waitForTimeout(500);
+  const tf = await page.locator('.hero3d [data-depth]').nth(1).evaluate((e) => e.style.transform);
+  check('hero 3D depth follows pointer', /translate3d\(-?[1-9]/.test(tf), tf);
 
   // Search
   await page.locator('.header__actions [data-search-open]').click();
@@ -65,6 +68,22 @@ const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  $
   await page.locator('[data-add-button]').click();
   await page.waitForSelector('[data-cart-drawer].is-open', { timeout: 3000 }).catch(() => {});
   check('product: add to cart opens drawer', await page.locator('[data-cart-drawer].is-open').count() === 1);
+  // v2 conversion features
+  check('free shipping bar in drawer', await page.locator('[data-cart-drawer] [data-ship-bar]').count() === 1);
+  await page.waitForTimeout(800);
+  check('cart upsell loaded', (await page.locator('[data-cart-upsell] .upsell__item').count()) > 0);
+  await page.keyboard.press('Escape');
+  await page.goto(base + '/', { waitUntil: 'networkidle' });
+  await page.evaluate(() => localStorage.clear());
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.mouse.move(700, 300); await page.mouse.move(700, -5);
+  await page.evaluate(() => document.dispatchEvent(new MouseEvent('mouseout', { clientY: -1, relatedTarget: null, bubbles: true })));
+  await page.waitForTimeout(400);
+  check('popup opens on exit intent', await page.locator('[data-popup]').isVisible());
+  await page.screenshot({ path: `${out}/flow-popup-desktop.png` });
+  await page.keyboard.press('Escape');
+  check('popup closes', !(await page.locator('[data-popup]').isVisible()));
+  check('split titles applied', (await page.locator('[data-split] .w').count()) > 10);
   check('no JS errors (desktop)', errors.length === 0, errors.join(' | '));
   await page.close();
 }

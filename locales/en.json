@@ -56,7 +56,13 @@
     "subtotal": "Subtotal",
     "taxes_shipping": "Taxes included. Shipping calculated at checkout.",
     "update": "Update",
-    "view_cart": "View cart"
+    "view_cart": "View cart",
+    "free_shipping_remaining_html": "<strong>{{ amount }}</strong> away from free shipping {{ zone }}",
+    "free_shipping_done": "Free shipping {{ zone }} unlocked!",
+    "upsell": "Complete the look",
+    "add_short": "Add",
+    "choose": "Choose",
+    "added_short": "Added ✓"
   },
   "collections": {
     "apply": "Apply",
@@ -102,7 +108,10 @@
     "tax_excluded": "Tax excluded",
     "tax_included": "Tax included",
     "unavailable": "Unavailable",
-    "zoom": "Zoom image"
+    "zoom": "Zoom image",
+    "delivery_estimate_html": "Estimated delivery {{ zone }}: <strong data-delivery-dates></strong>",
+    "delivery_between": "{a} – {b}",
+    "free_shipping_from": "Free shipping {{ zone }} from {{ amount }}"
   },
   "reviews": {
     "verified": "Verified purchase",
@@ -180,5 +189,17 @@
     "balance": "Solde restant : {{ balance }}",
     "expired": "Cette carte cadeau a expiré ou est désactivée.",
     "apple_wallet": "Ajouter à Apple Wallet"
+  },
+  "popup": {
+    "code_intro": "Your welcome code:",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "later": "Maybe later"
+  },
+  "countdown": {
+    "days": "days",
+    "hours": "hours",
+    "minutes": "min",
+    "seconds": "sec"
   }
 }

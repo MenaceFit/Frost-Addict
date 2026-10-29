@@ -15,6 +15,13 @@
         "m2": {
           "type": "message",
           "settings": {
+            "text": "🚚 LIVRAISON OFFERTE EN FRANCE DÈS 65 €",
+            "link": ""
+          }
+        },
+        "m3": {
+          "type": "message",
+          "settings": {
             "text": "PAIEMENT 100 % SÉCURISÉ",
             "link": ""
           }
@@ -22,7 +29,8 @@
       },
       "block_order": [
         "m1",
-        "m2"
+        "m2",
+        "m3"
       ],
       "settings": {
         "interval": 5

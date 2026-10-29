@@ -75,6 +75,8 @@ const filters = {
   format_address: () => '',
   json: (v) => JSON.stringify(v ?? null),
   handle: (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+  money_without_trailing_zeros: (c) => money(c).replace(',00', ''),
+  payment_terms: () => '',
   video_tag: () => '', external_video_tag: () => '', media_tag: () => '', format_code: (c) => c,
 };
 for (const [n, fn] of Object.entries(filters)) engine.registerFilter(n, fn);
@@ -144,7 +146,7 @@ engine.registerTag('sections', class extends Tag {
   constructor(token, remainTokens, liquid) { super(token, remainTokens, liquid); this.name = token.args.replace(/['"\s]/g, ''); }
   * render(ctx, emitter) {
     const group = readJSON(path.join(ROOT, 'sections', this.name + '.json'));
-    for (const id of group.order) emitter.write(yield renderSection(id, group.sections[id].type, group.sections[id], ctx.getAll()));
+    for (const id of group.order) if (!group.sections[id].disabled) emitter.write(yield renderSection(id, group.sections[id].type, group.sections[id], ctx.getAll()));
   }
 });
 
@@ -219,9 +221,11 @@ async function renderTemplate(name, scope) {
   if (process.env.FILL_SPOTLIGHT && name === 'index') {
     const handles = ['dior-b30-black', 'dior-b30-beige', 'dior-b30-light', 'dior-b30-blue'];
     tpl.sections.b30.block_order.forEach((b, i) => { tpl.sections.b30.blocks[b].settings.product = handles[i]; });
+    tpl.sections.hero.settings.product = 'doudoune-brillante-capuche';
+    ['doudoune-brillante-capuche', 'dior-b30-black', 'cardigan-maille-doudoune'].forEach((h, i) => { tpl.sections.look.blocks['h' + (i + 1)].settings.product = h; });
   }
   let content = '';
-  for (const id of tpl.order) content += await renderSection(id, tpl.sections[id].type, tpl.sections[id], scope);
+  for (const id of tpl.order) if (!tpl.sections[id].disabled) content += await renderSection(id, tpl.sections[id].type, tpl.sections[id], scope);
   const layout = fs.readFileSync(path.join(ROOT, 'layout/theme.liquid'), 'utf8');
   sectionIndex = 100;
   return engine.parseAndRender(layout, { ...scope, content_for_layout: content }, { globals: globalsOf(scope) });
@@ -234,7 +238,7 @@ async function route(req, res) {
     if (p.startsWith('/assets/')) return send(res, 200, fs.readFileSync(path.join(ROOT, p)), p.endsWith('.css') ? 'text/css' : 'text/javascript');
     if (p.startsWith('/img/')) {
       const f = path.join(IMAGES, path.basename(p));
-      return fs.existsSync(f) ? send(res, 200, fs.readFileSync(f), 'image/jpeg') : send(res, 404, 'no image', 'text/plain');
+      return fs.existsSync(f) ? send(res, 200, fs.readFileSync(f), f.endsWith('.png') ? 'image/png' : 'image/jpeg') : send(res, 404, 'no image', 'text/plain');
     }
     if (p === '/cart/add.js' || p === '/cart/change.js') {
       const body = await readBody(req);
@@ -250,6 +254,12 @@ async function route(req, res) {
         sections[s] = await renderSection(s, s, {}, scope);
       }
       return send(res, 200, JSON.stringify({ items: demo.cart().items, sections }), 'application/json');
+    }
+    if (p === '/recommendations/products') {
+      const sid = url.searchParams.get('section_id');
+      const scope = baseScope(req, { recommendations: { performed: true, products_count: 3, products: Object.values(demo.products).slice(3, 7) } });
+      const stype = fs.existsSync(path.join(ROOT, 'sections', sid + '.liquid')) ? sid : 'product-recommendations';
+      return send(res, 200, await renderSection(sid, stype, {}, scope), 'text/html');
     }
     if (p === '/search/suggest') {
       const q = (url.searchParams.get('q') || '').toLowerCase();

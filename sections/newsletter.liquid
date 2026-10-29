@@ -1,10 +1,10 @@
-<section class="section newsletter" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
+<section class="section newsletter{% if section.settings.layout == 'top' %} newsletter--top{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
   {%- if section.settings.image -%}
-    <div class="newsletter__media">{{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '750, 1200, 2000', sizes: '100vw', alt: '' }}</div>
+    <div class="newsletter__media" data-depth-root><div data-depth="14">{{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400', sizes: '100vw', alt: '' }}</div></div>
   {%- endif -%}
   <div class="page-width">
     <div class="newsletter__inner">
-      {%- if section.settings.heading != blank -%}<h2 class="h-display" style="font-size:clamp(2rem,5vw,3.75rem)" data-reveal>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="h-display" style="font-size:clamp(2rem,5vw,3.75rem)" data-split>{{ section.settings.heading | escape }}</h2>{%- endif -%}
       {%- if section.settings.text != blank -%}<p data-reveal style="--delay:.06s;color:rgba(255,255,255,.85)">{{ section.settings.text | escape }}</p>{%- endif -%}
       {%- form 'customer', class: 'newsletter__form', id: 'NewsletterForm' -%}
         <input type="hidden" name="contact[tags]" value="newsletter">
@@ -26,7 +26,8 @@
   "name": "Newsletter",
   "settings": [
     { "type": "text", "id": "anchor", "label": "Ancre (pour liens #)" },
-    { "type": "image_picker", "id": "image", "label": "Photo de fond (optionnelle)" },
+    { "type": "image_picker", "id": "image", "label": "Visuel (optionnel)" },
+    { "type": "select", "id": "layout", "label": "Position du visuel", "default": "background", "options": [ { "value": "background", "label": "En fond, atténué" }, { "value": "top", "label": "En grand au-dessus du texte (rendu 3D)" } ] },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Reste dans le froid" },
     { "type": "text", "id": "text", "label": "Texte", "default": "Les nouveaux drops et les restocks, avant tout le monde." },
     { "type": "text", "id": "button_label", "label": "Bouton", "default": "Je m'inscris" }

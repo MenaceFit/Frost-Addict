@@ -1,9 +1,26 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — Winter Edition** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — Winter 3D (v2)** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209922195781
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209922195781/editor
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209925374277
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209925374277/editor
+- L'ancienne version (« Winter Edition », sans 3D) peut être supprimée dans Thèmes une fois la v2 validée.
+
+## Rendus 3D
+Les 13 rendus (`fd3d-*`) sont dans Contenu → Fichiers. Ils sont générés par `dev/renders/` (three.js) et peuvent être recalculés :
+```bash
+cd dev && npm install && cd ..
+node dev/renders/render.mjs          # → dev/renders/out/*.png
+```
+Pour poser **ta vraie photo produit** sur un podium : détoure-la (Produits → image → Modifier → Supprimer l'arrière-plan), enregistre-la en PNG, puis choisis-la dans « Photo produit détourée » (hero 3D ou carte catégorie). Elle remplace l'objet 3D.
+
+## Conversion : ce qui est déjà branché
+- Jauge « livraison offerte dès 65 € » dans le panier (seuil réel de tes tarifs d'expédition France). Si tu changes ce seuil dans Paramètres → Expédition, change-le aussi dans Réglages du thème → Panier.
+- Suggestions « Complète ton look » dans le panier (recommandations Shopify ; plus précises avec l'app Search & Discovery → produits complémentaires).
+- Popup « Frost Club » (15 s ou intention de sortie, 1 fois / 14 jours). Pour offrir un code : crée-le dans Réductions puis renseigne-le dans la section Popup.
+- Fiche produit : paiement en plusieurs fois (s'affiche si Shop Pay Paiement échelonné est activé), logos de paiement, rappel livraison offerte. L'estimation de date de livraison est prête mais masquée : renseigne tes délais réels dans le bloc « Livraison et paiement ».
+- Compte à rebours : section prête mais désactivée. À activer uniquement pour une vraie offre avec une vraie date de fin (elle disparaît seule après).
+- « Shop the look » : choisis 2–3 produits de la tenue dans l'éditeur ; masqué tant qu'aucun produit n'est choisi.
 
 ## À faire dans Shopify
 1. **Ajouter les produits** (aucun produit dans la boutique au 29/10/2026). Pour chaque produit : photos réelles sur fond clair, marque (champ « Fournisseur »), tailles en variantes, tags (`doudoune`, `nouveau`, `courte`…) pour remplir les collections automatiques.

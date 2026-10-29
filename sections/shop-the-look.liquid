@@ -1,0 +1,77 @@
+{%- liquid
+  assign spots = section.blocks | where: 'type', 'hotspot'
+  assign filled = 0
+  for b in spots
+    if b.settings.product != blank
+      assign filled = filled | plus: 1
+    endif
+  endfor
+-%}
+{%- if filled > 0 or request.design_mode -%}
+<section class="section{% if section.settings.background == 'soft' %} section--soft{% endif %}" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading %}
+    <div class="look" data-look>
+      <div class="look__media" data-reveal>
+        {%- if section.settings.image -%}
+          {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 58vw, 100vw', alt: section.settings.heading }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- for block in spots -%}
+          <button type="button" class="look__dot" style="left: {{ block.settings.x }}%; top: {{ block.settings.y }}%" data-look-dot="{{ forloop.index0 }}"
+            aria-label="{{ block.settings.product.title | default: 'Produit' | escape }}" {{ block.shopify_attributes }}><span></span></button>
+        {%- endfor -%}
+      </div>
+      <ol class="look__list">
+        {%- for block in spots -%}
+          {%- assign p = block.settings.product -%}
+          <li class="look__item" data-look-item="{{ forloop.index0 }}" data-reveal style="--delay: {{ forloop.index0 | times: 0.08 }}s">
+            <span class="look__num">{{ forloop.index }}</span>
+            {%- if p != blank -%}
+              <a href="{{ p.url }}" class="look__thumb">{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}</a>
+              <div class="look__info">
+                {%- if p.vendor != blank -%}<p class="card__vendor">{{ p.vendor | escape }}</p>{%- endif -%}
+                <a href="{{ p.url }}" class="card__title">{{ p.title | escape }}</a>
+                {% render 'price', product: p %}
+              </div>
+              {%- if p.available and p.has_only_default_variant -%}
+                <button type="button" class="round-arrow" data-quick-add="{{ p.selected_or_first_available_variant.id }}" aria-label="{{ 'products.add_to_cart' | t }}">{% render 'icon', name: 'plus', stroke: 2.4 %}</button>
+              {%- else -%}
+                <a href="{{ p.url }}" class="round-arrow" aria-label="{{ 'products.see_options' | t }}">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</a>
+              {%- endif -%}
+            {%- else -%}
+              <div class="look__info"><p class="muted">{{ 'products.demo_notice_spotlight' | t }}</p></div>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Shop the look",
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "Shop the look" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Compose ton drip" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Toutes les pièces de la tenue, en un clic." },
+    { "type": "image_picker", "id": "image", "label": "Photo de la tenue" },
+    { "type": "select", "id": "background", "label": "Fond", "default": "white", "options": [ { "value": "white", "label": "Blanc" }, { "value": "soft", "label": "Gris clair" } ] },
+    { "type": "paragraph", "content": "La section reste masquée sur la boutique tant qu'aucun produit n'est choisi." }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot", "name": "Point produit",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produit" },
+        { "type": "range", "id": "x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Position horizontale", "default": 50 },
+        { "type": "range", "id": "y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Position verticale", "default": 50 }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Shop the look", "blocks": [ { "type": "hotspot" }, { "type": "hotspot" } ] } ]
+}
+{% endschema %}

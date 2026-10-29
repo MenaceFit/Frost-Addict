@@ -1,0 +1,107 @@
+{%- comment -%}
+  3D hero: pre-rendered scene layers (background, floating ice, centre object) with pointer
+  parallax and float animation. A product cutout (transparent PNG) replaces the 3D object
+  and sits on the podium. Layers share one 2:1 stage so they stay aligned at every width.
+{%- endcomment -%}
+{%- liquid
+  assign featured = section.settings.product
+  assign title_tag = 'h2'
+  if section.index == 1
+    assign title_tag = 'h1'
+  endif
+-%}
+<section class="hero3d" data-hero3d
+  style="--px: {{ section.settings.podium_x | divided_by: 100.0 }}; --podium-x: {{ section.settings.podium_x }}%; --podium-y: {{ section.settings.podium_y }}%; --cutout-w: {{ section.settings.cutout_width }}%"
+  {{ section.shopify_attributes }}>
+  <div class="hero3d__viewport">
+    <div class="hero3d__stage" data-depth-root>
+      <div class="hero3d__layer" data-depth="10">
+        {%- if section.settings.bg -%}
+          {{ section.settings.bg | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '1000, 1600, 2000, 2400', sizes: '(min-width: 750px) 100vw, 330vw', alt: '' }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.ice -%}
+        <div class="hero3d__layer hero3d__float hero3d__float--slow" data-depth="34">
+          {{ section.settings.ice | image_url: width: 2400 | image_tag: loading: 'eager', widths: '1000, 1600, 2400', sizes: '(min-width: 750px) 100vw, 330vw', alt: '' }}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.cutout -%}
+        <div class="hero3d__cutout hero3d__float" data-depth="22">
+          {%- assign cutout_alt = section.settings.cutout.alt | default: featured.title -%}
+          {{ section.settings.cutout | image_url: width: 1200 | image_tag: loading: 'eager', widths: '500, 800, 1200', sizes: '(min-width: 750px) 30vw, 70vw', alt: cutout_alt }}
+        </div>
+      {%- elsif section.settings.object -%}
+        <div class="hero3d__layer hero3d__float hero3d__float--spin" data-depth="22">
+          {{ section.settings.object | image_url: width: 2400 | image_tag: loading: 'eager', widths: '1000, 1600, 2400', sizes: '(min-width: 750px) 100vw, 330vw', alt: '' }}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.snow -%}<canvas class="hero3d__snow" data-snow aria-hidden="true"></canvas>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="page-width hero3d__content">
+    <div class="hero3d__inner">
+      {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <{{ title_tag }} class="hero__title h-display" data-split>{{ section.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
+      {%- if section.settings.text != blank -%}<p class="hero__text">{{ section.settings.text | escape }}</p>{%- endif -%}
+      <div class="hero__buttons">
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--accent" data-magnetic>{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
+        {%- endif -%}
+        {%- if section.settings.button2_label != blank -%}
+          <a href="{{ section.settings.button2_link | default: routes.all_products_collection_url }}" class="btn btn--ghost-light">{{ section.settings.button2_label | escape }}</a>
+        {%- endif -%}
+      </div>
+      {%- if featured != blank -%}
+        <div class="hero3d__chip">
+          <a href="{{ featured.url }}" class="hero3d__chip-media">
+            {%- if featured.featured_media -%}{{ featured.featured_media.preview_image | image_url: width: 160 | image_tag: loading: 'eager', alt: featured.title }}{%- endif -%}
+          </a>
+          <div class="hero3d__chip-info">
+            <p class="hero3d__chip-label">{{ section.settings.chip_label | escape }}</p>
+            <a href="{{ featured.url }}" class="hero3d__chip-title">{{ featured.title | escape }}</a>
+            {% render 'price', product: featured %}
+          </div>
+          {%- if featured.available and featured.has_only_default_variant -%}
+            <button type="button" class="round-arrow" data-quick-add="{{ featured.selected_or_first_available_variant.id }}" aria-label="{{ 'products.add_to_cart' | t }}">{% render 'icon', name: 'plus', stroke: 2.4 %}</button>
+          {%- else -%}
+            <a href="{{ featured.url }}" class="round-arrow" aria-label="{{ featured.title | escape }}">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="hero3d__scroll" aria-hidden="true"><span></span></div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero 3D",
+  "class": "shopify-section--hero3d",
+  "settings": [
+    { "type": "header", "content": "Rendu 3D" },
+    { "type": "image_picker", "id": "bg", "label": "Décor (2400 × 1200)" },
+    { "type": "image_picker", "id": "ice", "label": "Calque flottant (PNG transparent)" },
+    { "type": "image_picker", "id": "object", "label": "Objet 3D sur le podium (PNG transparent, même cadrage)" },
+    { "type": "image_picker", "id": "cutout", "label": "Photo produit détourée (remplace l'objet 3D)", "info": "PNG transparent. Dans Shopify : Produits → image → Modifier → Supprimer l'arrière-plan." },
+    { "type": "range", "id": "cutout_width", "min": 10, "max": 40, "step": 1, "unit": "%", "label": "Largeur de la photo détourée", "default": 22 },
+    { "type": "range", "id": "podium_x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Position du podium (horizontale)", "default": 78 },
+    { "type": "range", "id": "podium_y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Position du podium (verticale)", "default": 54 },
+    { "type": "checkbox", "id": "snow", "label": "Légère chute de neige", "default": true },
+    { "type": "header", "content": "Texte" },
+    { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "❄ WINTER DROP" },
+    { "type": "textarea", "id": "heading", "label": "Titre", "default": "Ton style,\nmême en hiver." },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Doudounes, sneakers et accessoires pour composer ton outfit de saison." },
+    { "type": "text", "id": "button_label", "label": "Bouton principal", "default": "Découvrir la collection" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton principal" },
+    { "type": "text", "id": "button2_label", "label": "Bouton secondaire", "default": "Voir les nouveautés" },
+    { "type": "url", "id": "button2_link", "label": "Lien du bouton secondaire" },
+    { "type": "header", "content": "Produit mis en avant" },
+    { "type": "product", "id": "product", "label": "Produit (carte cliquable sous les boutons)" },
+    { "type": "text", "id": "chip_label", "label": "Libellé", "default": "La pièce du moment" }
+  ],
+  "presets": [ { "name": "Hero 3D" } ]
+}
+{% endschema %}

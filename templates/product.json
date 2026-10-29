@@ -36,6 +36,16 @@
             "heading": "Livraison et retours",
             "content": "<p>Les délais et frais de livraison sont affichés au moment du paiement. Tu disposes de 14 jours après réception pour exercer ton droit de rétractation.</p>"
           }
+        },
+        "delivery": {
+          "type": "delivery",
+          "settings": {
+            "min_days": 0,
+            "max_days": 0,
+            "cutoff_hour": 14,
+            "zone": "en France",
+            "show_payment_icons": true
+          }
         }
       },
       "block_order": [
@@ -43,6 +53,7 @@
         "price",
         "variants",
         "buy",
+        "delivery",
         "perks",
         "desc",
         "shipping"

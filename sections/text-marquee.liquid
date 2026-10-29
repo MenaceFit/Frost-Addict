@@ -1,0 +1,25 @@
+{%- assign items = section.settings.text | split: '|' -%}
+<div class="kinetic{% if section.settings.style == 'dark' %} kinetic--dark{% elsif section.settings.style == 'accent' %} kinetic--accent{% endif %}" data-kinetic {{ section.shopify_attributes }} aria-label="{{ section.settings.text | replace: '|', ' · ' | escape }}" role="img">
+  {%- for row in (1..2) -%}
+    <div class="kinetic__row{% if row == 2 %} kinetic__row--reverse{% endif %}" aria-hidden="true">
+      <div class="kinetic__track">
+        {%- for i in (1..4) -%}
+          {%- for item in items -%}
+            <span class="kinetic__item{% cycle '', ' kinetic__item--outline' %}">{{ item | strip | escape }}</span>
+            <span class="kinetic__sep">{% render 'icon', name: 'snow', stroke: 1.6 %}</span>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+{% schema %}
+{
+  "name": "Bandeau texte animé",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Textes (séparés par |)", "default": "Winter drop|Nouvelle saison|Doudounes|Sneakers|Accessoires" },
+    { "type": "select", "id": "style", "label": "Style", "default": "dark", "options": [ { "value": "light", "label": "Clair" }, { "value": "dark", "label": "Noir" }, { "value": "accent", "label": "Turquoise" } ] }
+  ],
+  "presets": [ { "name": "Bandeau texte animé" } ]
+}
+{% endschema %}

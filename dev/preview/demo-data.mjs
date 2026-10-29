@@ -88,7 +88,7 @@ function cart() {
   const items = cartLines.map((l, i) => {
     const pr = Object.values(products).find((p) => p.variants.some((v) => v.id === l.id));
     const v = pr.variants.find((x) => x.id === l.id);
-    return { key: String(l.id), url: pr.url, image: pr.featured_media.preview_image, product: pr, vendor: pr.vendor, variant: v, quantity: l.qty,
+    return { key: String(l.id), product_id: pr.id, url: pr.url, image: pr.featured_media.preview_image, product: pr, vendor: pr.vendor, variant: v, quantity: l.qty,
       original_line_price: v.price * l.qty, final_line_price: v.price * l.qty, properties: [], line_level_discount_allocations: [], url_to_remove: '/cart/change?line=' + (i + 1) + '&quantity=0' };
   });
   return { items, item_count: items.reduce((n, i) => n + i.quantity, 0), total_price: items.reduce((n, i) => n + i.final_line_price, 0),
@@ -99,7 +99,7 @@ export const demo = {
   products, collections, linklists, cart,
   addToCart(id, qty) { const l = cartLines.find((x) => x.id === id); if (l) l.qty += qty; else cartLines.push({ id, qty }); },
   changeLine(line, qty) { const l = cartLines[line - 1]; if (!l) return; if (qty <= 0) cartLines.splice(line - 1, 1); else l.qty = qty; },
-  shop: { name: 'Frost District', description: 'Doudounes, sneakers et accessoires pour l\'hiver.', customer_accounts_enabled: true, policies: [
+  shop: { name: 'Frost District', currency: 'EUR', description: 'Doudounes, sneakers et accessoires pour l\'hiver.', customer_accounts_enabled: true, policies: [
     { title: 'Politique de remboursement', url: '/policies/refund-policy' }, { title: 'Confidentialité', url: '/policies/privacy-policy' }, { title: 'CGV', url: '/policies/terms-of-service' }],
     enabled_payment_types: ['visa', 'master', 'american_express', 'apple_pay', 'paypal'], shipping_policy: { body: '', url: '' } },
   routes: { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', search_url: '/search', predictive_search_url: '/search/suggest',

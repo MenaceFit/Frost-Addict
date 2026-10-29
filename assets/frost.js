@@ -37,6 +37,7 @@
     if (trigger) trigger.setAttribute('aria-expanded', 'true');
     const panel = $('.drawer__panel', drawer) || drawer;
     setTimeout(() => (panel.querySelector(FOCUSABLE) || panel).focus(), 60);
+    if (drawer.matches('[data-cart-drawer]')) document.dispatchEvent(new CustomEvent('frost:cart:opened'));
   }
 
   function closeDrawer(drawer) {
@@ -315,6 +316,7 @@
         current.dataset.count = fresh.dataset.count;
         if (wasOpen) current.classList.add('is-open');
         setCount(Number(fresh.dataset.count));
+        document.dispatchEvent(new CustomEvent('frost:cart:rendered'));
       }
     }
   }
@@ -354,6 +356,7 @@
         window.location.href = routes.cart;
       }
       toast(strings.added || 'Ajouté au panier');
+      document.dispatchEvent(new CustomEvent('frost:cart:added', { detail: { button } }));
       return true;
     } catch (err) {
       toast(err.message || strings.error);

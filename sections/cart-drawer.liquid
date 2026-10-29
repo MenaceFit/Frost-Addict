@@ -5,11 +5,13 @@
       <h2 class="drawer__title h-italic" id="CartDrawerTitle">{{ 'cart.title' | t }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}</h2>
       <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
     </div>
+    {% render 'free-shipping' %}
     {%- if cart.item_count > 0 -%}
       <div class="drawer__body">
         <ul data-cart-lines>
           {%- for item in cart.items -%}{% render 'cart-line', item: item, index: forloop.index %}{%- endfor -%}
         </ul>
+        <div data-cart-upsell data-product-id="{{ cart.items.first.product_id }}"></div>
       </div>
       <div class="drawer__foot">
         {%- for discount in cart.cart_level_discount_applications -%}

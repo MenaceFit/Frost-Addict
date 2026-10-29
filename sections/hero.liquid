@@ -41,7 +41,7 @@
           <div class="hero__inner">
             {%- if block.settings.eyebrow != blank -%}<p class="hero__eyebrow">{{ block.settings.eyebrow | escape }}</p>{%- endif -%}
             {%- if block.settings.heading != blank -%}
-              <{{ title_tag }} class="hero__title h-display">{{ block.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
+              <{{ title_tag }} class="hero__title h-display" data-split>{{ block.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
             {%- endif -%}
             {%- if block.settings.text != blank -%}<p class="hero__text">{{ block.settings.text | escape }}</p>{%- endif -%}
             {%- if block.settings.button_label != blank or block.settings.button2_label != blank -%}

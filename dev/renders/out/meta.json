@@ -1,0 +1,56 @@
+{
+  "hero-bg": {
+    "podiumTop": {
+      "x": 78.20889736294536,
+      "y": 54.07477655965951
+    }
+  },
+  "cat-doudounes": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "cat-sneakers": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "cat-accessoires": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "cat-marques": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "prop-sneakers": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "prop-doudounes": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "prop-accessoires": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  },
+  "prop-marques": {
+    "podiumTop": {
+      "x": 50,
+      "y": 62.7399439487415
+    }
+  }
+}

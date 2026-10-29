@@ -1,49 +1,23 @@
 {
   "sections": {
     "hero": {
-      "type": "hero",
-      "blocks": {
-        "s1": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/fd-hero-2.jpg",
-            "overlay": 35,
-            "align": "left",
-            "eyebrow": "❄ WINTER DROP",
-            "heading": "Ton style,\nmême en hiver.",
-            "text": "Doudounes, sneakers et accessoires pour composer ton outfit de saison.",
-            "button_label": "Découvrir la collection",
-            "button_link": "shopify://collections/doudounes",
-            "button2_label": "Voir les nouveautés",
-            "button2_link": "shopify://collections/nouveautes"
-          }
-        },
-        "s2": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/fd-editorial.jpg",
-            "overlay": 40,
-            "align": "left",
-            "eyebrow": "SNEAKERS",
-            "heading": "Prêt pour\nla neige.",
-            "text": "Les paires de la saison, du quotidien aux silhouettes iconiques.",
-            "button_label": "Voir les sneakers",
-            "button_link": "shopify://collections/sneakers",
-            "button2_label": "",
-            "button2_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "s1",
-        "s2"
-      ],
+      "type": "hero-3d",
       "settings": {
-        "label": "Campagne hiver",
-        "height": "medium",
-        "autoplay": false,
-        "interval": 7,
-        "parallax": true
+        "bg": "shopify://shop_images/fd3d-hero-bg.jpg",
+        "ice": "shopify://shop_images/fd3d-hero-ice.png",
+        "object": "shopify://shop_images/fd3d-hero-flake.png",
+        "cutout_width": 22,
+        "podium_x": 78,
+        "podium_y": 54,
+        "snow": true,
+        "eyebrow": "❄ WINTER DROP",
+        "heading": "Ton style,\nmême en hiver.",
+        "text": "Doudounes, sneakers et accessoires pour composer ton outfit de saison.",
+        "button_label": "Découvrir la collection",
+        "button_link": "shopify://collections/doudounes",
+        "button2_label": "Voir les nouveautés",
+        "button2_link": "shopify://collections/nouveautes",
+        "chip_label": "La pièce du moment"
       }
     },
     "reassurance": {
@@ -68,17 +42,17 @@
         "r3": {
           "type": "item",
           "settings": {
-            "icon": "return",
-            "title": "14 jours pour changer d'avis",
-            "text": "Droit de rétractation"
+            "icon": "truck",
+            "title": "Livraison offerte dès 65 €",
+            "text": "En France, livraison standard"
           }
         },
         "r4": {
           "type": "item",
           "settings": {
-            "icon": "chat",
-            "title": "Service client",
-            "text": "Réponse par e-mail"
+            "icon": "return",
+            "title": "14 jours pour changer d'avis",
+            "text": "Droit de rétractation"
           }
         }
       },
@@ -183,7 +157,9 @@
           "settings": {
             "collection": "sneakers",
             "title": "Nos sneakers",
-            "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg"
+            "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg",
+            "bg3d": "shopify://shop_images/fd3d-cat-sneakers.jpg",
+            "prop": "shopify://shop_images/fd3d-prop-sneakers.png"
           }
         },
         "c2": {
@@ -191,7 +167,9 @@
           "settings": {
             "collection": "doudounes",
             "title": "Nos doudounes",
-            "image": "shopify://shop_images/fd-col-doudounes.jpg"
+            "image": "shopify://shop_images/fd-col-doudounes.jpg",
+            "bg3d": "shopify://shop_images/fd3d-cat-doudounes.jpg",
+            "prop": "shopify://shop_images/fd3d-prop-doudounes.png"
           }
         },
         "c3": {
@@ -199,7 +177,9 @@
           "settings": {
             "collection": "accessoires",
             "title": "Nos accessoires",
-            "image": "shopify://shop_images/photo-1602737131820-eafac4dd6f5e.jpg"
+            "image": "shopify://shop_images/photo-1602737131820-eafac4dd6f5e.jpg",
+            "bg3d": "shopify://shop_images/fd3d-cat-accessoires.jpg",
+            "prop": "shopify://shop_images/fd3d-prop-accessoires.png"
           }
         },
         "c4": {
@@ -207,7 +187,9 @@
           "settings": {
             "title": "Nos marques",
             "image": "shopify://shop_images/fd-col-marques.jpg",
-            "link": "/collections"
+            "link": "/collections",
+            "bg3d": "shopify://shop_images/fd3d-cat-marques.jpg",
+            "prop": "shopify://shop_images/fd3d-prop-marques.png"
           }
         }
       },
@@ -406,10 +388,76 @@
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "image": "shopify://shop_images/fd-newsletter.jpg",
-        "heading": "Reste dans le froid",
+        "image": "shopify://shop_images/fd3d-frost-type.jpg",
+        "heading": "Rejoins le Frost Club",
         "text": "Les nouveaux drops et les restocks, avant tout le monde.",
-        "button_label": "Je m'inscris"
+        "button_label": "Je m'inscris",
+        "layout": "top"
+      }
+    },
+    "band1": {
+      "type": "text-marquee",
+      "settings": {
+        "text": "Winter drop|Nouvelle saison|Livraison offerte en France dès 65 €|Doudounes|Sneakers",
+        "style": "accent"
+      }
+    },
+    "band2": {
+      "type": "text-marquee",
+      "settings": {
+        "text": "Built for the cold|Frost District|Stay frozen",
+        "style": "dark"
+      }
+    },
+    "look": {
+      "type": "shop-the-look",
+      "blocks": {
+        "h1": {
+          "type": "hotspot",
+          "settings": {
+            "x": 46,
+            "y": 38
+          }
+        },
+        "h2": {
+          "type": "hotspot",
+          "settings": {
+            "x": 52,
+            "y": 78
+          }
+        },
+        "h3": {
+          "type": "hotspot",
+          "settings": {
+            "x": 40,
+            "y": 14
+          }
+        }
+      },
+      "block_order": [
+        "h1",
+        "h2",
+        "h3"
+      ],
+      "settings": {
+        "eyebrow": "Shop the look",
+        "heading": "Compose ton drip",
+        "subheading": "Toutes les pièces de la tenue, en un clic.",
+        "image": "shopify://shop_images/fd-col-doudounes.jpg",
+        "background": "white"
+      }
+    },
+    "countdown": {
+      "type": "countdown",
+      "disabled": true,
+      "settings": {
+        "end_date": "",
+        "end_time": "23:59",
+        "heading": "Fin de l'offre dans",
+        "text": "",
+        "button_label": "J'en profite",
+        "button_link": "shopify://collections/promotions",
+        "style": "accent"
       }
     }
   },
@@ -419,11 +467,15 @@
     "brands",
     "categories",
     "new",
+    "band1",
     "editorial",
     "jackets",
     "b30",
+    "look",
     "bestsellers",
+    "band2",
     "accessories",
+    "countdown",
     "reviews",
     "newsletter"
   ]

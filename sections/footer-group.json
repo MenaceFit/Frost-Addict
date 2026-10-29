@@ -29,9 +29,25 @@
         "show_wordmark": true,
         "show_payment": true
       }
+    },
+    "popup": {
+      "type": "newsletter-popup",
+      "settings": {
+        "enabled": true,
+        "delay": 15,
+        "exit_intent": true,
+        "days": 14,
+        "image": "shopify://shop_images/fd3d-popup.jpg",
+        "eyebrow": "❄ Frost Club",
+        "heading": "Les drops avant tout le monde",
+        "text": "Inscris-toi : nouveautés, restocks et offres réservées aux membres.",
+        "button_label": "Je rejoins le club",
+        "code": ""
+      }
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "popup"
   ]
 }

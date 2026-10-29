@@ -1,0 +1,25 @@
+{%- comment -%} Rendered via /recommendations/products?section_id=cart-upsell for the cart drawer. {%- endcomment -%}
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+  <div class="upsell">
+    <p class="upsell__title h-italic">{{ 'cart.upsell' | t }}</p>
+    <ul class="upsell__list">
+      {%- for p in recommendations.products limit: 3 -%}
+        <li class="upsell__item">
+          <a href="{{ p.url }}" class="upsell__thumb">{%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}</a>
+          <div class="upsell__info">
+            <a href="{{ p.url }}" class="card__title">{{ p.title | escape }}</a>
+            {% render 'price', product: p %}
+          </div>
+          {%- if p.available and p.has_only_default_variant -%}
+            <button type="button" class="btn btn--accent btn--sm" data-quick-add="{{ p.selected_or_first_available_variant.id }}">{{ 'cart.add_short' | t }}</button>
+          {%- elsif p.available -%}
+            <a href="{{ p.url }}" class="btn btn--outline btn--sm">{{ 'cart.choose' | t }}</a>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
+{% schema %}
+{ "name": "Suggestions panier" }
+{% endschema %}

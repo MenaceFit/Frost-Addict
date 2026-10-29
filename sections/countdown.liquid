@@ -1,0 +1,52 @@
+{%- comment -%} Countdown to a REAL end date. Hidden once the date has passed (no fake resetting timers). {%- endcomment -%}
+{%- liquid
+  assign end_ts = section.settings.end_date | append: ' ' | append: section.settings.end_time | date: '%s' | plus: 0
+  assign now_ts = 'now' | date: '%s' | plus: 0
+-%}
+{%- if section.settings.end_date != blank and end_ts > now_ts -%}
+<section class="countdown{% if section.settings.style == 'accent' %} countdown--accent{% endif %}" data-countdown="{{ end_ts }}" {{ section.shopify_attributes }}>
+  <div class="page-width countdown__inner">
+    <div>
+      <p class="countdown__title h-italic">{{ section.settings.heading | escape }}</p>
+      {%- if section.settings.text != blank -%}<p class="countdown__text">{{ section.settings.text | escape }}</p>{%- endif -%}
+    </div>
+    <div class="countdown__clock" role="timer" aria-live="off">
+      {%- assign units = 'days,hours,minutes,seconds' | split: ',' -%}
+      {%- for u in units -%}
+        {%- liquid
+          case u
+            when 'days'
+              assign unit_label = 'countdown.days' | t
+            when 'hours'
+              assign unit_label = 'countdown.hours' | t
+            when 'minutes'
+              assign unit_label = 'countdown.minutes' | t
+            else
+              assign unit_label = 'countdown.seconds' | t
+          endcase
+        -%}
+        <div class="countdown__unit"><span data-cd="{{ u }}">00</span><small>{{ unit_label }}</small></div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.button_label != blank -%}
+      <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn {% if section.settings.style == 'accent' %}btn--dark{% else %}btn--accent{% endif %}">{{ section.settings.button_label | escape }}</a>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Compte à rebours",
+  "settings": [
+    { "type": "paragraph", "content": "Uniquement pour une vraie offre avec une vraie date de fin. La section disparaît automatiquement après la date." },
+    { "type": "text", "id": "end_date", "label": "Date de fin (AAAA-MM-JJ)", "placeholder": "2026-11-30" },
+    { "type": "text", "id": "end_time", "label": "Heure de fin (HH:MM, heure de la boutique)", "default": "23:59" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Fin de l'offre dans" },
+    { "type": "text", "id": "text", "label": "Texte" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "J'en profite" },
+    { "type": "url", "id": "button_link", "label": "Lien" },
+    { "type": "select", "id": "style", "label": "Style", "default": "dark", "options": [ { "value": "dark", "label": "Noir" }, { "value": "accent", "label": "Turquoise" } ] }
+  ],
+  "presets": [ { "name": "Compte à rebours" } ]
+}
+{% endschema %}

@@ -29,7 +29,9 @@
     "card_image_fit": "contain",
     "cart_type": "drawer",
     "cart_reassurance": "Paiement 100 % sécurisé",
-    "share_image": "shopify://shop_images/fd-hero-1.jpg"
+    "share_image": "shopify://shop_images/fd-hero-1.jpg",
+    "free_shipping_threshold": 65,
+    "free_shipping_zone": "en France"
   },
   "presets": {
     "Default": {

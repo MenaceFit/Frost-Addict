@@ -131,6 +131,7 @@
                   {%- if block.settings.show_dynamic_checkout -%}
                     <div class="pdp__checkout" style="margin-top:10px">{{ form | payment_button }}</div>
                   {%- endif -%}
+                  <div class="pdp__terms">{{ form | payment_terms }}</div>
                   <p class="form-message form-message--error" data-form-error role="alert" hidden></p>
                 {%- endform -%}
                 {%- if block.settings.show_stock -%}
@@ -143,6 +144,25 @@
                       {{ 'products.in_stock' | t }}
                     {%- endif -%}
                   </p>
+                {%- endif -%}
+              </div>
+
+            {%- when 'delivery' -%}
+              <div class="pdp__delivery" {{ block.shopify_attributes }}>
+                {%- if block.settings.min_days > 0 and block.settings.max_days >= block.settings.min_days -%}
+                  <p data-delivery-estimate data-min="{{ block.settings.min_days }}" data-max="{{ block.settings.max_days }}" data-cutoff="{{ block.settings.cutoff_hour }}">
+                    {% render 'icon', name: 'truck' %}
+                    <span>{{ 'products.delivery_estimate_html' | t: zone: block.settings.zone }}</span>
+                  </p>
+                {%- endif -%}
+                {%- if settings.free_shipping_threshold > 0 -%}
+                  {%- assign fs = settings.free_shipping_threshold | times: 100 | money_without_trailing_zeros -%}
+                  <p>{% render 'icon', name: 'tag' %} <span>{{ 'products.free_shipping_from' | t: amount: fs, zone: settings.free_shipping_zone }}</span></p>
+                {%- endif -%}
+                {%- if block.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+                  <ul class="payment-icons payment-icons--light" aria-label="{{ 'footer.payment' | t }}">
+                    {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
+                  </ul>
                 {%- endif -%}
               </div>
 
@@ -241,6 +261,17 @@
       "settings": [
         { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Boutons de paiement express", "default": true },
         { "type": "checkbox", "id": "show_stock", "label": "Afficher la disponibilité", "default": true }
+      ]
+    },
+    {
+      "type": "delivery", "name": "Livraison et paiement", "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Délais réels de préparation + transport, en jours ouvrés. 0 pour masquer l'estimation." },
+        { "type": "range", "id": "min_days", "min": 0, "max": 15, "step": 1, "label": "Délai minimum (jours ouvrés)", "default": 0 },
+        { "type": "range", "id": "max_days", "min": 0, "max": 20, "step": 1, "label": "Délai maximum (jours ouvrés)", "default": 0 },
+        { "type": "range", "id": "cutoff_hour", "min": 8, "max": 23, "step": 1, "unit": "h", "label": "Heure limite d'expédition le jour même", "default": 14 },
+        { "type": "text", "id": "zone", "label": "Zone", "default": "en France" },
+        { "type": "checkbox", "id": "show_payment_icons", "label": "Logos des moyens de paiement", "default": true }
       ]
     },
     {
