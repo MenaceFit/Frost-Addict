@@ -1,0 +1,42 @@
+<section class="section section--tight" data-cart-page>
+  <div class="page-width">
+    <h1 class="page-title h-display">{{ 'cart.title' | t }}</h1>
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-page" id="CartPageForm">
+        <div>
+          <ul data-cart-lines>
+            {%- for item in cart.items -%}{% render 'cart-line', item: item, index: forloop.index %}{%- endfor -%}
+          </ul>
+          {%- if section.settings.show_note -%}
+            <label class="form" style="margin-top:24px">
+              <span style="font-weight:700">{{ 'cart.note' | t }}</span>
+              <textarea class="field-input" name="note">{{ cart.note }}</textarea>
+            </label>
+          {%- endif -%}
+          <noscript><button type="submit" name="update" class="btn btn--outline" style="margin-top:16px">{{ 'cart.update' | t }}</button></noscript>
+        </div>
+        <aside class="cart-page__summary">
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div class="cart-subtotal" style="font-size:var(--fs-sm)"><span>{{ discount.title | escape }}</span><span>-{{ discount.total_allocated_amount | money }}</span></div>
+          {%- endfor -%}
+          <div class="cart-subtotal"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></div>
+          <p class="cart-note-small">{{ 'cart.taxes_shipping' | t }}</p>
+          <button type="submit" name="checkout" class="btn btn--accent btn--block">{% render 'icon', name: 'lock' %} {{ 'cart.checkout' | t }}</button>
+          {%- if additional_checkout_buttons -%}<div>{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+          {%- if settings.cart_reassurance != blank -%}<p class="cart-note-small" style="text-align:center">{{ settings.cart_reassurance | escape }}</p>{%- endif -%}
+        </aside>
+      </form>
+    {%- else -%}
+      <div class="empty-state">
+        <p class="h-italic" style="font-size:var(--fs-xl)">{{ 'cart.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--accent">{{ 'cart.continue' | t }}</a>
+        {%- if shop.customer_accounts_enabled and customer == nil -%}
+          <p class="muted">{{ 'cart.login_html' | t: link: routes.account_login_url }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Panier", "settings": [ { "type": "checkbox", "id": "show_note", "label": "Note de commande", "default": false } ] }
+{% endschema %}

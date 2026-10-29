@@ -1,0 +1,58 @@
+{%- assign menus = section.blocks | where: 'type', 'menu' -%}
+<footer class="footer" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="footer__top" style="--cols: {{ menus.size | at_least: 1 }}">
+      <div class="footer__brand">
+        <span class="logo-text">{{ settings.logo_text | default: shop.name | escape }}{% if settings.logo_text_sub != blank %}<span class="logo-text__sub">{{ settings.logo_text_sub | escape }}</span>{% endif %}</span>
+        {%- if section.settings.text != blank -%}<div class="rte" style="font-size:var(--fs-sm)">{{ section.settings.text }}</div>{%- endif -%}
+        {% render 'social-icons' %}
+      </div>
+      {%- for block in menus -%}
+        <div {{ block.shopify_attributes }}>
+          <h2 class="footer__title h-italic">{{ block.settings.title | default: block.settings.menu.title | escape }}</h2>
+          <ul class="footer__links">
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.show_wordmark -%}
+      <p class="footer__wordmark" aria-hidden="true">{{ settings.logo_text | default: shop.name | escape }}{% if settings.logo_text_sub != blank %} <span>{{ settings.logo_text_sub | escape }}</span>{% endif %}</p>
+    {%- endif -%}
+    <div class="footer__bottom">
+      <p style="margin:0">&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}</p>
+      <ul class="footer__policies">
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endif -%}
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.show_payment -%}
+        <ul class="payment-icons" aria-label="{{ 'footer.payment' | t }}">
+          {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag }}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Pied de page",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "richtext", "id": "text", "label": "Texte de présentation", "default": "<p>Doudounes, sneakers et accessoires pour l'hiver.</p>" },
+    { "type": "checkbox", "id": "show_wordmark", "label": "Grand nom de marque", "default": true },
+    { "type": "checkbox", "id": "show_payment", "label": "Moyens de paiement", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "menu", "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    }
+  ]
+}
+{% endschema %}

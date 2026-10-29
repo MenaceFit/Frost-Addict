@@ -1,0 +1,36 @@
+{%- comment -%}
+  Usage: {% render 'icon', name: 'cart' %}
+  Stroke icons drawn on a 24px grid, inheriting currentColor.
+{%- endcomment -%}
+{%- capture path -%}
+  {%- case name -%}
+    {%- when 'arrow-right' -%}<path d="M4 12h15M13 6l6 6-6 6"/>
+    {%- when 'arrow-left' -%}<path d="M20 12H5M11 6l-6 6 6 6"/>
+    {%- when 'chevron-down' -%}<path d="M5 9l7 7 7-7"/>
+    {%- when 'chevron-left' -%}<path d="M15 5l-7 7 7 7"/>
+    {%- when 'chevron-right' -%}<path d="M9 5l7 7-7 7"/>
+    {%- when 'close' -%}<path d="M6 6l12 12M18 6L6 18"/>
+    {%- when 'menu' -%}<path d="M3 7h18M3 12h18M3 17h12"/>
+    {%- when 'search' -%}<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+    {%- when 'account' -%}<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>
+    {%- when 'cart' -%}<path d="M3 9h18l-1.6 10.2a2 2 0 0 1-2 1.8H6.6a2 2 0 0 1-2-1.8L3 9z"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/>
+    {%- when 'plus' -%}<path d="M12 5v14M5 12h14"/>
+    {%- when 'minus' -%}<path d="M5 12h14"/>
+    {%- when 'truck' -%}<path d="M2 6h12v10H2zM14 10h4l4 4v2h-8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>
+    {%- when 'shield' -%}<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>
+    {%- when 'return' -%}<path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5L4 9l4 4"/>
+    {%- when 'lock' -%}<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+    {%- when 'check' -%}<path d="M4 12.5l5 5L20 6.5"/>
+    {%- when 'badge-check' -%}<path d="M12 2.5l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 21.5l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>
+    {%- when 'snow' -%}<path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 4l3 2 3-2M9 20l3-2 3 2"/>
+    {%- when 'chat' -%}<path d="M4 5h16v11H9l-5 4z"/>
+    {%- when 'filter' -%}<path d="M4 6h16M7 12h10M10 18h4"/>
+    {%- when 'globe' -%}<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>
+    {%- when 'tag' -%}<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="8.5" r="1.5"/>
+    {%- when 'instagram' -%}<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/>
+    {%- when 'tiktok' -%}<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 3 2.5 4.8 5.5 5"/>
+    {%- when 'snapchat' -%}<path d="M12 3c3 0 5 2.2 5 5.2v2.3l2 .7-1.6 1.6c.8 1.6 2 2.6 3.1 3-1 .9-2.3 1-3.3 1.1L16.6 19c-1.6-.3-2.9.5-4.6.5s-3-.8-4.6-.5l-.6-2.1c-1-.1-2.3-.2-3.3-1.1 1.1-.4 2.3-1.4 3.1-3L5 11.2l2-.7V8.2C7 5.2 9 3 12 3z"/>
+    {%- when 'youtube' -%}<rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="M10 9l5 3-5 3z"/>
+  {%- endcase -%}
+{%- endcapture -%}
+<svg class="icon icon-{{ name }}{% if class %} {{ class }}{% endif %}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ stroke | default: 1.8 }}" stroke-linecap="round" stroke-linejoin="round">{{ path }}</svg>

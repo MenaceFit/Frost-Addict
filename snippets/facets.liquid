@@ -1,0 +1,33 @@
+{%- comment -%} Storefront filters (Search & Discovery). Params: results (collection or search), id {%- endcomment -%}
+<form class="facets" data-facets-form action="{{ url | default: results.url }}" method="get">
+  {%- if terms -%}<input type="hidden" name="q" value="{{ terms | escape }}"><input type="hidden" name="options[prefix]" value="last">{%- endif -%}
+  {%- if results.sort_by -%}<input type="hidden" name="sort_by" value="{{ results.sort_by }}">{%- endif -%}
+  {%- for filter in results.filters -%}
+    <details class="facets__group"{% if forloop.index <= 3 or filter.active_values.size > 0 %} open{% endif %}>
+      <summary>{{ filter.label | escape }} {% render 'icon', name: 'chevron-down' %}</summary>
+      {%- case filter.type -%}
+        {%- when 'boolean', 'list' -%}
+          <div class="facets__options">
+            {%- for value in filter.values -%}
+              <label class="check{% if value.count == 0 and value.active == false %} check--disabled{% endif %}">
+                <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %} data-autosubmit>
+                {%- if value.swatch.color -%}<span class="swatch-dot" style="--swatch: {{ value.swatch.color }}"></span>{%- endif -%}
+                <span>{{ value.label | escape }}</span>
+                <span class="check__count">{{ value.count }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        {%- when 'price_range' -%}
+          <div class="facets__price">
+            <label><span class="visually-hidden">{{ 'collections.from' | t }}</span>
+              <input class="field-input" type="number" inputmode="decimal" name="{{ filter.min_value.param_name }}" placeholder="0"
+                value="{{ filter.min_value.value | money_without_currency | replace: ',', '.' }}" min="0" data-autosubmit-delay></label>
+            <label><span class="visually-hidden">{{ 'collections.to' | t }}</span>
+              <input class="field-input" type="number" inputmode="decimal" name="{{ filter.max_value.param_name }}" placeholder="{{ filter.range_max | money_without_currency | replace: ',', '.' }}"
+                value="{{ filter.max_value.value | money_without_currency | replace: ',', '.' }}" min="0" data-autosubmit-delay></label>
+          </div>
+      {%- endcase -%}
+    </details>
+  {%- endfor -%}
+  <noscript><button type="submit" class="btn btn--dark btn--block" style="margin-top:12px">{{ 'collections.apply' | t }}</button></noscript>
+</form>

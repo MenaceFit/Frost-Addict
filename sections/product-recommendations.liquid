@@ -1,0 +1,26 @@
+<section class="section" data-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}&intent=related" {{ section.shopify_attributes }}>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="page-width">
+      {% render 'section-head', title: section.settings.heading %}
+      <div class="carousel" data-carousel>
+        <div class="carousel__track" style="--cols: 4" data-carousel-track tabindex="0" role="region" aria-label="{{ section.settings.heading | escape }}">
+          {%- for product in recommendations.products -%}{% render 'product-card', product: product, index: forloop.index0 %}{%- endfor -%}
+        </div>
+        <div class="carousel__nav">
+          <button type="button" class="carousel__btn" data-carousel-prev aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+          <div class="carousel__progress" aria-hidden="true"><span data-carousel-progress></span></div>
+          <button type="button" class="carousel__btn" data-carousel-next aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "Produits similaires",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Complète ton outfit" },
+    { "type": "range", "id": "limit", "min": 4, "max": 10, "step": 1, "label": "Nombre de produits", "default": 8 }
+  ]
+}
+{% endschema %}

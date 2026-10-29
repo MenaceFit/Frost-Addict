@@ -1,0 +1,38 @@
+{%- assign overlay = section.settings.overlay | divided_by: 100.0 -%}
+<section class="banner banner--{{ section.settings.align }}" style="--overlay: {{ overlay }}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
+  <div class="banner__media" data-parallax-target>
+    {%- if section.settings.image -%}
+      {%- assign focal_style = 'object-position: ' | append: section.settings.image.presentation.focal_point -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', style: focal_style }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+  <div class="page-width banner__inner">
+    <div class="banner__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow" data-reveal>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="banner__title h-display" data-reveal style="--delay:.06s">{{ section.settings.heading | escape | newline_to_br }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="hero__text" data-reveal style="--delay:.12s">{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--light" data-reveal style="--delay:.18s">{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Bannière éditoriale",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Ancre (pour liens #)" },
+    { "type": "image_picker", "id": "image", "label": "Photo" },
+    { "type": "range", "id": "overlay", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Assombrissement", "default": 40 },
+    { "type": "select", "id": "align", "label": "Position du texte", "default": "left", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" } ] },
+    { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "Built for the cold" },
+    { "type": "textarea", "id": "heading", "label": "Titre", "default": "Les doudounes\nde la saison" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Matelassées, techniques ou oversize : la pièce qui fait ton outfit cet hiver." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Voir les doudounes" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [ { "name": "Bannière éditoriale" } ]
+}
+{% endschema %}

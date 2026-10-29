@@ -1,0 +1,41 @@
+{%- if section.blocks.size > 0 -%}
+<div class="marquee" style="--speed: {{ section.settings.speed }}s" {{ section.shopify_attributes }} role="region" aria-label="{{ section.settings.label | escape }}">
+  <div class="marquee__track">
+    {%- for i in (1..2) -%}
+      <ul class="marquee__group"{% if i == 2 %} aria-hidden="true"{% endif %}>
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <a class="marquee__item" href="{{ block.settings.link | default: '#' }}"{% if i == 2 %} tabindex="-1"{% endif %}>
+              {%- if block.settings.logo -%}
+                {{ block.settings.logo | image_url: height: 88 | image_tag: alt: block.settings.name, loading: 'lazy' }}
+              {%- else -%}
+                {{ block.settings.name | escape }}
+              {%- endif -%}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Défilé de marques",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Nom accessible", "default": "Nos marques" },
+    { "type": "range", "id": "speed", "min": 20, "max": 90, "step": 5, "unit": "s", "label": "Durée d'un tour", "default": 45 }
+  ],
+  "blocks": [
+    {
+      "type": "brand", "name": "Marque",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nom", "default": "Marque" },
+        { "type": "image_picker", "id": "logo", "label": "Logo (optionnel)", "info": "Utilisez un logo seulement si vous en avez le droit." },
+        { "type": "url", "id": "link", "label": "Lien (collection de la marque)" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Défilé de marques", "blocks": [ { "type": "brand" }, { "type": "brand" }, { "type": "brand" } ] } ]
+}
+{% endschema %}

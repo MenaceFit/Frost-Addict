@@ -1,0 +1,37 @@
+{
+  "type": "footer",
+  "name": "Pied de page",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "f1": {
+          "type": "menu",
+          "settings": {
+            "title": "Boutique",
+            "menu": "frost-winter-menu"
+          }
+        },
+        "f2": {
+          "type": "menu",
+          "settings": {
+            "title": "Aide",
+            "menu": "frost-aide"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2"
+      ],
+      "settings": {
+        "text": "<p>Doudounes, sneakers et accessoires pour l'hiver. Des pièces authentiques, sélectionnées une par une.</p>",
+        "show_wordmark": true,
+        "show_payment": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

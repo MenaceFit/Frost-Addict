@@ -1,0 +1,118 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign logo_w = settings.logo_width
+-%}
+<div class="header-wrap{% if section.settings.sticky %} header-wrap--sticky{% endif %}" data-header style="--logo-w: {{ logo_w }}px">
+  <header class="page-width header">
+    <div class="header__left">
+      <button type="button" class="icon-btn header__menu-toggle" data-menu-open aria-controls="MenuDrawer" aria-expanded="false" aria-label="{{ 'header.menu' | t }}">
+        {% render 'icon', name: 'menu' %}
+      </button>
+      <button type="button" class="icon-btn" data-search-open aria-label="{{ 'search.title' | t }}">{% render 'icon', name: 'search' %}</button>
+    </div>
+
+    <div class="header__logo">
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+        {%- if settings.logo -%}
+          {{ settings.logo | image_url: width: 520 | image_tag: alt: shop.name, widths: '260, 390, 520', sizes: '(min-width: 1100px) 160px, 120px', loading: 'eager' }}
+        {%- else -%}
+          <span class="logo-text">{{ settings.logo_text | default: shop.name | escape }}{% if settings.logo_text_sub != blank %}<span class="logo-text__sub">{{ settings.logo_text_sub | escape }}</span>{% endif %}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <nav class="header__nav" aria-label="{{ 'header.main_nav' | t }}">
+      <ul class="nav">
+        {%- for link in menu.links -%}
+          <li class="nav__item"{% if link.links.size > 0 %} data-dropdown{% endif %}>
+            {%- if link.links.size > 0 -%}
+              <a href="{{ link.url }}" class="nav__link" aria-haspopup="true" aria-expanded="false"{% if link.active or link.child_active %} aria-current="page"{% endif %}>
+                {{ link.title | escape }} {% render 'icon', name: 'chevron-down' %}
+              </a>
+              <div class="nav__dropdown">
+                <ul>
+                  {%- for child in link.links -%}
+                    <li><a href="{{ child.url }}"{% if child.active %} aria-current="page"{% endif %}>{{ child.title | escape }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- else -%}
+              <a href="{{ link.url }}" class="nav__link"{% if link.active %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      {%- if section.settings.show_currency and localization.available_countries.size > 1 -%}
+        {%- form 'localization', class: 'localization hide-mobile' -%}
+          <label class="visually-hidden" for="HeaderCountry">{{ 'header.country' | t }}</label>
+          <select id="HeaderCountry" name="country_code" data-autosubmit>
+            {%- for country in localization.available_countries -%}
+              <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                {{ country.iso_code }} {{ country.currency.iso_code }} {{ country.currency.symbol }}
+              </option>
+            {%- endfor -%}
+          </select>
+        {%- endform -%}
+      {%- endif -%}
+      <button type="button" class="icon-btn hide-mobile" data-search-open aria-label="{{ 'search.title' | t }}">{% render 'icon', name: 'search' %}</button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-btn" aria-label="{{ 'header.account' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="icon-btn" data-cart-open aria-label="{{ 'cart.title' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </header>
+</div>
+
+<div class="drawer drawer--left" id="MenuDrawer" data-menu-drawer aria-hidden="true">
+  <div class="drawer__overlay" data-drawer-close></div>
+  <div class="drawer__panel menu-drawer" role="dialog" aria-modal="true" aria-label="{{ 'header.menu' | t }}" tabindex="-1">
+    <div class="drawer__head">
+      <span class="logo-text" style="font-size:1.1rem">{{ settings.logo_text | default: shop.name | escape }}{% if settings.logo_text_sub != blank %}<span class="logo-text__sub">{{ settings.logo_text_sub | escape }}</span>{% endif %}</span>
+      <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <div class="drawer__body">
+      <ul class="menu-drawer__list">
+        {%- for link in menu.links -%}
+          <li>
+            {%- if link.links.size > 0 -%}
+              <details>
+                <summary>{{ link.title | escape }} {% render 'icon', name: 'chevron-down' %}</summary>
+                <ul class="menu-drawer__sub">
+                  <li><a href="{{ link.url }}">{{ 'header.see_all' | t }}</a></li>
+                  {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a class="menu-drawer__link" href="{{ link.url }}">{{ link.title | escape }} {% render 'icon', name: 'arrow-right' %}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="menu-drawer__extra">
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">{% render 'icon', name: 'account' %} {{ 'header.account' | t }}</a>
+        {%- endif -%}
+        <a href="{{ routes.search_url }}" data-search-open>{% render 'icon', name: 'search' %} {{ 'search.title' | t }}</a>
+      </div>
+      {% render 'social-icons' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "class": "shopify-section--header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "sticky", "label": "En-tête fixe au défilement", "default": true },
+    { "type": "checkbox", "id": "show_currency", "label": "Afficher le sélecteur pays / devise", "default": true, "info": "Visible seulement si plusieurs marchés sont activés." }
+  ]
+}
+{% endschema %}

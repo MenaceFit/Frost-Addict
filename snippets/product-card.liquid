@@ -1,0 +1,204 @@
+{%- comment -%}
+  Product card.
+  Params:
+    product   – a product object
+    demo      – true to render a clearly labelled demo card (no product)
+    index     – position in the list (stagger + lazy loading)
+    demo_title, demo_vendor, demo_label – used only for demo cards
+    sizes     – image sizes attribute (optional)
+{%- endcomment -%}
+{%- liquid
+  assign idx = index | default: 0
+  assign delay = idx | modulo: 4 | times: 0.07
+  assign img_sizes = sizes | default: '(min-width: 1200px) 320px, (min-width: 750px) 30vw, 46vw'
+  if idx < 4
+    assign loading = 'eager'
+  else
+    assign loading = 'lazy'
+  endif
+  assign ratio = '1'
+  if settings.card_image_ratio == 'portrait'
+    assign ratio = '4 / 5'
+  endif
+-%}
+
+{%- if demo or product == blank -%}
+  {%- comment -%} Demo card: shown only while the collection is empty, always labelled as such. {%- endcomment -%}
+  <article class="card card--demo" data-reveal style="--delay: {{ delay }}s; --card-ratio: {{ ratio }}">
+    <div class="card__media">
+      <div class="card__badges"><span class="badge badge--demo">{{ 'products.demo_badge' | t }}</span></div>
+      {%- assign ph = idx | modulo: 6 | plus: 1 -%}
+      {{ 'product-' | append: ph | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+    <div class="card__info">
+      {%- if demo_vendor != blank -%}<p class="card__vendor">{{ demo_vendor | escape }}</p>{%- endif -%}
+      <h3 class="card__title">{{ demo_title | default: 'Produit de démonstration' | escape }}</h3>
+      <p class="price muted">{{ demo_label | default: 'Prix à configurer' }}</p>
+    </div>
+  </article>
+{%- else -%}
+  {%- liquid
+    assign first_image = product.featured_media.preview_image
+    assign first_alt = first_image.alt | default: product.title
+    assign second_image = nil
+    if settings.card_show_second_image and product.media.size > 1
+      assign second_image = product.media[1].preview_image
+    endif
+
+    assign sale_pct = 0
+    if product.compare_at_price > product.price
+      assign saved = product.compare_at_price | minus: product.price | times: 100.0
+      assign sale_pct = saved | divided_by: product.compare_at_price | round
+    endif
+
+    assign is_new = false
+    if settings.new_tag != blank
+      assign new_tag_down = settings.new_tag | downcase
+      for t in product.tags
+        assign t_down = t | downcase
+        if t_down == new_tag_down
+          assign is_new = true
+        endif
+      endfor
+    endif
+
+    assign color_option = nil
+    for option in product.options_with_values
+      assign oname = option.name | downcase
+      if oname == 'couleur' or oname == 'color' or oname == 'colour' or oname == 'coloris'
+        assign color_option = option
+      endif
+    endfor
+  -%}
+  <article class="card" data-reveal style="--delay: {{ delay }}s; --card-ratio: {{ ratio }}; --card-fit: {{ settings.card_image_fit }}{% if settings.card_image_fit == 'cover' %}; --card-pad: 0{% endif %}">
+    <a href="{{ product.url }}" class="card__media{% if second_image %} has-hover{% endif %}" tabindex="-1" aria-hidden="true">
+      <div class="card__badges">
+        {%- unless product.available -%}
+          <span class="badge badge--muted">{{ 'products.sold_out' | t }}</span>
+        {%- endunless -%}
+        {%- if is_new -%}<span class="badge">{{ 'products.new_badge' | t }}</span>{%- endif -%}
+        {%- if sale_pct > 0 and settings.card_sale_badge == 'pill' -%}
+          <span class="badge badge--accent">-{{ sale_pct }}%</span>
+        {%- endif -%}
+      </div>
+      {%- if sale_pct > 0 and settings.card_sale_badge == 'vertical' -%}
+        <span class="badge badge--vertical">{{ 'products.save_pct' | t: pct: sale_pct }}</span>
+      {%- endif -%}
+
+      {%- if first_image -%}
+        {{ first_image | image_url: width: 900 | image_tag:
+          class: 'card__img--main',
+          loading: loading,
+          widths: '300, 450, 600, 900',
+          sizes: img_sizes,
+          alt: first_alt
+        }}
+        {%- if second_image -%}
+          {{ second_image | image_url: width: 900 | image_tag:
+            class: 'card__img--hover',
+            loading: 'lazy',
+            widths: '300, 450, 600, 900',
+            sizes: img_sizes,
+            alt: ''
+          }}
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg card__img--main' }}
+      {%- endif -%}
+    </a>
+
+    <div class="card__info">
+      {%- if settings.card_show_vendor and product.vendor != blank -%}
+        <p class="card__vendor">{{ product.vendor | escape }}</p>
+      {%- endif -%}
+      <h3 class="card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+      {% render 'price', product: product %}
+      {%- if settings.card_show_rating -%}{% render 'rating', product: product %}{%- endif -%}
+      {%- if settings.card_show_swatches and color_option and color_option.values.size > 1 -%}
+        <div class="card__swatches" aria-label="{{ 'products.colors_available' | t: count: color_option.values.size }}">
+          {%- for value in color_option.values limit: 5 -%}
+            {%- liquid
+              assign swatch_style = ''
+              if value.swatch.image
+                assign swatch_url = value.swatch.image | image_url: width: 40
+                assign swatch_style = 'background-image: url(' | append: swatch_url | append: ')'
+              elsif value.swatch.color
+                assign swatch_style = '--swatch: ' | append: value.swatch.color
+              else
+                assign cname = value | downcase | handle
+                assign swatch_style = '--swatch: ' | append: cname
+                case cname
+                  when 'noir', 'black'
+                    assign swatch_style = '--swatch: #101114'
+                  when 'blanc', 'white'
+                    assign swatch_style = '--swatch: #ffffff'
+                  when 'gris', 'grey', 'gray'
+                    assign swatch_style = '--swatch: #9aa0a6'
+                  when 'beige', 'sable'
+                    assign swatch_style = '--swatch: #d8c7a8'
+                  when 'creme', 'ecru', 'cream'
+                    assign swatch_style = '--swatch: #f2ead8'
+                  when 'bleu', 'blue'
+                    assign swatch_style = '--swatch: #2f5fa7'
+                  when 'marine', 'bleu-marine', 'navy'
+                    assign swatch_style = '--swatch: #1c2a48'
+                  when 'bleu-clair', 'ciel'
+                    assign swatch_style = '--swatch: #b9d8ed'
+                  when 'kaki', 'khaki', 'olive'
+                    assign swatch_style = '--swatch: #6b6b3a'
+                  when 'vert', 'green'
+                    assign swatch_style = '--swatch: #2f6b4a'
+                  when 'marron', 'brun', 'brown', 'camel'
+                    assign swatch_style = '--swatch: #8a5a35'
+                  when 'rouge', 'red', 'bordeaux'
+                    assign swatch_style = '--swatch: #a3202c'
+                  when 'orange'
+                    assign swatch_style = '--swatch: #e8702a'
+                  when 'jaune', 'yellow'
+                    assign swatch_style = '--swatch: #f2c230'
+                  when 'rose', 'pink'
+                    assign swatch_style = '--swatch: #e6a1b4'
+                  when 'argent', 'silver'
+                    assign swatch_style = '--swatch: #c0c4c8'
+                endcase
+              endif
+            -%}
+            <span class="swatch-dot" style="{{ swatch_style }}" title="{{ value | escape }}"></span>
+          {%- endfor -%}
+          {%- if color_option.values.size > 5 -%}
+            <span class="card__swatch-more">+{{ color_option.values.size | minus: 5 }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if settings.card_quick_add -%}
+      <div class="card__actions">
+        {%- if product.available == false -%}
+          <button class="btn btn--outline btn--sm btn--block" type="button" disabled>{{ 'products.sold_out' | t }}</button>
+        {%- elsif product.has_only_default_variant -%}
+          <button class="btn btn--accent btn--sm btn--block" type="button" data-quick-add="{{ product.selected_or_first_available_variant.id }}">
+            {{ 'products.add_to_cart' | t }}
+          </button>
+        {%- elsif product.options.size == 1 and product.variants.size <= 12 -%}
+          <button class="btn btn--accent btn--sm btn--block" type="button" data-quick-toggle aria-expanded="false">
+            {{ 'products.add_to_cart' | t }}
+          </button>
+          <div class="card__quick-panel" data-quick-panel hidden>
+            <div class="card__quick-panel-head">
+              <span>{{ product.options.first | escape }}</span>
+              <button type="button" class="icon-btn" style="width:28px;height:28px" data-quick-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+            </div>
+            <div class="card__sizes">
+              {%- for variant in product.variants -%}
+                <button type="button" class="size-chip" data-quick-add="{{ variant.id }}"{% unless variant.available %} disabled{% endunless %}>{{ variant.option1 | escape }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <a class="btn btn--accent btn--sm btn--block" href="{{ product.url }}">{{ 'products.see_options' | t }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </article>
+{%- endif -%}

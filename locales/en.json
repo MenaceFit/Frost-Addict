@@ -1,0 +1,184 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content"
+  },
+  "general": {
+    "404_title": "This page melted.",
+    "announcements": "Announcements",
+    "breadcrumbs": "Fil d'Ariane",
+    "close": "Close",
+    "error": "Something went wrong. Please try again.",
+    "home": "Home",
+    "meta": {
+      "page": "Page {{ page }}",
+      "tags": "Tag « {{ tags }} »"
+    },
+    "next": "Next",
+    "pagination": "Pagination",
+    "pause": "Pause",
+    "previous": "Previous",
+    "slide": "Show slide {{ n }}"
+  },
+  "header": {
+    "account": "Account",
+    "country": "Country / currency",
+    "main_nav": "Main navigation",
+    "menu": "Menu",
+    "see_all": "See all"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Puffer, sneakers, beanie…",
+    "submit": "Search",
+    "suggestions": "Suggestions",
+    "products": "Products",
+    "see_all": "See all results for “{{ terms }}”",
+    "no_results": "No results for “{{ terms }}”.",
+    "results_count": {
+      "one": "{{ count }} result for “{{ terms }}”",
+      "other": "{{ count }} results for “{{ terms }}”"
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "added": "Added to cart",
+    "checkout": "Check out",
+    "continue": "Continue shopping",
+    "decrease": "Retirer un {{ title }}",
+    "increase": "Ajouter un {{ title }}",
+    "decrease_simple": "Diminuer la quantité",
+    "increase_simple": "Augmenter la quantité",
+    "empty": "Your cart is empty",
+    "login_html": "Tu as un compte ? <a href=\"{{ link }}\">Connecte-toi</a> pour retrouver ton panier.",
+    "note": "Order instructions",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "taxes_shipping": "Taxes included. Shipping calculated at checkout.",
+    "update": "Update",
+    "view_cart": "View cart"
+  },
+  "collections": {
+    "apply": "Apply",
+    "clear_all": "Clear all",
+    "empty": "No products match yet.",
+    "filters": "Filters",
+    "from": "From",
+    "to": "To",
+    "sort_by": "Sort by",
+    "product_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    }
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "choose_option": "Choose: {{ option }}",
+    "see_options": "See options",
+    "colors_available": {
+      "one": "{{ count }} colour",
+      "other": "{{ count }} colours available"
+    },
+    "demo_badge": "Demo",
+    "demo_notice": "Preview: this collection is empty. Demo cards disappear once products are added.",
+    "demo_notice_spotlight": "Preview: pick a product for each colourway in the theme editor to replace the demo cards.",
+    "description": "Description",
+    "from": "From",
+    "in_stock": "In stock, ready to ship",
+    "low_stock": {
+      "one": "Only {{ count }} left",
+      "other": "Only {{ count }} left"
+    },
+    "low_stock_template": "Only __n__ left",
+    "new_badge": "New",
+    "out_of_stock": "Out of stock",
+    "rating": "Rating: {{ rating }} out of {{ max }}",
+    "regular_price": "Regular price",
+    "sale_price": "Sale price",
+    "save_pct": "Save {{ pct }}%",
+    "shipping_link": "Shipping",
+    "size_guide": "Size guide",
+    "sold_out": "Sold out",
+    "tax_excluded": "Tax excluded",
+    "tax_included": "Tax included",
+    "unavailable": "Unavailable",
+    "zoom": "Zoom image"
+  },
+  "reviews": {
+    "verified": "Verified purchase",
+    "empty_title": "Section prête pour vos avis clients",
+    "empty_text": "Installez une application d'avis (ex. Judge.me) et ajoutez son bloc ici, ou saisissez de vrais avis. Cette section reste masquée sur la boutique tant qu'elle est vide."
+  },
+  "newsletter": {
+    "email": "Your email",
+    "success": "Thanks for subscribing!",
+    "notify": "Notify me",
+    "consent": "By subscribing you agree to receive our emails. Unsubscribe anytime."
+  },
+  "footer": {
+    "payment": "Payment methods"
+  },
+  "contact": {
+    "name": "Nom",
+    "email": "E-mail",
+    "order": "Numéro de commande (optionnel)",
+    "message": "Message",
+    "send": "Send",
+    "success": "Thanks, we'll get back to you soon."
+  },
+  "password": {
+    "owner": "Store owner access",
+    "label": "Password",
+    "enter": "Enter"
+  },
+  "customer": {
+    "account": "My account",
+    "activate_account": "Activer mon compte",
+    "reset_password": "Nouveau mot de passe",
+    "add_address": "Ajouter une adresse",
+    "address1": "Adresse",
+    "address2": "Complément",
+    "addresses": "Adresses",
+    "billing": "Facturation",
+    "cancelled": "Annulée",
+    "city": "Ville",
+    "country": "Pays",
+    "create": "Create account",
+    "date": "Date",
+    "default": "Adresse par défaut",
+    "delete": "Supprimer",
+    "delete_confirm": "Supprimer cette adresse ?",
+    "details": "Mes informations",
+    "email": "Email",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "forgot": "Mot de passe oublié ?",
+    "guest": "Continuer en invité",
+    "login": "Log in",
+    "logout": "Log out",
+    "no_orders": "Tu n'as pas encore passé de commande.",
+    "order": "Commande",
+    "orders": "My orders",
+    "password": "Password",
+    "password_confirm": "Confirmer le mot de passe",
+    "phone": "Téléphone",
+    "product": "Produit",
+    "reset_sent": "Un e-mail de réinitialisation vient d'être envoyé.",
+    "reset_title": "Réinitialiser le mot de passe",
+    "save": "Enregistrer",
+    "send": "Envoyer",
+    "set_default": "Définir par défaut",
+    "shipping": "Livraison",
+    "sign_in": "Sign in",
+    "status": "Statut",
+    "total": "Total",
+    "zip": "Code postal"
+  },
+  "gift_card": {
+    "title": "Gift card",
+    "code": "Your code",
+    "balance": "Solde restant : {{ balance }}",
+    "expired": "Cette carte cadeau a expiré ou est désactivée.",
+    "apple_wallet": "Ajouter à Apple Wallet"
+  }
+}

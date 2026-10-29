@@ -1,0 +1,17 @@
+{%- comment -%}
+  Shows stars only when a review app fills the standard `reviews.rating` metafield.
+  No rating data = nothing displayed (no invented social proof).
+{%- endcomment -%}
+{%- if product.metafields.reviews.rating.value != blank -%}
+  {%- liquid
+    assign rating_value = product.metafields.reviews.rating.value.rating | default: 0
+    assign rating_max = product.metafields.reviews.rating.value.scale_max | default: 5
+    assign pct = rating_value | divided_by: rating_max | times: 100
+    assign count = product.metafields.reviews.rating_count | default: 0
+  -%}
+  <div class="rating">
+    <span class="rating__stars" style="--pct: {{ pct }}%" aria-hidden="true"></span>
+    <span class="visually-hidden">{{ 'products.rating' | t: rating: rating_value, max: rating_max }}</span>
+    <span>{{ rating_value | round: 1 }}{% if count > 0 %} ({{ count }}){% endif %}</span>
+  </div>
+{%- endif -%}

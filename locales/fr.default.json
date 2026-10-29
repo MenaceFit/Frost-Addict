@@ -1,0 +1,184 @@
+{
+  "accessibility": {
+    "skip_to_content": "Aller au contenu"
+  },
+  "general": {
+    "404_title": "Cette page a fondu.",
+    "announcements": "Annonces",
+    "breadcrumbs": "Fil d'Ariane",
+    "close": "Fermer",
+    "error": "Une erreur est survenue. Réessaie.",
+    "home": "Accueil",
+    "meta": {
+      "page": "Page {{ page }}",
+      "tags": "Tag « {{ tags }} »"
+    },
+    "next": "Suivant",
+    "pagination": "Pagination",
+    "pause": "Pause",
+    "previous": "Précédent",
+    "slide": "Afficher le visuel {{ n }}"
+  },
+  "header": {
+    "account": "Compte",
+    "country": "Pays / devise",
+    "main_nav": "Navigation principale",
+    "menu": "Menu",
+    "see_all": "Tout voir"
+  },
+  "search": {
+    "title": "Recherche",
+    "placeholder": "Doudoune, sneakers, bonnet…",
+    "submit": "Rechercher",
+    "suggestions": "Suggestions",
+    "products": "Produits",
+    "see_all": "Voir tous les résultats pour « {{ terms }} »",
+    "no_results": "Aucun résultat pour « {{ terms }} ».",
+    "results_count": {
+      "one": "{{ count }} résultat pour « {{ terms }} »",
+      "other": "{{ count }} résultats pour « {{ terms }} »"
+    }
+  },
+  "cart": {
+    "title": "Panier",
+    "added": "Ajouté au panier",
+    "checkout": "Commander",
+    "continue": "Continuer mes achats",
+    "decrease": "Retirer un {{ title }}",
+    "increase": "Ajouter un {{ title }}",
+    "decrease_simple": "Diminuer la quantité",
+    "increase_simple": "Augmenter la quantité",
+    "empty": "Ton panier est vide",
+    "login_html": "Tu as un compte ? <a href=\"{{ link }}\">Connecte-toi</a> pour retrouver ton panier.",
+    "note": "Instructions pour la commande",
+    "quantity": "Quantité",
+    "remove": "Retirer",
+    "subtotal": "Sous-total",
+    "taxes_shipping": "Taxes incluses. Frais de livraison calculés à l'étape suivante.",
+    "update": "Mettre à jour",
+    "view_cart": "Voir le panier"
+  },
+  "collections": {
+    "apply": "Appliquer",
+    "clear_all": "Tout effacer",
+    "empty": "Aucun produit ne correspond pour l'instant.",
+    "filters": "Filtres",
+    "from": "De",
+    "to": "À",
+    "sort_by": "Trier par",
+    "product_count": {
+      "one": "{{ count }} produit",
+      "other": "{{ count }} produits"
+    }
+  },
+  "products": {
+    "add_to_cart": "Ajouter au panier",
+    "choose_option": "Choisir : {{ option }}",
+    "see_options": "Voir les options",
+    "colors_available": {
+      "one": "{{ count }} couleur",
+      "other": "{{ count }} couleurs disponibles"
+    },
+    "demo_badge": "Démo",
+    "demo_notice": "Aperçu : cette collection est vide pour l'instant. Les cartes « Démo » disparaîtront dès que des produits y seront ajoutés.",
+    "demo_notice_spotlight": "Aperçu : choisis les produits de chaque coloris dans l'éditeur de thème pour remplacer les cartes « Démo ».",
+    "description": "Description",
+    "from": "À partir de",
+    "in_stock": "En stock, prêt à être expédié",
+    "low_stock": {
+      "one": "Plus que {{ count }} en stock",
+      "other": "Plus que {{ count }} en stock"
+    },
+    "low_stock_template": "Plus que __n__ en stock",
+    "new_badge": "Nouveau",
+    "out_of_stock": "Épuisé pour le moment",
+    "rating": "Note : {{ rating }} sur {{ max }}",
+    "regular_price": "Prix normal",
+    "sale_price": "Prix réduit",
+    "save_pct": "Économisez {{ pct }} %",
+    "shipping_link": "Frais de livraison",
+    "size_guide": "Guide des tailles",
+    "sold_out": "Épuisé",
+    "tax_excluded": "Hors taxes",
+    "tax_included": "TVA incluse",
+    "unavailable": "Indisponible",
+    "zoom": "Agrandir l'image"
+  },
+  "reviews": {
+    "verified": "Achat vérifié",
+    "empty_title": "Section prête pour vos avis clients",
+    "empty_text": "Installez une application d'avis (ex. Judge.me) et ajoutez son bloc ici, ou saisissez de vrais avis. Cette section reste masquée sur la boutique tant qu'elle est vide."
+  },
+  "newsletter": {
+    "email": "Ton adresse e-mail",
+    "success": "C'est noté, merci !",
+    "notify": "Me prévenir",
+    "consent": "En t'inscrivant, tu acceptes de recevoir nos e-mails. Désinscription en un clic."
+  },
+  "footer": {
+    "payment": "Moyens de paiement acceptés"
+  },
+  "contact": {
+    "name": "Nom",
+    "email": "E-mail",
+    "order": "Numéro de commande (optionnel)",
+    "message": "Message",
+    "send": "Envoyer",
+    "success": "Merci, on te répond au plus vite."
+  },
+  "password": {
+    "owner": "Accès propriétaire",
+    "label": "Mot de passe",
+    "enter": "Entrer"
+  },
+  "customer": {
+    "account": "Mon compte",
+    "activate_account": "Activer mon compte",
+    "reset_password": "Nouveau mot de passe",
+    "add_address": "Ajouter une adresse",
+    "address1": "Adresse",
+    "address2": "Complément",
+    "addresses": "Adresses",
+    "billing": "Facturation",
+    "cancelled": "Annulée",
+    "city": "Ville",
+    "country": "Pays",
+    "create": "Créer un compte",
+    "date": "Date",
+    "default": "Adresse par défaut",
+    "delete": "Supprimer",
+    "delete_confirm": "Supprimer cette adresse ?",
+    "details": "Mes informations",
+    "email": "E-mail",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "forgot": "Mot de passe oublié ?",
+    "guest": "Continuer en invité",
+    "login": "Connexion",
+    "logout": "Se déconnecter",
+    "no_orders": "Tu n'as pas encore passé de commande.",
+    "order": "Commande",
+    "orders": "Mes commandes",
+    "password": "Mot de passe",
+    "password_confirm": "Confirmer le mot de passe",
+    "phone": "Téléphone",
+    "product": "Produit",
+    "reset_sent": "Un e-mail de réinitialisation vient d'être envoyé.",
+    "reset_title": "Réinitialiser le mot de passe",
+    "save": "Enregistrer",
+    "send": "Envoyer",
+    "set_default": "Définir par défaut",
+    "shipping": "Livraison",
+    "sign_in": "Se connecter",
+    "status": "Statut",
+    "total": "Total",
+    "zip": "Code postal"
+  },
+  "gift_card": {
+    "title": "Carte cadeau",
+    "code": "Ton code",
+    "balance": "Solde restant : {{ balance }}",
+    "expired": "Cette carte cadeau a expiré ou est désactivée.",
+    "apple_wallet": "Ajouter à Apple Wallet"
+  }
+}

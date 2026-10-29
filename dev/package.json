@@ -1,0 +1,12 @@
+{
+  "name": "frost-district-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "node preview/server.mjs",
+    "screens": "node preview/screens.mjs"
+  },
+  "devDependencies": {
+    "liquidjs": "10.30.1"
+  }
+}

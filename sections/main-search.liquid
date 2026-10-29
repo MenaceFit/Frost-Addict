@@ -1,0 +1,38 @@
+<section class="section section--tight">
+  <div class="page-width">
+    <h1 class="page-title h-display">{{ 'search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-form" style="margin-bottom:32px">
+      {% render 'icon', name: 'search' %}
+      <label class="visually-hidden" for="SearchPageInput">{{ 'search.placeholder' | t }}</label>
+      <input id="SearchPageInput" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button type="submit" class="btn btn--accent btn--sm">{{ 'search.submit' | t }}</button>
+    </form>
+    {%- if search.performed -%}
+      {%- paginate search.results by 24 -%}
+        <div class="toolbar"><p class="toolbar__count" style="margin:0">{{ 'search.results_count' | t: count: search.results_count, terms: search.terms }}</p></div>
+        {%- assign clear_url = routes.search_url | append: '?q=' | append: search.terms -%}
+        {% render 'active-filters', results: search, clear_url: clear_url %}
+        {%- if search.results_count > 0 -%}
+          <div class="product-grid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card', product: item, index: forloop.index0 %}
+              {%- else -%}
+                <a class="card" href="{{ item.url }}" style="padding:20px;border-radius:var(--radius-card);background:var(--c-soft)">
+                  <p class="card__vendor">{{ item.object_type }}</p><h2 class="card__title">{{ item.title | escape }}</h2>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          {% render 'pagination', paginate: paginate %}
+        {%- else -%}
+          <div class="empty-state"><p>{{ 'search.no_results' | t: terms: search.terms }}</p><a class="btn btn--accent" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a></div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Recherche" }
+{% endschema %}

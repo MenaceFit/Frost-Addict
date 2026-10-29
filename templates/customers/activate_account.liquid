@@ -1,0 +1,11 @@
+<section class="section section--tight">
+  <div class="page-width" style="max-width:520px">
+    <h1 class="page-title h-display">{{ 'customer.activate_account' | t }}</h1>
+    {%- form 'activate_customer_password', class: 'form' -%}
+      {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+      <label>{{ 'customer.password' | t }}<input class="field-input" type="password" name="customer[password]" autocomplete="new-password" required></label>
+      <label>{{ 'customer.password_confirm' | t }}<input class="field-input" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></label>
+      <button class="btn btn--accent btn--block" type="submit">{{ 'customer.save' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>

@@ -1,0 +1,70 @@
+<section class="section{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading %}
+    <div class="cat-grid{% if section.settings.mobile_slider %} cat-grid--slider{% endif %}" style="--cols: {{ section.settings.columns }}; --ratio: {{ section.settings.ratio }}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign link = block.settings.link
+          assign img = block.settings.image
+          if link == blank and block.settings.collection != blank
+            assign link = block.settings.collection.url
+          endif
+          if img == blank and block.settings.collection.featured_image
+            assign img = block.settings.collection.featured_image
+          endif
+          assign title = block.settings.title | default: block.settings.collection.title
+          assign focal_style = 'object-position: ' | append: img.presentation.focal_point
+          assign img_alt = img.alt | default: title
+        -%}
+        <a class="cat-card" href="{{ link | default: routes.collections_url }}" data-reveal style="--delay: {{ forloop.index0 | times: 0.08 }}s" {{ block.shopify_attributes }}>
+          <div class="cat-card__media">
+            {%- if img -%}
+              {{ img | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '360, 540, 720, 1000', sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 72vw', alt: img_alt, style: focal_style }}
+            {%- else -%}
+              {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="cat-card__body">
+            <h3 class="cat-card__title h-italic">{{ title | escape }}</h3>
+            {%- if section.settings.show_count and block.settings.collection.products_count > 0 -%}
+              <p class="cat-card__count">{{ 'collections.product_count' | t: count: block.settings.collection.products_count }}</p>
+            {%- endif -%}
+            <span class="round-arrow" aria-hidden="true">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Cartes de catégories",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Ancre (pour liens #)", "info": "Ex. : marques → lien « /#marques »" },
+    { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "Sélection" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Nos collections" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre" },
+    { "type": "range", "id": "columns", "min": 2, "max": 4, "step": 1, "label": "Colonnes (ordinateur)", "default": 4 },
+    {
+      "type": "select", "id": "ratio", "label": "Format des images", "default": "4 / 5",
+      "options": [ { "value": "1", "label": "Carré" }, { "value": "4 / 5", "label": "Portrait" }, { "value": "3 / 4", "label": "Portrait haut" } ]
+    },
+    { "type": "checkbox", "id": "mobile_slider", "label": "Carrousel tactile sur mobile", "default": false },
+    { "type": "checkbox", "id": "show_count", "label": "Afficher le nombre de produits", "default": false },
+    { "type": "select", "id": "background", "label": "Fond", "default": "white", "options": [ { "value": "white", "label": "Blanc" }, { "value": "soft", "label": "Gris clair" } ] }
+  ],
+  "blocks": [
+    {
+      "type": "card", "name": "Catégorie",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Titre (sinon : nom de la collection)" },
+        { "type": "image_picker", "id": "image", "label": "Photo (sinon : image de la collection)" },
+        { "type": "url", "id": "link", "label": "Lien personnalisé (optionnel)" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Cartes de catégories", "blocks": [ { "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" } ] } ]
+}
+{% endschema %}

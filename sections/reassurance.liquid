@@ -1,0 +1,43 @@
+{%- if section.blocks.size > 0 -%}
+<div class="reassurance{% if section.settings.style == 'light' %} reassurance--light{% endif %}" {{ section.shopify_attributes }}>
+  <ul class="page-width reassurance__list" style="--cols: {{ section.blocks.size }}">
+    {%- for block in section.blocks -%}
+      <li class="reassurance__item" {{ block.shopify_attributes }}>
+        {% render 'icon', name: block.settings.icon %}
+        <div>
+          <p class="reassurance__title">{{ block.settings.title | escape }}</p>
+          {%- if block.settings.text != blank -%}<p class="reassurance__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Réassurance",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "select", "id": "style", "label": "Style", "default": "dark", "options": [ { "value": "dark", "label": "Noir" }, { "value": "light", "label": "Gris clair" } ] },
+    { "type": "paragraph", "content": "N'indiquez que des engagements réels (délais, retours, authenticité vérifiable)." }
+  ],
+  "blocks": [
+    {
+      "type": "item", "name": "Engagement",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icône", "default": "shield",
+          "options": [
+            { "value": "shield", "label": "Bouclier" }, { "value": "lock", "label": "Cadenas" }, { "value": "truck", "label": "Livraison" },
+            { "value": "return", "label": "Retour" }, { "value": "badge-check", "label": "Certifié" }, { "value": "chat", "label": "Message" },
+            { "value": "snow", "label": "Flocon" }, { "value": "globe", "label": "Monde" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Paiement sécurisé" },
+        { "type": "text", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Réassurance", "blocks": [ { "type": "item" }, { "type": "item" } ] } ]
+}
+{% endschema %}

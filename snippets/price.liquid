@@ -1,0 +1,29 @@
+{%- comment -%}
+  Renders a price. Pass `product` (card: "à partir de" when prices vary)
+  or `variant` (product page). Compare-at prices are shown only when real.
+{%- endcomment -%}
+{%- liquid
+  if variant
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+    assign varies = false
+  else
+    assign price = product.price
+    assign compare = product.compare_at_price
+    assign varies = product.price_varies
+  endif
+  assign on_sale = false
+  if compare > price
+    assign on_sale = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--on-sale{% endif %}{% if size == 'lg' %} price--lg{% endif %}" data-price>
+  {%- if varies -%}<span class="price__from">{{ 'products.from' | t }}</span>{%- endif -%}
+  <span class="price__current">
+    <span class="visually-hidden">{% if on_sale %}{{ 'products.sale_price' | t }}{% else %}{{ 'products.regular_price' | t }}{% endif %}</span>
+    {{ price | money }}
+  </span>
+  {%- if on_sale -%}
+    <s class="price__compare"><span class="visually-hidden">{{ 'products.regular_price' | t }}</span>{{ compare | money }}</s>
+  {%- endif -%}
+</div>

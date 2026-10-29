@@ -1,0 +1,100 @@
+{%- liquid
+  assign hero_image = collection.image
+  if section.settings.show_image == false
+    assign hero_image = nil
+  endif
+  assign has_filters = false
+  if section.settings.enable_filtering and collection.filters.size > 0
+    assign has_filters = true
+  endif
+-%}
+<div class="collection-hero{% if hero_image %} collection-hero--image{% endif %}">
+  {%- if hero_image -%}
+    <div class="collection-hero__media">{{ hero_image | image_url: width: 2000 | image_tag: widths: '750, 1200, 2000', sizes: '100vw', alt: '' }}</div>
+  {%- endif -%}
+  <div class="page-width collection-hero__inner">
+    <nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs' | t }}">
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span aria-hidden="true">/</span><span>{{ collection.title | escape }}</span>
+    </nav>
+    <h1 class="collection-hero__title h-display">{{ collection.title | escape }}</h1>
+    {%- if section.settings.show_description and collection.description != blank -%}
+      <div class="collection-hero__desc rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+<section class="section section--tight" data-collection>
+  <div class="page-width">
+    {%- paginate collection.products by section.settings.per_page -%}
+      <div class="collection-layout{% unless has_filters %} collection-layout--no-filters{% endunless %}">
+        {%- if has_filters -%}
+          <aside class="facets-desktop" aria-label="{{ 'collections.filters' | t }}">
+            {% render 'facets', results: collection, url: collection.url %}
+          </aside>
+        {%- endif -%}
+        <div>
+          <div class="toolbar">
+            <p class="toolbar__count" style="margin:0">{{ 'collections.product_count' | t: count: collection.products_count }}</p>
+            <div class="toolbar__right">
+              {%- if has_filters -%}
+                <button type="button" class="btn btn--outline btn--sm facets-toggle" data-filters-open aria-controls="FiltersDrawer">{% render 'icon', name: 'filter' %} {{ 'collections.filters' | t }}</button>
+              {%- endif -%}
+              {%- if section.settings.enable_sorting -%}
+                <label class="visually-hidden" for="SortBy">{{ 'collections.sort_by' | t }}</label>
+                <select id="SortBy" class="select" data-sort>
+                  {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                  {%- for option in collection.sort_options -%}
+                    <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name | escape }}</option>
+                  {%- endfor -%}
+                </select>
+              {%- endif -%}
+            </div>
+          </div>
+          {% render 'active-filters', results: collection, clear_url: collection.url %}
+          {%- if collection.products.size > 0 -%}
+            <div class="product-grid" style="--cols: {{ section.settings.columns }}">
+              {%- for product in collection.products -%}
+                {% render 'product-card', product: product, index: forloop.index0 %}
+              {%- endfor -%}
+            </div>
+            {% render 'pagination', paginate: paginate %}
+          {%- else -%}
+            <div class="empty-state">
+              <p class="h-italic" style="font-size:var(--fs-lg)">{{ 'collections.empty' | t }}</p>
+              {%- if collection.filters.size > 0 -%}<a class="btn btn--outline" href="{{ collection.url }}">{{ 'collections.clear_all' | t }}</a>{%- endif -%}
+              <a class="btn btn--accent" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{%- if has_filters -%}
+  <div class="drawer drawer--left" id="FiltersDrawer" data-filters-drawer aria-hidden="true">
+    <div class="drawer__overlay" data-drawer-close></div>
+    <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="{{ 'collections.filters' | t }}" tabindex="-1">
+      <div class="drawer__head">
+        <h2 class="drawer__title h-italic">{{ 'collections.filters' | t }}</h2>
+        <button type="button" class="icon-btn" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      </div>
+      <div class="drawer__body">{% render 'facets', results: collection, url: collection.url %}</div>
+      <div class="drawer__foot"><a href="{{ collection.url }}" class="btn btn--outline btn--block">{{ 'collections.clear_all' | t }}</a></div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "range", "id": "per_page", "min": 8, "max": 48, "step": 4, "label": "Produits par page", "default": 24 },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Produits par ligne (ordinateur)", "default": 4 },
+    { "type": "checkbox", "id": "show_image", "label": "Image de la collection en bannière", "default": true },
+    { "type": "checkbox", "id": "show_description", "label": "Afficher la description", "default": true },
+    { "type": "checkbox", "id": "enable_filtering", "label": "Filtres", "default": true, "info": "Configurez les filtres avec l'app Search & Discovery." },
+    { "type": "checkbox", "id": "enable_sorting", "label": "Tri", "default": true }
+  ]
+}
+{% endschema %}

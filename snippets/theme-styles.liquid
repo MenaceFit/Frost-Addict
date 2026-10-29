@@ -1,0 +1,43 @@
+{%- comment -%}
+  Design tokens. Every color and font in frost.css reads from these variables,
+  so the theme editor settings drive the whole store.
+{%- endcomment -%}
+{%- liquid
+  assign heading_font = settings.type_heading_font
+  assign body_font = settings.type_body_font
+  assign heading_italic = heading_font | font_modify: 'style', 'italic'
+  assign body_bold = body_font | font_modify: 'weight', 'bold'
+  assign body_italic = body_font | font_modify: 'style', 'italic'
+  assign body_bold_italic = body_bold | font_modify: 'style', 'italic'
+-%}
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ heading_italic | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+  {{ body_bold | font_face: font_display: 'swap' }}
+  {{ body_italic | font_face: font_display: 'swap' }}
+  {{ body_bold_italic | font_face: font_display: 'swap' }}
+
+  :root {
+    --c-accent: {{ settings.color_accent }};
+    --c-accent-ink: {{ settings.color_accent_text }};
+    --c-ink: {{ settings.color_ink }};
+    --c-bg: {{ settings.color_background }};
+    --c-soft: {{ settings.color_soft }};
+    --c-line: {{ settings.color_line }};
+    --c-ice: {{ settings.color_ice }};
+    --c-sale: {{ settings.color_sale }};
+    --c-muted: {{ settings.color_ink | color_mix: settings.color_background, 62 }};
+
+    --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-heading-weight: {{ heading_font.weight }};
+    --font-heading-style: {% if settings.heading_italic %}italic{% else %}normal{% endif %};
+    --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    --font-body-weight: {{ body_font.weight }};
+    --font-body-bold: {{ body_bold.weight | default: 700 }};
+
+    --radius-card: {{ settings.radius_card }}px;
+    --radius-btn: {% if settings.button_shape == 'pill' %}999px{% else %}{{ settings.radius_card | divided_by: 2 }}px{% endif %};
+    --page-width: {{ settings.page_width }}px;
+  }
+</style>

@@ -1,0 +1,15 @@
+<section class="section section--tight">
+  <div class="page-width" style="max-width:520px">
+    <h1 class="page-title h-display">{{ 'customer.create' | t }}</h1>
+    {%- form 'create_customer', class: 'form' -%}
+      {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+      <div class="form__row">
+        <label>{{ 'customer.first_name' | t }}<input class="field-input" type="text" name="customer[first_name]" autocomplete="given-name"></label>
+        <label>{{ 'customer.last_name' | t }}<input class="field-input" type="text" name="customer[last_name]" autocomplete="family-name"></label>
+      </div>
+      <label>{{ 'customer.email' | t }}<input class="field-input" type="email" name="customer[email]" autocomplete="email" required></label>
+      <label>{{ 'customer.password' | t }}<input class="field-input" type="password" name="customer[password]" autocomplete="new-password" required></label>
+      <button class="btn btn--accent btn--block" type="submit">{{ 'customer.create' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>

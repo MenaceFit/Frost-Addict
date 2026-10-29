@@ -1,0 +1,39 @@
+{
+  "current": {
+    "logo_width": 130,
+    "logo_text": "FROST",
+    "logo_text_sub": "DISTRICT",
+    "color_accent": "#31C9CC",
+    "color_accent_text": "#101114",
+    "color_ink": "#101114",
+    "color_background": "#FFFFFF",
+    "color_soft": "#F5F6F7",
+    "color_line": "#D9DDE1",
+    "color_ice": "#B9D8ED",
+    "color_sale": "#0E8F92",
+    "type_heading_font": "inter_n9",
+    "heading_italic": true,
+    "type_body_font": "inter_n4",
+    "page_width": 1440,
+    "radius_card": 18,
+    "button_shape": "pill",
+    "animations": true,
+    "card_show_vendor": true,
+    "card_show_second_image": true,
+    "card_show_swatches": true,
+    "card_quick_add": true,
+    "card_show_rating": true,
+    "card_sale_badge": "vertical",
+    "new_tag": "nouveau",
+    "card_image_ratio": "square",
+    "card_image_fit": "contain",
+    "cart_type": "drawer",
+    "cart_reassurance": "Paiement 100 % sécurisé",
+    "share_image": "shopify://shop_images/fd-hero-1.jpg"
+  },
+  "presets": {
+    "Default": {
+      "color_accent": "#31C9CC"
+    }
+  }
+}

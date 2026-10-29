@@ -1,0 +1,36 @@
+<section class="section newsletter" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
+  {%- if section.settings.image -%}
+    <div class="newsletter__media">{{ section.settings.image | image_url: width: 2000 | image_tag: loading: 'lazy', widths: '750, 1200, 2000', sizes: '100vw', alt: '' }}</div>
+  {%- endif -%}
+  <div class="page-width">
+    <div class="newsletter__inner">
+      {%- if section.settings.heading != blank -%}<h2 class="h-display" style="font-size:clamp(2rem,5vw,3.75rem)" data-reveal>{{ section.settings.heading | escape }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p data-reveal style="--delay:.06s;color:rgba(255,255,255,.85)">{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- form 'customer', class: 'newsletter__form', id: 'NewsletterForm' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="NewsletterEmail-{{ section.id }}">{{ 'newsletter.email' | t }}</label>
+        <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" required autocomplete="email" placeholder="{{ 'newsletter.email' | t }}">
+        <button class="btn btn--accent" type="submit">{{ section.settings.button_label | escape }}</button>
+        {%- if form.posted_successfully? -%}
+          <p class="form-message form-message--success" role="status" style="flex-basis:100%">{{ 'newsletter.success' | t }}</p>
+        {%- elsif form.errors -%}
+          <p class="form-message form-message--error" role="alert" style="flex-basis:100%">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+      {%- endform -%}
+      <p style="font-size:var(--fs-xs);color:rgba(255,255,255,.6)">{{ 'newsletter.consent' | t }}</p>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Ancre (pour liens #)" },
+    { "type": "image_picker", "id": "image", "label": "Photo de fond (optionnelle)" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Reste dans le froid" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Les nouveaux drops et les restocks, avant tout le monde." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Je m'inscris" }
+  ],
+  "presets": [ { "name": "Newsletter" } ]
+}
+{% endschema %}

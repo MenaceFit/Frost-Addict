@@ -1,0 +1,14 @@
+<article class="section section--tight">
+  <div class="page-width page-width--narrow">
+    <p class="muted" style="font-size:var(--fs-sm)">{{ article.published_at | time_tag: format: 'date' }}</p>
+    <h1 class="page-title h-display">{{ article.title | escape }}</h1>
+    {%- if article.image -%}
+      <div style="border-radius:var(--radius-card);overflow:hidden;margin-bottom:32px">{{ article.image | image_url: width: 1600 | image_tag: widths: '600, 1000, 1600', sizes: '(min-width: 900px) 880px, 100vw' }}</div>
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+    <p style="margin-top:40px"><a class="link-arrow" href="{{ blog.url }}">{% render 'icon', name: 'arrow-left' %} {{ blog.title | escape }}</a></p>
+  </div>
+</article>
+{% schema %}
+{ "name": "Article" }
+{% endschema %}

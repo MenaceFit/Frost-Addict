@@ -1,0 +1,38 @@
+{%- comment -%}
+  Product grid or carousel, shared by product sections.
+  Params: collection, limit, layout ('carousel' | 'grid'), columns, demo_count, demo_vendor, demo_titles (comma list), id
+{%- endcomment -%}
+{%- liquid
+  assign has_products = false
+  if collection != blank and collection.products_count > 0
+    assign has_products = true
+  endif
+  assign demo_list = demo_titles | split: ','
+-%}
+{%- if layout == 'carousel' -%}
+  <div class="carousel" data-carousel>
+    <div class="carousel__track" style="--cols: {{ columns }}" data-carousel-track tabindex="0" role="region" aria-label="{{ label | escape }}">
+{%- else -%}
+  <div class="product-grid" style="--cols: {{ columns }}">
+{%- endif -%}
+    {%- if has_products -%}
+      {%- for product in collection.products limit: limit -%}
+        {% render 'product-card', product: product, index: forloop.index0 %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..demo_count) -%}
+        {%- assign t_index = i | minus: 1 -%}
+        {% render 'product-card', demo: true, index: t_index, demo_title: demo_list[t_index], demo_vendor: demo_vendor %}
+      {%- endfor -%}
+    {%- endif -%}
+{%- if layout == 'carousel' -%}
+    </div>
+    <div class="carousel__nav">
+      <button type="button" class="carousel__btn" data-carousel-prev aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+      <div class="carousel__progress" aria-hidden="true"><span data-carousel-progress></span></div>
+      <button type="button" class="carousel__btn" data-carousel-next aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+    </div>
+  </div>
+{%- else -%}
+  </div>
+{%- endif -%}

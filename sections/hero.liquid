@@ -1,0 +1,120 @@
+{%- assign slides = section.blocks | where: 'type', 'slide' -%}
+<section class="hero hero--{{ section.settings.height }}" data-hero
+  data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.interval | times: 1000 }}"
+  {% if section.settings.parallax %}data-parallax{% endif %}
+  aria-roledescription="carousel" aria-label="{{ section.settings.label | escape }}" {{ section.shopify_attributes }}>
+  <div class="hero__track">
+    {%- for block in slides -%}
+      {%- liquid
+        assign title_tag = 'h2'
+        if forloop.first and section.index == 1
+          assign title_tag = 'h1'
+        endif
+        if forloop.first
+          assign img_loading = 'eager'
+          assign img_priority = 'high'
+        else
+          assign img_loading = 'lazy'
+          assign img_priority = 'auto'
+        endif
+        assign overlay = block.settings.overlay | divided_by: 100.0
+        assign focal_style = 'object-position: ' | append: block.settings.image.presentation.focal_point
+      -%}
+      <div class="hero__slide hero__slide--{{ block.settings.align }}{% if forloop.first %} is-active{% endif %}"
+        role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} / {{ slides.size }}"
+        style="--overlay: {{ overlay }}" data-slide {{ block.shopify_attributes }}{% unless forloop.first %} aria-hidden="true"{% endunless %}>
+        <div class="hero__media" data-parallax-target>
+          {%- if block.settings.image -%}
+            {%- if block.settings.image_mobile -%}
+              <picture>
+                <source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 750 }} 750w, {{ block.settings.image_mobile | image_url: width: 1100 }} 1100w" sizes="100vw">
+                {{ block.settings.image | image_url: width: 2400 | image_tag: loading: img_loading, fetchpriority: img_priority, widths: '750, 1100, 1500, 1800, 2400', sizes: '100vw', style: focal_style }}
+              </picture>
+            {%- else -%}
+              {{ block.settings.image | image_url: width: 2400 | image_tag: loading: img_loading, fetchpriority: img_priority, widths: '750, 1100, 1500, 1800, 2400', sizes: '100vw', style: focal_style }}
+            {%- endif -%}
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        <div class="page-width hero__content">
+          <div class="hero__inner">
+            {%- if block.settings.eyebrow != blank -%}<p class="hero__eyebrow">{{ block.settings.eyebrow | escape }}</p>{%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              <{{ title_tag }} class="hero__title h-display">{{ block.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}<p class="hero__text">{{ block.settings.text | escape }}</p>{%- endif -%}
+            {%- if block.settings.button_label != blank or block.settings.button2_label != blank -%}
+              <div class="hero__buttons">
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ block.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--accent">{{ block.settings.button_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
+                {%- endif -%}
+                {%- if block.settings.button2_label != blank -%}
+                  <a href="{{ block.settings.button2_link | default: routes.all_products_collection_url }}" class="btn btn--ghost-light">{{ block.settings.button2_label | escape }}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if slides.size > 1 -%}
+    <div class="page-width hero__controls">
+      <div class="hero__dots">
+        {%- for block in slides -%}
+          <button type="button" class="hero__dot" data-hero-dot="{{ forloop.index0 }}" aria-label="{{ 'general.slide' | t: n: forloop.index }}"{% if forloop.first %} aria-current="true"{% endif %}></button>
+        {%- endfor -%}
+        {%- if section.settings.autoplay -%}
+          <button type="button" class="hero__pause" data-hero-pause aria-pressed="false" style="margin-left:12px">{{ 'general.pause' | t }}</button>
+        {%- endif -%}
+      </div>
+      <div class="hero__arrows">
+        <button type="button" class="hero__arrow" data-hero-prev aria-label="{{ 'general.previous' | t }}">{% render 'icon', name: 'arrow-left' %}</button>
+        <button type="button" class="hero__arrow" data-hero-next aria-label="{{ 'general.next' | t }}">{% render 'icon', name: 'arrow-right' %}</button>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero hiver",
+  "class": "shopify-section--hero",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "label", "label": "Nom accessible du carrousel", "default": "Campagne hiver" },
+    {
+      "type": "select", "id": "height", "label": "Hauteur", "default": "medium",
+      "options": [ { "value": "medium", "label": "Moyenne" }, { "value": "large", "label": "Grande" } ]
+    },
+    { "type": "checkbox", "id": "autoplay", "label": "Défilement automatique", "default": false },
+    { "type": "range", "id": "interval", "min": 5, "max": 12, "step": 1, "unit": "s", "label": "Durée par visuel", "default": 7 },
+    { "type": "checkbox", "id": "parallax", "label": "Léger effet de parallaxe", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Visuel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo (panoramique, 2400 px conseillé)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Photo mobile (optionnelle, format portrait)" },
+        { "type": "range", "id": "overlay", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Assombrissement", "default": 35 },
+        {
+          "type": "select", "id": "align", "label": "Position du texte", "default": "left",
+          "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" } ]
+        },
+        { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "WINTER DROP" },
+        { "type": "textarea", "id": "heading", "label": "Titre", "default": "Ton style,\nmême en hiver." },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Doudounes, sneakers et accessoires pour composer ton outfit de saison." },
+        { "type": "text", "id": "button_label", "label": "Bouton principal", "default": "Découvrir la collection" },
+        { "type": "url", "id": "button_link", "label": "Lien du bouton principal" },
+        { "type": "text", "id": "button2_label", "label": "Bouton secondaire", "default": "Voir les nouveautés" },
+        { "type": "url", "id": "button2_link", "label": "Lien du bouton secondaire" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Hero hiver", "blocks": [ { "type": "slide" } ] } ]
+}
+{% endschema %}

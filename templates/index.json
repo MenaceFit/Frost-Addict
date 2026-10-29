@@ -1,0 +1,430 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "s1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/fd-hero-2.jpg",
+            "overlay": 35,
+            "align": "left",
+            "eyebrow": "❄ WINTER DROP",
+            "heading": "Ton style,\nmême en hiver.",
+            "text": "Doudounes, sneakers et accessoires pour composer ton outfit de saison.",
+            "button_label": "Découvrir la collection",
+            "button_link": "shopify://collections/doudounes",
+            "button2_label": "Voir les nouveautés",
+            "button2_link": "shopify://collections/nouveautes"
+          }
+        },
+        "s2": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/fd-editorial.jpg",
+            "overlay": 40,
+            "align": "left",
+            "eyebrow": "SNEAKERS",
+            "heading": "Prêt pour\nla neige.",
+            "text": "Les paires de la saison, du quotidien aux silhouettes iconiques.",
+            "button_label": "Voir les sneakers",
+            "button_link": "shopify://collections/sneakers",
+            "button2_label": "",
+            "button2_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2"
+      ],
+      "settings": {
+        "label": "Campagne hiver",
+        "height": "medium",
+        "autoplay": false,
+        "interval": 7,
+        "parallax": true
+      }
+    },
+    "reassurance": {
+      "type": "reassurance",
+      "blocks": {
+        "r1": {
+          "type": "item",
+          "settings": {
+            "icon": "badge-check",
+            "title": "Pièces authentiques",
+            "text": ""
+          }
+        },
+        "r2": {
+          "type": "item",
+          "settings": {
+            "icon": "lock",
+            "title": "Paiement sécurisé",
+            "text": "Transactions chiffrées"
+          }
+        },
+        "r3": {
+          "type": "item",
+          "settings": {
+            "icon": "return",
+            "title": "14 jours pour changer d'avis",
+            "text": "Droit de rétractation"
+          }
+        },
+        "r4": {
+          "type": "item",
+          "settings": {
+            "icon": "chat",
+            "title": "Service client",
+            "text": "Réponse par e-mail"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "style": "dark"
+      }
+    },
+    "brands": {
+      "type": "brand-marquee",
+      "blocks": {
+        "b1": {
+          "type": "brand",
+          "settings": {
+            "name": "Moncler",
+            "link": "/collections/vendors?q=Moncler"
+          }
+        },
+        "b2": {
+          "type": "brand",
+          "settings": {
+            "name": "The North Face",
+            "link": "/collections/vendors?q=The+North+Face"
+          }
+        },
+        "b3": {
+          "type": "brand",
+          "settings": {
+            "name": "Canada Goose",
+            "link": "shopify://collections/canada-goose"
+          }
+        },
+        "b4": {
+          "type": "brand",
+          "settings": {
+            "name": "Stone Island",
+            "link": "shopify://collections/stone-island"
+          }
+        },
+        "b5": {
+          "type": "brand",
+          "settings": {
+            "name": "Nike",
+            "link": "/collections/vendors?q=Nike"
+          }
+        },
+        "b6": {
+          "type": "brand",
+          "settings": {
+            "name": "Ralph Lauren",
+            "link": "/collections/vendors?q=Ralph+Lauren"
+          }
+        },
+        "b7": {
+          "type": "brand",
+          "settings": {
+            "name": "C.P. Company",
+            "link": "/collections/vendors?q=C.P.+Company"
+          }
+        },
+        "b8": {
+          "type": "brand",
+          "settings": {
+            "name": "Burberry",
+            "link": "shopify://collections/burberry"
+          }
+        },
+        "b9": {
+          "type": "brand",
+          "settings": {
+            "name": "Dior",
+            "link": "/collections/vendors?q=Dior"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9"
+      ],
+      "settings": {
+        "label": "Nos marques",
+        "speed": 45
+      }
+    },
+    "categories": {
+      "type": "category-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "collection": "sneakers",
+            "title": "Nos sneakers",
+            "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "collection": "doudounes",
+            "title": "Nos doudounes",
+            "image": "shopify://shop_images/fd-col-doudounes.jpg"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "collection": "accessoires",
+            "title": "Nos accessoires",
+            "image": "shopify://shop_images/photo-1602737131820-eafac4dd6f5e.jpg"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "Nos marques",
+            "image": "shopify://shop_images/fd-col-marques.jpg",
+            "link": "/collections"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "anchor": "collections",
+        "eyebrow": "Sélection",
+        "heading": "Nos collections",
+        "subheading": "",
+        "columns": 4,
+        "ratio": "4 / 5",
+        "mobile_slider": false,
+        "show_count": false,
+        "background": "white"
+      }
+    },
+    "new": {
+      "type": "featured-collection",
+      "settings": {
+        "anchor": "nouveautes",
+        "eyebrow": "Nouveautés",
+        "heading": "Nos nouveautés",
+        "subheading": "Les dernières pièces à découvrir.",
+        "collection": "nouveautes",
+        "limit": 10,
+        "layout": "carousel",
+        "columns": 4,
+        "view_all_label": "Voir tout",
+        "background": "white",
+        "demo_when_empty": true,
+        "demo_vendor": "",
+        "demo_titles": ""
+      }
+    },
+    "editorial": {
+      "type": "image-banner",
+      "settings": {
+        "image": "shopify://shop_images/fd-hero-1.jpg",
+        "overlay": 40,
+        "align": "left",
+        "eyebrow": "Built for the cold",
+        "heading": "Les doudounes\nde la saison",
+        "text": "Matelassées, techniques ou oversize : la pièce qui fait ton outfit cet hiver.",
+        "button_label": "Voir les doudounes",
+        "button_link": "shopify://collections/doudounes"
+      }
+    },
+    "jackets": {
+      "type": "featured-collection",
+      "settings": {
+        "anchor": "doudounes",
+        "eyebrow": "Doudounes",
+        "heading": "Les doudounes de la saison",
+        "subheading": "Les modèles disponibles en ce moment, photographiés tels quels.",
+        "collection": "doudounes",
+        "limit": 8,
+        "layout": "grid",
+        "columns": 4,
+        "view_all_label": "Toutes les doudounes",
+        "background": "soft",
+        "demo_when_empty": true,
+        "demo_vendor": "",
+        "demo_titles": "Doudoune Moncler,Doudoune Burberry,Veste Moncler maille,Doudoune Canada Goose"
+      }
+    },
+    "b30": {
+      "type": "spotlight",
+      "blocks": {
+        "w1": {
+          "type": "colorway",
+          "settings": {
+            "colorway": "Noir",
+            "demo_title": "Dior B30 Black"
+          }
+        },
+        "w2": {
+          "type": "colorway",
+          "settings": {
+            "colorway": "Beige",
+            "demo_title": "Dior B30 Beige"
+          }
+        },
+        "w3": {
+          "type": "colorway",
+          "settings": {
+            "colorway": "Clair, détails bleus",
+            "demo_title": "Dior B30 Light"
+          }
+        },
+        "w4": {
+          "type": "colorway",
+          "settings": {
+            "colorway": "Bleu marine",
+            "demo_title": "Dior B30 Blue"
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ],
+      "settings": {
+        "anchor": "b30",
+        "eyebrow": "Sneakers",
+        "heading": "Nos B30",
+        "subheading": "Quatre coloris, une silhouette iconique.",
+        "demo_vendor": "Dior",
+        "link_label": "Toutes les sneakers",
+        "link": "shopify://collections/sneakers",
+        "background": "white"
+      }
+    },
+    "bestsellers": {
+      "type": "collection-tabs",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "collection": "best-sellers",
+            "label": "Tout"
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "collection": "canada-goose",
+            "label": "Canada Goose"
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "collection": "burberry",
+            "label": "Burberry"
+          }
+        },
+        "t4": {
+          "type": "tab",
+          "settings": {
+            "collection": "stone-island",
+            "label": "Stone Island"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "anchor": "best-sellers",
+        "eyebrow": "Top",
+        "heading": "Nos best-sellers",
+        "subheading": "",
+        "limit": 8,
+        "columns": 4,
+        "view_all_label": "Voir tout",
+        "background": "white"
+      }
+    },
+    "accessories": {
+      "type": "featured-collection",
+      "settings": {
+        "anchor": "accessoires",
+        "eyebrow": "Accessoires",
+        "heading": "Accessoires d'hiver",
+        "subheading": "Bonnets, écharpes et sacoches pour finir l'outfit.",
+        "collection": "accessoires",
+        "limit": 10,
+        "layout": "carousel",
+        "columns": 4,
+        "view_all_label": "Tous les accessoires",
+        "background": "soft",
+        "demo_when_empty": true,
+        "demo_vendor": "",
+        "demo_titles": "Bonnet en maille,Écharpe,Sacoche,Gants"
+      }
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {
+        "anchor": "avis",
+        "eyebrow": "Avis",
+        "heading": "Ils portent Frost",
+        "subheading": ""
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "image": "shopify://shop_images/fd-newsletter.jpg",
+        "heading": "Reste dans le froid",
+        "text": "Les nouveaux drops et les restocks, avant tout le monde.",
+        "button_label": "Je m'inscris"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "reassurance",
+    "brands",
+    "categories",
+    "new",
+    "editorial",
+    "jackets",
+    "b30",
+    "bestsellers",
+    "accessories",
+    "reviews",
+    "newsletter"
+  ]
+}

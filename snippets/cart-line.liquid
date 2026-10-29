@@ -1,0 +1,40 @@
+{%- comment -%} One cart line, shared by the cart drawer and the cart page. {%- endcomment -%}
+<li class="cart-item" data-line="{{ index }}" data-key="{{ item.key }}">
+  <a href="{{ item.url }}" class="cart-item__media">
+    {%- if item.image -%}
+      {%- assign img_alt = item.image.alt | default: item.product.title -%}
+      {{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: img_alt }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </a>
+  <div class="cart-item__info">
+    {%- if item.vendor != blank -%}<p class="cart-item__vendor">{{ item.vendor | escape }}</p>{%- endif -%}
+    <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title | escape }}</a>
+    {%- unless item.product.has_only_default_variant -%}
+      <p class="cart-item__variant">{{ item.variant.title | escape }}</p>
+    {%- endunless -%}
+    {%- for property in item.properties -%}
+      {%- unless property.first.first == '_' or property.last == blank -%}
+        <p class="cart-item__variant">{{ property.first | escape }} : {{ property.last | escape }}</p>
+      {%- endunless -%}
+    {%- endfor -%}
+    {%- for discount in item.line_level_discount_allocations -%}
+      <p class="cart-item__variant">{% render 'icon', name: 'tag' %} {{ discount.discount_application.title | escape }} (-{{ discount.amount | money }})</p>
+    {%- endfor -%}
+    <div class="cart-item__row">
+      <div class="qty">
+        <button type="button" data-qty-change="{{ index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'cart.decrease' | t: title: item.product.title }}">{% render 'icon', name: 'minus' %}</button>
+        <input type="number" min="0" value="{{ item.quantity }}" data-qty-input="{{ index }}" aria-label="{{ 'cart.quantity' | t }}" name="updates[]">
+        <button type="button" data-qty-change="{{ index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'cart.increase' | t: title: item.product.title }}">{% render 'icon', name: 'plus' %}</button>
+      </div>
+      <div class="cart-item__total">
+        {%- if item.original_line_price > item.final_line_price -%}
+          <s class="price__compare">{{ item.original_line_price | money }}</s>
+        {%- endif -%}
+        <strong>{{ item.final_line_price | money }}</strong>
+      </div>
+    </div>
+    <a href="{{ item.url_to_remove }}" class="cart-item__remove" data-qty-change="{{ index }}" data-qty="0">{{ 'cart.remove' | t }}</a>
+  </div>
+</li>

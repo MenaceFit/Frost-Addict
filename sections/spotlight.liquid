@@ -1,0 +1,62 @@
+{%- comment -%}
+  Spotlight: one silhouette, several colourways (e.g. Dior B30).
+  Each block points to a real product; empty blocks show a labelled demo card.
+{%- endcomment -%}
+<section class="section spotlight{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading %}
+    {%- liquid
+      assign missing = 0
+      for block in section.blocks
+        if block.settings.product == blank
+          assign missing = missing | plus: 1
+        endif
+      endfor
+    -%}
+    {%- if missing > 0 -%}
+      <p class="notice" style="margin-bottom:24px;text-align:center">{{ 'products.demo_notice_spotlight' | t }}</p>
+    {%- endif -%}
+    <div class="spotlight__grid">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }} style="display:grid;gap:8px;align-content:start">
+          {%- if block.settings.colorway != blank -%}<p class="spotlight__colorway">{{ block.settings.colorway | escape }}</p>{%- endif -%}
+          {%- if block.settings.product != blank -%}
+            {% render 'product-card', product: block.settings.product, index: forloop.index0, sizes: '(min-width: 990px) 25vw, 50vw' %}
+          {%- else -%}
+            {% render 'product-card', demo: true, index: forloop.index0, demo_title: block.settings.demo_title, demo_vendor: section.settings.demo_vendor %}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.link_label != blank and section.settings.link != blank -%}
+      <div class="section-foot"><a href="{{ section.settings.link }}" class="link-arrow">{{ section.settings.link_label | escape }} {% render 'icon', name: 'arrow-right' %}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Modèle phare (coloris)",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Ancre (pour liens #)" },
+    { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "Sneakers" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Nos B30" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Quatre coloris, une silhouette iconique." },
+    { "type": "text", "id": "demo_vendor", "label": "Marque affichée sur les cartes démo", "default": "Dior" },
+    { "type": "text", "id": "link_label", "label": "Lien sous la section", "default": "Toutes les sneakers" },
+    { "type": "url", "id": "link", "label": "URL du lien" },
+    { "type": "select", "id": "background", "label": "Fond", "default": "soft", "options": [ { "value": "white", "label": "Blanc" }, { "value": "soft", "label": "Gris clair" } ] }
+  ],
+  "blocks": [
+    {
+      "type": "colorway", "name": "Coloris",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produit" },
+        { "type": "text", "id": "colorway", "label": "Nom du coloris (petit libellé)" },
+        { "type": "text", "id": "demo_title", "label": "Titre démo (si aucun produit choisi)" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Modèle phare (coloris)", "blocks": [ { "type": "colorway" }, { "type": "colorway" }, { "type": "colorway" }, { "type": "colorway" } ] } ]
+}
+{% endschema %}

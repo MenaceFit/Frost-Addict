@@ -1,0 +1,26 @@
+{%- comment -%} Rendered by /search/suggest?section_id=predictive-search {%- endcomment -%}
+{%- if predictive_search.performed -%}
+  {%- assign res = predictive_search.resources -%}
+  {%- if res.queries.size > 0 or res.collections.size > 0 -%}
+    <p class="predictive__label">{{ 'search.suggestions' | t }}</p>
+    <div class="predictive__links">
+      {%- for q in res.queries limit: 4 -%}<a class="chip-link" href="{{ q.url }}">{{ q.text }}</a>{%- endfor -%}
+      {%- for c in res.collections limit: 4 -%}<a class="chip-link" href="{{ c.url }}">{{ c.title | escape }}</a>{%- endfor -%}
+    </div>
+  {%- endif -%}
+  {%- if res.products.size > 0 -%}
+    <p class="predictive__label">{{ 'search.products' | t }}</p>
+    <div class="predictive__grid">
+      {%- for p in res.products limit: 6 -%}
+        <a class="predictive__item" href="{{ p.url }}">
+          {%- if p.featured_media -%}{{ p.featured_media.preview_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}
+          <strong>{{ p.title | escape }}</strong>
+          {% render 'price', product: p %}
+        </a>
+      {%- endfor -%}
+    </div>
+    <p style="margin-top:20px"><a class="link-arrow" href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&options%5Bprefix%5D=last">{{ 'search.see_all' | t: terms: predictive_search.terms }} {% render 'icon', name: 'arrow-right' %}</a></p>
+  {%- else -%}
+    <p class="muted">{{ 'search.no_results' | t: terms: predictive_search.terms }}</p>
+  {%- endif -%}
+{%- endif -%}

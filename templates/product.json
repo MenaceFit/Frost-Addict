@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "variants": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_stock": true
+          }
+        },
+        "perks": {
+          "type": "perks",
+          "settings": {}
+        },
+        "desc": {
+          "type": "description",
+          "settings": {
+            "open": true
+          }
+        },
+        "shipping": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Livraison et retours",
+            "content": "<p>Les délais et frais de livraison sont affichés au moment du paiement. Tu disposes de 14 jours après réception pour exercer ton droit de rétractation.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variants",
+        "buy",
+        "perks",
+        "desc",
+        "shipping"
+      ],
+      "settings": {
+        "low_stock": 3
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Complète ton outfit",
+        "limit": 8
+      }
+    }
+  },
+  "order": [
+    "main",
+    "recommendations"
+  ]
+}

@@ -1,0 +1,43 @@
+<section class="section section--tight">
+  <div class="page-width">
+    <h1 class="page-title h-display">{{ section.settings.heading | escape }}</h1>
+    <div class="cat-grid" style="--cols: 4; --ratio: 4 / 5">
+      {%- for collection in collections -%}
+        {%- liquid
+          assign show_col = false
+          if collection.products_count > 0 or section.settings.show_empty
+            assign show_col = true
+          endif
+          if collection.handle == 'frontpage'
+            assign show_col = false
+          endif
+        -%}
+        {%- if show_col -%}
+          <a class="cat-card" href="{{ collection.url }}" data-reveal>
+            <div class="cat-card__media">
+              {%- if collection.featured_image -%}
+                {{ collection.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '360, 540, 800', sizes: '(min-width: 990px) 25vw, 50vw' }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="cat-card__body">
+              <h2 class="cat-card__title h-italic">{{ collection.title | escape }}</h2>
+              <p class="cat-card__count">{{ 'collections.product_count' | t: count: collection.products_count }}</p>
+              <span class="round-arrow" aria-hidden="true">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</span>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Liste des collections",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Toutes les collections" },
+    { "type": "checkbox", "id": "show_empty", "label": "Afficher les collections vides", "default": false }
+  ]
+}
+{% endschema %}
