@@ -283,10 +283,24 @@
   document.addEventListener('frost:cart:rendered', () => { upsellFor = null; loadUpsell(); });
 
   /* ---------- Boot ---------- */
+  /* ---------- Announcement marquee: pause / play (WCAG 2.2.2) ---------- */
+  function initAnnPause() {
+    $$('[data-ann-marquee]').forEach((bar) => {
+      const btn = $('[data-ann-pause]', bar);
+      if (!btn || btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', () => {
+        const paused = bar.classList.toggle('is-paused');
+        btn.setAttribute('aria-pressed', String(paused));
+      });
+    });
+  }
+
   function init() {
+    initAnnPause();
     initSplit(); initDepth(); initSnow(); initTilt(); initMagnetic(); initScrollFx();
     initLook(); initCountdown(); initDelivery(); initPopup();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  document.addEventListener('shopify:section:load', (e) => { initSplit(e.target); initTilt(e.target); initLook(); initCountdown(); });
+  document.addEventListener('shopify:section:load', (e) => { initAnnPause(); initSplit(e.target); initTilt(e.target); initLook(); initCountdown(); });
 })();

@@ -1,10 +1,54 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — v5 Winter Sky** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v6 Winter Motion** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209955225925
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209955225925/editor
-- Les anciennes versions (v1 à v4) peuvent être supprimées dans Thèmes une fois la v5 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209999659333
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209999659333/editor
+- Les anciennes versions (v1 à v5) peuvent être supprimées dans Thèmes une fois la v6 validée.
+
+## v6 — Produits réels (24 fiches en brouillon)
+
+Créées depuis les photos envoyées : 6 sneakers (Dior B22, Chanel CC, Nike Air Max 95, Nike × NOCTA,
+Lanvin Curb, UGG) et 18 doudounes / vestes (Moncler, Canada Goose, Burberry, Ralph Lauren, C.P. Company,
+Parajumpers, Arc'teryx, Nike). Chaque fiche a :
+
+- 2 visuels détourés : fond studio clair + produit posé sur la box FROST dans le ciel ;
+  les sneakers ont en plus la photo d'origine ;
+- tailles S → XXL (vestes) ou 39 → 45 (sneakers), stock suivi, **0 en stock**, **prix 0 €** ;
+- tags pour les collections automatiques (doudoune, sans-manches, premium, noir…), « nouveau » sur les sneakers.
+
+Avant d'activer une fiche (Produits → statut **Actif**) :
+
+1. mettre le **vrai prix** (et le prix barré si promo) ;
+2. garder seulement les **tailles réellement en stock** et saisir les quantités ;
+3. vérifier le **titre** (modèle exact) et compléter la description (matière, état, coupe) ;
+4. ajouter le tag `best-seller` uniquement sur les pièces qui se vendent vraiment le mieux.
+
+Les fiches sont déjà publiées sur le canal Boutique en ligne : elles apparaissent dès qu'elles passent en Actif.
+Les sections « Nouveautés » et « Best-sellers » se remplissent automatiquement (règle : prix > 0).
+
+**Photos.** Les 18 vestes viennent d'une planche en petite résolution (~150 px par article) : les visuels
+sont nets en vignette mais doux en grand. L'épaule droite de la veste Arc'teryx était masquée par une
+autre veste sur la planche : elle a été reconstruite par symétrie. Remplace ces images par tes propres
+photos dès que possible (outil : `dev/tools/product_cut.py` puis `dev/tools/product_visuals.py`).
+Assure-toi de détenir les droits sur chaque photo et qu'elle montre bien l'article vendu.
+
+## v6 — Animations (motion.dev)
+
+- Motion 12.43.0 (MIT) intégré en asset (`assets/motion.min.js`, 27 Ko gzip, servi par le CDN Shopify) ;
+  `assets/frost-motion-pro.js` ajoute : apparitions au scroll en ressort, entrée du hero en cascade,
+  sortie du hero liée au scroll, retour tactile sur les boutons, rebond du panier à l'ajout,
+  lignes du panier en cascade. Sans Motion ou avec « réduire les animations », le site reste complet.
+- Transitions entre pages natives (View Transitions, Chrome / Edge / Safari 18.2+).
+- Barre d'annonce en défilement continu, avec bouton pause (WCAG 2.2.2).
+- Neige légère sur la bannière « Prêt pour le grand froid » (réglage « Légère chute de neige »).
+- Correctif : les apparitions CSS de secours ne se déclenchaient pas (sélecteur `.has-motion.js`).
+
+## v6 — Plus aucun contenu de démonstration
+
+Les sections sans produit réel se masquent sur la boutique (les cartes « démo » ne restent visibles que
+dans l'éditeur). « Shop the look » est désactivé : sa photo ne montre pas tes articles.
+Bandeau de marques = les 12 marques réellement au catalogue.
 
 ## Rendus 3D
 Les 13 rendus (`fd3d-*`) sont dans Contenu → Fichiers. Ils sont générés par `dev/renders/` (three.js) et peuvent être recalculés :

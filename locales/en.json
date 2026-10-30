@@ -4,6 +4,7 @@
   },
   "general": {
     "404_title": "This page melted.",
+    "pause_animation": "Pause scrolling",
     "announcements": "Announcements",
     "breadcrumbs": "Fil d'Ariane",
     "close": "Close",
@@ -97,6 +98,7 @@
       "other": "Only {{ count }} left"
     },
     "low_stock_template": "Only __n__ left",
+    "best_badge": "Best seller",
     "new_badge": "New",
     "out_of_stock": "Out of stock",
     "rating": "Rating: {{ rating }} out of {{ max }}",

@@ -236,6 +236,7 @@
         "label": "Tag produit pour le badge « Nouveau »",
         "default": "nouveau"
       },
+      { "type": "text", "id": "best_tag", "label": "Tag produit pour le badge « Best-seller »", "default": "best-seller" },
       {
         "type": "select",
         "id": "card_image_ratio",

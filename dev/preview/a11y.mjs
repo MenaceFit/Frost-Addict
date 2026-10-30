@@ -5,7 +5,7 @@ const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_PATH || 'playwright');
 const axe = fs.readFileSync(new URL('../node_modules/axe-core/axe.min.js', import.meta.url), 'utf8');
 const base = 'http://localhost:' + (process.env.PORT || 4101);
-const pages = ['/', '/collections/doudounes', '/products/doudoune-brillante-capuche', '/cart'];
+const pages = ['/', '/collections/doudounes', '/products/dior-sneakers-b22-gris', '/cart'];
 const browser = await chromium.launch();
 for (const [label, vp] of [['desktop', { width: 1440, height: 900 }], ['mobile', { width: 390, height: 844 }]]) {
   const page = await browser.newPage({ viewport: vp });

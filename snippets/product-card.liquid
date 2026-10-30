@@ -62,6 +62,17 @@
       endfor
     endif
 
+    assign is_best = false
+    if settings.best_tag != blank
+      assign best_tag_down = settings.best_tag | downcase
+      for t in product.tags
+        assign t_down = t | downcase
+        if t_down == best_tag_down
+          assign is_best = true
+        endif
+      endfor
+    endif
+
     assign color_option = nil
     for option in product.options_with_values
       assign oname = option.name | downcase
@@ -76,6 +87,7 @@
         {%- unless product.available -%}
           <span class="badge badge--muted">{{ 'products.sold_out' | t }}</span>
         {%- endunless -%}
+        {%- if is_best -%}<span class="badge badge--ink">{{ 'products.best_badge' | t }}</span>{%- endif -%}
         {%- if is_new -%}<span class="badge">{{ 'products.new_badge' | t }}</span>{%- endif -%}
         {%- if sale_pct > 0 and settings.card_sale_badge == 'pill' -%}
           <span class="badge badge--accent">-{{ sale_pct }}%</span>

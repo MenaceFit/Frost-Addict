@@ -19,7 +19,7 @@
       {%- for product in collection.products limit: limit -%}
         {% render 'product-card', product: product, index: forloop.index0 %}
       {%- endfor -%}
-    {%- else -%}
+    {%- elsif request.design_mode -%}
       {%- for i in (1..demo_count) -%}
         {%- assign t_index = i | minus: 1 -%}
         {% render 'product-card', demo: true, index: t_index, demo_title: demo_list[t_index], demo_vendor: demo_vendor %}

@@ -4,6 +4,7 @@
   },
   "general": {
     "404_title": "Cette page a fondu.",
+    "pause_animation": "Mettre en pause le défilement",
     "announcements": "Annonces",
     "breadcrumbs": "Fil d'Ariane",
     "close": "Fermer",
@@ -97,6 +98,7 @@
       "other": "Plus que {{ count }} en stock"
     },
     "low_stock_template": "Plus que __n__ en stock",
+    "best_badge": "Best-seller",
     "new_badge": "Nouveau",
     "out_of_stock": "Épuisé pour le moment",
     "rating": "Note : {{ rating }} sur {{ max }}",

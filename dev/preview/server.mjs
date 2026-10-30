@@ -40,6 +40,7 @@ function makeImage(file, alt = '') {
 
 /* ---------------- Filters ---------------- */
 const money = (cents) => {
+  if (!Number(cents)) return 'Prix à définir';
   const v = (Number(cents || 0) / 100).toFixed(2).replace('.', ',');
   return v.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
 };

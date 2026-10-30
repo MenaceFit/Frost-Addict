@@ -3,3 +3,4 @@ dev/preview/images/
 dev/screens/
 .DS_Store
 dev/renders/out/*.png
+__pycache__/

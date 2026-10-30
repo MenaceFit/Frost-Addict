@@ -8,6 +8,7 @@
       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
     {%- endif -%}
   </div>
+  {%- if section.settings.snow -%}<canvas class="banner__snow" data-snow aria-hidden="true"></canvas>{%- endif -%}
   <div class="page-width banner__inner">
     <div class="banner__content">
       {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow" data-reveal>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
@@ -25,6 +26,7 @@
   "settings": [
     { "type": "text", "id": "anchor", "label": "Ancre (pour liens #)" },
     { "type": "image_picker", "id": "image", "label": "Photo" },
+    { "type": "checkbox", "id": "snow", "label": "Légère chute de neige", "default": false },
     { "type": "range", "id": "overlay", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Assombrissement", "default": 40 },
     { "type": "select", "id": "align", "label": "Position du texte", "default": "left", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centre" }, { "value": "right", "label": "Droite" } ] },
     { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "Built for the cold" },

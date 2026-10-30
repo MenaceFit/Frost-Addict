@@ -1,5 +1,30 @@
 {%- assign msgs = section.blocks | where: 'type', 'message' -%}
-{%- if msgs.size > 0 -%}
+{%- if msgs.size > 0 and section.settings.style == 'marquee' -%}
+  <div class="announcement announcement--marquee" {{ section.shopify_attributes }} data-ann-marquee role="region" aria-label="{{ 'general.announcements' | t }}"
+    style="--ann-speed: {{ section.settings.speed }}s">
+    <div class="announcement__viewport">
+      {%- for pass in (1..2) -%}
+        <ul class="announcement__run"{% if pass == 2 %} aria-hidden="true"{% endif %}>
+          {%- for rep in (1..2) -%}
+            {%- for block in msgs -%}
+              <li class="announcement__item"{% if pass == 1 and rep == 1 %} {{ block.shopify_attributes }}{% endif %}{% if rep == 2 %} aria-hidden="true"{% endif %}>
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}"{% if pass == 2 or rep == 2 %} tabindex="-1"{% endif %}>{{ block.settings.text | escape }}</a>
+                {%- else -%}
+                  {{ block.settings.text | escape }}
+                {%- endif -%}
+                <span class="announcement__sep" aria-hidden="true">❄</span>
+              </li>
+            {%- endfor -%}
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+    <button type="button" class="announcement__pause" data-ann-pause aria-pressed="false" aria-label="{{ 'general.pause_animation' | t }}">
+      <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect class="i-pause" x="4" y="3" width="3" height="10" rx="1"/><rect class="i-pause" x="9" y="3" width="3" height="10" rx="1"/><path class="i-play" d="M5 3.5v9l7.5-4.5z"/></svg>
+    </button>
+  </div>
+{%- elsif msgs.size > 0 -%}
   <div class="announcement{% if msgs.size == 1 %} announcement--single{% endif %}" {{ section.shopify_attributes }}
     data-announcement data-interval="{{ section.settings.interval | times: 1000 }}" role="region" aria-label="{{ 'general.announcements' | t }}">
     <div class="page-width announcement__inner">
@@ -30,6 +55,8 @@
   "class": "shopify-section--announcement",
   "max_blocks": 5,
   "settings": [
+    { "type": "select", "id": "style", "label": "Style", "default": "marquee", "options": [ { "value": "marquee", "label": "Défilement continu" }, { "value": "rotate", "label": "Un message à la fois" } ] },
+    { "type": "range", "id": "speed", "min": 20, "max": 80, "step": 5, "unit": "s", "label": "Durée d'un tour (défilement)", "default": 40 },
     { "type": "range", "id": "interval", "min": 3, "max": 10, "step": 1, "unit": "s", "label": "Rotation des messages", "default": 5 },
     { "type": "paragraph", "content": "N'affichez que des promesses réellement configurées (livraison, retours, codes promo)." }
   ],

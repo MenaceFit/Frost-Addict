@@ -45,10 +45,10 @@
 
   <div class="page-width hero3d__content">
     <div class="hero3d__inner">
-      {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow" data-m-hero>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
       <{{ title_tag }} class="hero__title h-display" data-split>{{ section.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
-      {%- if section.settings.text != blank -%}<p class="hero__text">{{ section.settings.text | escape }}</p>{%- endif -%}
-      <div class="hero__buttons">
+      {%- if section.settings.text != blank -%}<p class="hero__text" data-m-hero>{{ section.settings.text | escape }}</p>{%- endif -%}
+      <div class="hero__buttons" data-m-hero>
         {%- if section.settings.button_label != blank -%}
           <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--accent" data-magnetic>{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
         {%- endif -%}
@@ -57,7 +57,7 @@
         {%- endif -%}
       </div>
       {%- if featured != blank -%}
-        <div class="hero3d__chip">
+        <div class="hero3d__chip" data-m-hero>
           <a href="{{ featured.url }}" class="hero3d__chip-media">
             {%- if featured.featured_media -%}{{ featured.featured_media.preview_image | image_url: width: 160 | image_tag: loading: 'eager', alt: featured.title }}{%- endif -%}
           </a>

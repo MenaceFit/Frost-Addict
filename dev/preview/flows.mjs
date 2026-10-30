@@ -37,7 +37,7 @@ const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  $
   // Tabs
   await page.locator('#shopify-section-bestsellers [role="tab"]').nth(2).click();
   const sel = await page.locator('#shopify-section-bestsellers [role="tab"][aria-selected="true"]').textContent();
-  check('tabs switch', sel.includes('Burberry'));
+  check('tabs switch', sel.includes('Sneakers'));
 
   // Carousel next
   const track = page.locator('#shopify-section-new [data-carousel-track]');
@@ -62,7 +62,7 @@ const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  $
   await page.keyboard.press('Escape');
 
   // Product page: choose size + add
-  await page.goto(base + '/products/doudoune-brillante-capuche', { waitUntil: 'networkidle' });
+  await page.goto(base + '/products/moncler-doudoune-laquee-noire-a-capuche', { waitUntil: 'networkidle' });
   await page.locator('fieldset.option input[value="M"]').check();
   check('variant: URL updated', page.url().includes('variant='));
   await page.locator('[data-add-button]').click();

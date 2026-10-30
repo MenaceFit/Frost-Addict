@@ -1,20 +1,38 @@
-{%- assign tabs = section.blocks | where: 'type', 'tab' -%}
+{%- liquid
+  assign all_tabs = section.blocks | where: 'type', 'tab'
+  assign visible_ids = ''
+  for block in all_tabs
+    if request.design_mode or block.settings.collection.products_count > 0
+      assign visible_ids = visible_ids | append: block.id | append: ','
+    endif
+  endfor
+  assign visible_count = visible_ids | split: ',' | size
+-%}
+{%- if visible_count > 0 -%}
 <section class="section{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }} data-tabs>
   <div class="page-width">
     {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading, align: section.settings.heading_align %}
-    {%- if tabs.size > 1 -%}
+    {%- if visible_count > 1 -%}
       <div class="tabs__list" role="tablist" aria-label="{{ section.settings.heading | escape }}">
-        {%- for block in tabs -%}
+        {%- assign first_done = false -%}
+        {%- for block in all_tabs -%}
+          {%- assign key = block.id | append: ',' -%}
+          {%- unless visible_ids contains key -%}{%- continue -%}{%- endunless -%}
           {%- assign label = block.settings.label | default: block.settings.collection.title | default: 'Onglet' -%}
           <button type="button" class="tabs__tab" role="tab" id="Tab-{{ block.id }}" aria-controls="Panel-{{ block.id }}"
-            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" {{ block.shopify_attributes }}>
+            aria-selected="{% if first_done %}false{% else %}true{% endif %}" tabindex="{% if first_done %}-1{% else %}0{% endif %}" {{ block.shopify_attributes }}>
             {% render 'icon', name: 'arrow-right' %}{{ label | escape }}
           </button>
+          {%- assign first_done = true -%}
         {%- endfor -%}
       </div>
     {%- endif -%}
-    {%- for block in tabs -%}
-      <div class="tabs__panel" role="tabpanel" id="Panel-{{ block.id }}" aria-labelledby="Tab-{{ block.id }}"{% unless forloop.first %} hidden{% endunless %}>
+    {%- assign first_done = false -%}
+    {%- for block in all_tabs -%}
+      {%- assign key = block.id | append: ',' -%}
+      {%- unless visible_ids contains key -%}{%- continue -%}{%- endunless -%}
+      <div class="tabs__panel" role="tabpanel" id="Panel-{{ block.id }}" aria-labelledby="Tab-{{ block.id }}"{% if first_done %} hidden{% endif %}>
+      {%- assign first_done = true -%}
         {% render 'product-list',
           collection: block.settings.collection,
           limit: section.settings.limit,
@@ -32,6 +50,7 @@
     {%- endfor -%}
   </div>
 </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "Collections à onglets",

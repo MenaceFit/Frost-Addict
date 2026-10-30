@@ -1,7 +1,18 @@
 {%- comment -%}
   Spotlight: one silhouette, several colourways (e.g. Dior B30).
-  Each block points to a real product; empty blocks show a labelled demo card.
+  Each block points to a real product. Blocks without a product are skipped on the
+  storefront (a labelled demo card shows only in the theme editor); the section hides
+  itself when no block has a product.
 {%- endcomment -%}
+{%- liquid
+  assign filled = 0
+  for block in section.blocks
+    if block.settings.product != blank
+      assign filled = filled | plus: 1
+    endif
+  endfor
+-%}
+{%- if filled > 0 or request.design_mode -%}
 <section class="section spotlight{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
   <div class="page-width">
     {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading %}
@@ -13,11 +24,12 @@
         endif
       endfor
     -%}
-    {%- if missing > 0 -%}
+    {%- if missing > 0 and request.design_mode -%}
       <p class="notice" style="margin-bottom:24px;text-align:center">{{ 'products.demo_notice_spotlight' | t }}</p>
     {%- endif -%}
     <div class="spotlight__grid">
       {%- for block in section.blocks -%}
+        {%- if block.settings.product == blank and request.design_mode == false -%}{%- continue -%}{%- endif -%}
         <div {{ block.shopify_attributes }} style="display:grid;gap:8px;align-content:start">
           {%- if block.settings.colorway != blank -%}<p class="spotlight__colorway">{{ block.settings.colorway | escape }}</p>{%- endif -%}
           {%- if block.settings.product != blank -%}
@@ -33,6 +45,7 @@
     {%- endif -%}
   </div>
 </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "Modèle phare (coloris)",

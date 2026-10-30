@@ -30,19 +30,37 @@ function product({ handle, title, vendor, price, compare = 0, images, sizes = nu
 const products = {};
 const add = (p) => { products[p.handle] = p; return p; };
 
-add(product({ handle: 'doudoune-brillante-capuche', title: 'Doudoune brillante à capuche', vendor: 'Moncler', price: 169000,
-  images: ['jacket-1.jpg', 'jacket-3.jpg'], sizes: ['XS', 'S', 'M', 'L', 'XL'], soldOutSizes: ['XS'], tags: ['nouveau', 'doudoune'] }));
-add(product({ handle: 'doudoune-capuche-tartan', title: 'Doudoune matelassée, capuche tartan', vendor: 'Burberry', price: 149000, compare: 199000,
-  images: ['jacket-2.jpg'], sizes: ['S', 'M', 'L'], tags: ['doudoune'] }));
-add(product({ handle: 'cardigan-maille-doudoune', title: 'Cardigan maille et duvet', vendor: 'Moncler', price: 115000,
-  images: ['jacket-3.jpg', 'jacket-1.jpg'], sizes: ['S', 'M', 'L', 'XL'], tags: ['nouveau'] }));
-add(product({ handle: 'doudoune-noire-courte', title: 'Doudoune courte noire', vendor: 'Moncler', price: 139000,
-  images: ['jacket-1.jpg'], colors: ['Noir', 'Marine', 'Blanc'], sizes: ['S', 'M', 'L'], tags: [] }));
-
-const b30 = [['dior-b30-black', 'Dior B30 Black', 'b30-noir.jpg'], ['dior-b30-beige', 'Dior B30 Beige', 'b30-beige.jpg'],
-  ['dior-b30-light', 'Dior B30 Light', 'b30-light.jpg'], ['dior-b30-blue', 'Dior B30 Blue', 'b30-bleu.jpg']];
-b30.forEach(([h, t, f]) => add(product({ handle: h, title: t, vendor: 'Dior', price: 110000, images: [f], sizes: ['40', '41', '42', '43', '44', '45'], soldOutSizes: ['45'], tags: ['nouveau'] })));
-
+// The 24 catalogue products created in Shopify (as drafts). Prices are not set yet: price 0.
+const J = ['S', 'M', 'L', 'XL', 'XXL']; const SZ = ['39', '40', '41', '42', '43', '44', '45'];
+const CAT = [
+  ['dior-sneakers-b22-gris', 'Sneakers B22 gris', 'Dior', 'dior-b22', 1, ['sneakers', 'nouveau', 'best-seller']],
+  ['chanel-baskets-cc-argent-et-blanc', 'Baskets CC argent et blanc', 'Chanel', 'chanel-cc', 1, ['sneakers', 'nouveau']],
+  ['nike-air-max-95-degrade-gris', 'Air Max 95 dégradé gris', 'Nike', 'nike-airmax95', 1, ['sneakers', 'nouveau', 'best-seller']],
+  ['nike-sneakers-nocta-orange', 'Sneakers NOCTA orange', 'Nike', 'nike-nocta', 1, ['sneakers', 'nouveau']],
+  ['lanvin-sneakers-curb-bleu', 'Sneakers Curb bleu', 'Lanvin', 'lanvin-curb', 1, ['sneakers', 'nouveau']],
+  ['ugg-sneakers-a-lacets-camel', 'Sneakers à lacets camel', 'UGG', 'ugg-lace', 1, ['sneakers', 'nouveau']],
+  ['canada-goose-parka-a-capuche-noire', 'Parka à capuche noire', 'Canada Goose', 'canada-goose-parka', 0, ['doudoune', 'best-seller']],
+  ['moncler-doudoune-laquee-noire-a-capuche', 'Doudoune laquée noire à capuche', 'Moncler', 'moncler-shiny', 0, ['doudoune', 'best-seller']],
+  ['moncler-doudoune-sans-manches-laquee-noire', 'Doudoune sans manches laquée noire', 'Moncler', 'moncler-vest', 0, ['doudoune']],
+  ['burberry-doudoune-a-capuche-check', 'Doudoune à capuche check', 'Burberry', 'burberry-puffer', 0, ['doudoune']],
+  ['canada-goose-doudoune-sans-manches-noire', 'Doudoune sans manches noire', 'Canada Goose', 'cg-vest', 0, ['doudoune']],
+  ['c-p-company-doudoune-a-capuche-goggle-noire', 'Doudoune à capuche Goggle noire', 'C.P. Company', 'cp-puffer', 0, ['doudoune']],
+  ['parajumpers-doudoune-a-capuche-bleu-marine', 'Doudoune à capuche bleu marine', 'Parajumpers', 'parajumpers-puffer', 0, ['doudoune']],
+  ['ralph-lauren-doudoune-a-capuche-noire', 'Doudoune à capuche noire', 'Ralph Lauren', 'rl-hooded-puffer', 0, ['doudoune']],
+  ['ralph-lauren-doudoune-legere-bleu-marine', 'Doudoune légère bleu marine', 'Ralph Lauren', 'rl-puffer', 0, ['doudoune']],
+  ['ralph-lauren-doudoune-sans-manches-noire', 'Doudoune sans manches noire', 'Ralph Lauren', 'rl-vest', 0, ['doudoune']],
+  ['nike-gilet-matelasse-running-noir', 'Gilet matelassé running noir', 'Nike', 'nike-vest', 0, ['doudoune']],
+  ['moncler-cardigan-matelasse-noir', 'Cardigan matelassé noir', 'Moncler', 'moncler-knit', 0, ['veste']],
+  ['c-p-company-veste-hybride-goggle-noire', 'Veste hybride Goggle noire', 'C.P. Company', 'cp-hybrid', 0, ['veste']],
+  ['parajumpers-veste-hybride-matelassee-noire', 'Veste hybride matelassée noire', 'Parajumpers', 'parajumpers-hybrid', 0, ['veste']],
+  ['arcteryx-veste-technique-a-capuche-noire', "Veste technique à capuche noire", "Arc'teryx", 'arcteryx-jacket', 0, ['veste']],
+  ['c-p-company-veste-shell-a-capuche-goggle-noire', 'Veste Shell à capuche Goggle noire', 'C.P. Company', 'cp-shell', 0, ['veste']],
+  ['nike-veste-coupe-vent-noire', 'Veste coupe-vent noire', 'Nike', 'nike-jacket', 0, ['veste']],
+  ['nike-veste-zippee-a-capuche-noire', 'Veste zippée à capuche noire', 'Nike', 'nike-hoodie', 0, ['veste']],
+];
+CAT.forEach(([handle, t, vendor, key, snk, tags]) => add(product({ handle, title: `${vendor} — ${t}`, vendor, price: 0,
+  images: [`fd-${key}-1-studio.jpg`, `fd-${key}-2-frost.jpg`, ...(snk ? [`fd-${key}-3-photo.jpg`] : [])], sizes: snk ? SZ : J, tags })));
+const b30 = CAT.filter((c) => c[4]).map((c) => [c[0]]);
 const mkCollection = (handle, title, list, extra = {}) => ({
   handle, title, url: '/collections/' + handle, products: list, products_count: list.length, all_products_count: list.length,
   description: extra.description || '', image: extra.image || null, sort_by: 'manual', default_sort_by: 'manual',
@@ -51,7 +69,8 @@ const mkCollection = (handle, title, list, extra = {}) => ({
   filters: extra.filters || [],
 });
 const P = (h) => products[h];
-const jackets = ['doudoune-brillante-capuche', 'doudoune-capuche-tartan', 'cardigan-maille-doudoune', 'doudoune-noire-courte'].map(P);
+const jackets = CAT.filter((c) => c[5].includes('doudoune')).map((c) => P(c[0]));
+const vestes = CAT.filter((c) => c[5].includes('veste')).map((c) => P(c[0]));
 const sneakers = b30.map(([h]) => P(h));
 const filters = [
   { label: 'Disponibilité', type: 'list', active_values: [], values: [{ label: 'En stock', value: '1', param_name: 'filter.v.availability', count: 4, active: false }, { label: 'Épuisé', value: '0', param_name: 'filter.v.availability', count: 0, active: false }] },
@@ -61,13 +80,14 @@ const filters = [
 ];
 
 const collections = {
-  nouveautes: mkCollection('nouveautes', 'Nouveautés', [...jackets.slice(0, 3), ...sneakers]),
+  nouveautes: mkCollection('nouveautes', 'Nouveautés', [...sneakers, ...jackets.slice(0, 4)]),
+  vestes: mkCollection('vestes', 'Vestes', vestes, { filters }),
   doudounes: mkCollection('doudounes', 'Doudounes', jackets, { description: '<p>Matelassées, brillantes ou techniques : les doudounes de la saison.</p>', image: img('fd-col-doudounes.jpg'), filters }),
   sneakers: mkCollection('sneakers', 'Sneakers', sneakers, { filters }),
   accessoires: mkCollection('accessoires', 'Accessoires', []),
-  'best-sellers': mkCollection('best-sellers', 'Best-sellers', [...sneakers.slice(0, 2), ...jackets.slice(0, 2)]),
-  'canada-goose': mkCollection('canada-goose', 'Canada Goose', []),
-  burberry: mkCollection('burberry', 'Burberry', [P('doudoune-capuche-tartan')]),
+  'best-sellers': mkCollection('best-sellers', 'Best-sellers', CAT.filter((c) => c[5].includes('best-seller')).map((c) => P(c[0]))),
+  'canada-goose': mkCollection('canada-goose', 'Canada Goose', CAT.filter((c) => c[2] === 'Canada Goose').map((c) => P(c[0]))),
+  burberry: mkCollection('burberry', 'Burberry', [P('burberry-doudoune-a-capuche-check')]),
   'stone-island': mkCollection('stone-island', 'Stone Island', []),
 };
 

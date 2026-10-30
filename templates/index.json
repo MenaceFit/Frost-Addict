@@ -5,19 +5,21 @@
       "settings": {
         "bg": "shopify://shop_images/fd3d-s-hero-bg.jpg",
         "object": "shopify://shop_images/fd3d-s-hero-prop.png",
-        "cutout_width": 22,
+        "cutout_width": 16,
         "podium_x": 71,
         "podium_y": 59,
         "snow": true,
         "eyebrow": "❄ WINTER DROP",
         "heading": "Ton style,\nmême en hiver.",
         "text": "Doudounes, sneakers et accessoires pour composer ton outfit de saison.",
-        "button_label": "Découvrir la collection",
+        "button_label": "Shop now",
         "button_link": "shopify://collections/doudounes",
-        "button2_label": "Voir les nouveautés",
+        "button2_label": "Découvrir",
         "button2_link": "shopify://collections/nouveautes",
         "chip_label": "La pièce du moment",
-        "tone": "light"
+        "tone": "light",
+        "cutout": "shopify://shop_images/fd-cut-moncler-laquee.png",
+        "product": "moncler-doudoune-laquee-noire-a-capuche"
       }
     },
     "reassurance": {
@@ -79,50 +81,50 @@
         "b2": {
           "type": "brand",
           "settings": {
-            "name": "The North Face",
-            "link": "/collections/vendors?q=The+North+Face"
+            "name": "Canada Goose",
+            "link": "shopify://collections/canada-goose"
           }
         },
         "b3": {
           "type": "brand",
           "settings": {
-            "name": "Canada Goose",
-            "link": "shopify://collections/canada-goose"
+            "name": "Burberry",
+            "link": "shopify://collections/burberry"
           }
         },
         "b4": {
-          "type": "brand",
-          "settings": {
-            "name": "Stone Island",
-            "link": "shopify://collections/stone-island"
-          }
-        },
-        "b5": {
-          "type": "brand",
-          "settings": {
-            "name": "Nike",
-            "link": "/collections/vendors?q=Nike"
-          }
-        },
-        "b6": {
           "type": "brand",
           "settings": {
             "name": "Ralph Lauren",
             "link": "/collections/vendors?q=Ralph+Lauren"
           }
         },
-        "b7": {
+        "b5": {
           "type": "brand",
           "settings": {
             "name": "C.P. Company",
             "link": "/collections/vendors?q=C.P.+Company"
           }
         },
+        "b6": {
+          "type": "brand",
+          "settings": {
+            "name": "Parajumpers",
+            "link": "/collections/vendors?q=Parajumpers"
+          }
+        },
+        "b7": {
+          "type": "brand",
+          "settings": {
+            "name": "Arc'teryx",
+            "link": "/collections/vendors?q=Arc%27teryx"
+          }
+        },
         "b8": {
           "type": "brand",
           "settings": {
-            "name": "Burberry",
-            "link": "shopify://collections/burberry"
+            "name": "Nike",
+            "link": "/collections/vendors?q=Nike"
           }
         },
         "b9": {
@@ -130,6 +132,27 @@
           "settings": {
             "name": "Dior",
             "link": "/collections/vendors?q=Dior"
+          }
+        },
+        "b10": {
+          "type": "brand",
+          "settings": {
+            "name": "Chanel",
+            "link": "/collections/vendors?q=Chanel"
+          }
+        },
+        "b11": {
+          "type": "brand",
+          "settings": {
+            "name": "Lanvin",
+            "link": "/collections/vendors?q=Lanvin"
+          }
+        },
+        "b12": {
+          "type": "brand",
+          "settings": {
+            "name": "UGG",
+            "link": "/collections/vendors?q=UGG"
           }
         }
       },
@@ -142,7 +165,10 @@
         "b6",
         "b7",
         "b8",
-        "b9"
+        "b9",
+        "b10",
+        "b11",
+        "b12"
       ],
       "settings": {
         "label": "Nos marques",
@@ -159,7 +185,8 @@
             "title": "Nos sneakers",
             "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg",
             "bg3d": "shopify://shop_images/fd3d-s-cat-sneakers.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-sneakers.png"
+            "prop": "shopify://shop_images/fd3d-s-prop-sneakers.png",
+            "cutout": "shopify://shop_images/fd-cut-air-max-95.png"
           }
         },
         "c2": {
@@ -169,7 +196,8 @@
             "title": "Nos doudounes",
             "image": "shopify://shop_images/fd-col-doudounes.jpg",
             "bg3d": "shopify://shop_images/fd3d-s-cat-doudounes.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-doudounes.png"
+            "prop": "shopify://shop_images/fd3d-s-prop-doudounes.png",
+            "cutout": "shopify://shop_images/fd-cut-canada-goose-parka.png"
           }
         },
         "c3": {
@@ -189,7 +217,8 @@
             "image": "shopify://shop_images/fd-col-marques.jpg",
             "link": "/collections",
             "bg3d": "shopify://shop_images/fd3d-s-cat-marques.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-marques.png"
+            "prop": "shopify://shop_images/fd3d-s-prop-marques.png",
+            "cutout": "shopify://shop_images/fd-cut-moncler-gilet.png"
           }
         }
       },
@@ -225,7 +254,7 @@
         "columns": 4,
         "view_all_label": "Voir tout",
         "background": "white",
-        "demo_when_empty": true,
+        "demo_when_empty": false,
         "demo_vendor": "",
         "demo_titles": "",
         "heading_align": "left"
@@ -241,25 +270,26 @@
         "heading": "Prêt pour\nle grand froid",
         "text": "Matelassées, techniques ou oversize : la pièce qui fait ton outfit cet hiver.",
         "button_label": "Voir les doudounes",
-        "button_link": "shopify://collections/doudounes"
+        "button_link": "shopify://collections/doudounes",
+        "snow": true
       }
     },
     "jackets": {
       "type": "featured-collection",
       "settings": {
         "anchor": "doudounes",
-        "eyebrow": "Winter essentials",
-        "heading": "Les doudounes de la saison",
-        "subheading": "Les modèles disponibles en ce moment, photographiés tels quels.",
+        "eyebrow": "Winter selection",
+        "heading": "La sélection hiver",
+        "subheading": "Doudounes, gilets et vestes pour affronter le froid.",
         "collection": "doudounes",
         "limit": 8,
         "layout": "grid",
         "columns": 4,
         "view_all_label": "Toutes les doudounes",
         "background": "soft",
-        "demo_when_empty": true,
+        "demo_when_empty": false,
         "demo_vendor": "",
-        "demo_titles": "Doudoune Moncler,Doudoune Burberry,Veste Moncler maille,Doudoune Canada Goose",
+        "demo_titles": "",
         "heading_align": "left"
       }
     },
@@ -269,29 +299,29 @@
         "w1": {
           "type": "colorway",
           "settings": {
-            "colorway": "Noir",
-            "demo_title": "Dior B30 Black"
+            "product": "dior-sneakers-b22-gris",
+            "colorway": "Dior B22"
           }
         },
         "w2": {
           "type": "colorway",
           "settings": {
-            "colorway": "Beige",
-            "demo_title": "Dior B30 Beige"
+            "product": "chanel-baskets-cc-argent-et-blanc",
+            "colorway": "Chanel CC"
           }
         },
         "w3": {
           "type": "colorway",
           "settings": {
-            "colorway": "Clair, détails bleus",
-            "demo_title": "Dior B30 Light"
+            "product": "nike-sneakers-nocta-orange",
+            "colorway": "Nike × NOCTA"
           }
         },
         "w4": {
           "type": "colorway",
           "settings": {
-            "colorway": "Bleu marine",
-            "demo_title": "Dior B30 Blue"
+            "product": "nike-air-max-95-degrade-gris",
+            "colorway": "Air Max 95"
           }
         }
       },
@@ -302,11 +332,11 @@
         "w4"
       ],
       "settings": {
-        "anchor": "b30",
+        "anchor": "sneakers",
         "eyebrow": "Sneakers",
-        "heading": "Nos B30",
-        "subheading": "Quatre coloris, une silhouette iconique.",
-        "demo_vendor": "Dior",
+        "heading": "Les sneakers du moment",
+        "subheading": "Les paires à shopper cet hiver.",
+        "demo_vendor": "",
         "link_label": "Toutes les sneakers",
         "link": "shopify://collections/sneakers",
         "background": "white"
@@ -325,22 +355,22 @@
         "t2": {
           "type": "tab",
           "settings": {
-            "collection": "canada-goose",
-            "label": "Canada Goose"
+            "collection": "doudounes",
+            "label": "Doudounes"
           }
         },
         "t3": {
           "type": "tab",
           "settings": {
-            "collection": "burberry",
-            "label": "Burberry"
+            "collection": "sneakers",
+            "label": "Sneakers"
           }
         },
         "t4": {
           "type": "tab",
           "settings": {
-            "collection": "stone-island",
-            "label": "Stone Island"
+            "collection": "vestes",
+            "label": "Vestes"
           }
         }
       },
@@ -375,9 +405,9 @@
         "columns": 4,
         "view_all_label": "Tous les accessoires",
         "background": "soft",
-        "demo_when_empty": true,
+        "demo_when_empty": false,
         "demo_vendor": "",
-        "demo_titles": "Bonnet en maille,Écharpe,Sacoche,Gants",
+        "demo_titles": "",
         "heading_align": "left"
       }
     },
@@ -452,7 +482,8 @@
         "subheading": "Toutes les pièces de la tenue, en un clic.",
         "image": "shopify://shop_images/fd-col-doudounes.jpg",
         "background": "white"
-      }
+      },
+      "disabled": true
     },
     "countdown": {
       "type": "countdown",
@@ -470,18 +501,18 @@
   },
   "order": [
     "hero",
-    "reassurance",
-    "brands",
-    "categories",
+    "bestsellers",
     "new",
+    "categories",
     "band1",
     "editorial",
     "jackets",
     "b30",
-    "look",
-    "bestsellers",
+    "brands",
+    "reassurance",
     "band2",
     "accessories",
+    "look",
     "countdown",
     "reviews",
     "newsletter"
