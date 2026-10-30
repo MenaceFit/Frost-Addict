@@ -15,7 +15,13 @@
       <div class="gallery" data-gallery>
         <div class="gallery__main" data-gallery-track>
           {%- for media in product.media -%}
-            <div class="gallery__item" data-media-id="{{ media.id }}">
+            {%- liquid
+              assign fit_class = ''
+              if media.aspect_ratio > 0.9 or media.aspect_ratio < 0.7
+                assign fit_class = ' gallery__item--contain'
+              endif
+            -%}
+            <div class="gallery__item{{ fit_class }}" data-media-id="{{ media.id }}">
               {%- case media.media_type -%}
                 {%- when 'image' -%}
                   {%- liquid

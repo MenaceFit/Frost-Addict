@@ -34,6 +34,8 @@ const add = (p) => { products[p.handle] = p; return p; };
 const J = ['S', 'M', 'L', 'XL', 'XXL']; const SZ = ['39', '40', '41', '42', '43', '44', '45'];
 const CAT = [
   ['dior-sneakers-b22-gris', 'Sneakers B22 gris', 'Dior', 'dior-b22', 1, ['sneakers', 'nouveau', 'best-seller']],
+  ['balenciaga-sneakers-track-noir', 'Sneakers Track noir', 'Balenciaga', 'balenciaga-track', 1, ['sneakers', 'nouveau']],
+  ['dior-sneakers-b30-noir', 'Sneakers B30 noir', 'Dior', 'dior-b30', 1, ['sneakers', 'nouveau']],
   ['chanel-baskets-cc-argent-et-blanc', 'Baskets CC argent et blanc', 'Chanel', 'chanel-cc', 1, ['sneakers', 'nouveau']],
   ['nike-air-max-95-degrade-gris', 'Air Max 95 dégradé gris', 'Nike', 'nike-airmax95', 1, ['sneakers', 'nouveau', 'best-seller']],
   ['nike-sneakers-nocta-orange', 'Sneakers NOCTA orange', 'Nike', 'nike-nocta', 1, ['sneakers', 'nouveau']],

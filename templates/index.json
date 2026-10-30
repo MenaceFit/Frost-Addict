@@ -198,10 +198,10 @@
             "collection": "sneakers",
             "title": "Nos sneakers",
             "bg3d": "shopify://shop_images/fd-podium.jpg",
-            "cutout_2": "shopify://shop_images/fd-hq-air-max-95.png",
-            "cutout": "shopify://shop_images/fd-hq-dior-b22.png",
-            "cutout_3": "shopify://shop_images/fd-hq-nike-nocta.png",
-            "piece_width": 44
+            "cutout_2": "shopify://shop_images/fd-hq-balenciaga-track.png",
+            "cutout": "shopify://shop_images/fd-hq-chanel-cc.png",
+            "cutout_3": "shopify://shop_images/fd-hq-dior-b30.png",
+            "piece_width": 32
           }
         },
         "c3": {
@@ -300,8 +300,8 @@
         "w1": {
           "type": "colorway",
           "settings": {
-            "product": "dior-sneakers-b22-gris",
-            "colorway": "Dior B22"
+            "product": "balenciaga-sneakers-track-noir",
+            "colorway": "Balenciaga Track"
           }
         },
         "w2": {
@@ -314,29 +314,21 @@
         "w3": {
           "type": "colorway",
           "settings": {
-            "product": "nike-sneakers-nocta-orange",
-            "colorway": "Nike × NOCTA"
-          }
-        },
-        "w4": {
-          "type": "colorway",
-          "settings": {
-            "product": "nike-air-max-95-degrade-gris",
-            "colorway": "Air Max 95"
+            "product": "dior-sneakers-b30-noir",
+            "colorway": "Dior B30"
           }
         }
       },
       "block_order": [
         "w1",
         "w2",
-        "w3",
-        "w4"
+        "w3"
       ],
       "settings": {
         "anchor": "sneakers",
         "eyebrow": "Sneakers",
         "heading": "Les sneakers du moment",
-        "subheading": "Les paires à shopper cet hiver.",
+        "subheading": "Trois silhouettes, trois maisons.",
         "link_label": "Toutes les sneakers",
         "link": "shopify://collections/sneakers",
         "background": "white"

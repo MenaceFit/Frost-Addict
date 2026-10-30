@@ -1,10 +1,20 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — v7 Podium** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v8 Sneakers HD** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210024137029
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210024137029/editor
-- Les anciennes versions (v1 à v6) peuvent être supprimées dans Thèmes une fois la v7 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210030788933
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210030788933/editor
+- Les anciennes versions (v1 à v7) peuvent être supprimées dans Thèmes une fois la v8 validée.
+
+## v8 — Sneakers HD
+
+- Section « Les sneakers du moment » : Balenciaga Track noir, Chanel CC argent, Dior B30 noir
+  (2 nouvelles fiches en brouillon + la fiche Chanel mise à jour avec ta nouvelle photo).
+- Photos agrandies ×4 (logos nets), détourage BiRefNet (semelles claires conservées), cadrage revu :
+  chaussure entière et centrée sur le podium et sur le fond studio. Les 5 autres paires recadrées pareil.
+- Carte « Nos sneakers » : ces 3 modèles sur le podium ; l'écartement au survol est calculé pour ne
+  jamais sortir de la carte. Galerie produit : les photos qui ne sont pas au format portrait sont
+  affichées en entier.
 
 ## v7 — Podium de glace
 

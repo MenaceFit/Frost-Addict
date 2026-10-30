@@ -15,7 +15,7 @@
 <section class="section spotlight{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
   <div class="page-width">
     {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading %}
-    <div class="spotlight__grid">
+    <div class="spotlight__grid" style="--cols: {{ filled | at_most: 4 }}">
       {%- for block in section.blocks -%}
         {%- if block.settings.product == blank -%}{%- continue -%}{%- endif -%}
         <div {{ block.shopify_attributes }} style="display:grid;gap:8px;align-content:start">
