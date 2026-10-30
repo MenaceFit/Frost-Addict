@@ -1,10 +1,10 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — v4 (audit design, a11y, SEO)** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v5 Winter Sky** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209954701637
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209954701637/editor
-- Les anciennes versions (v1 à v3) peuvent être supprimées dans Thèmes une fois la v4 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209955225925
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209955225925/editor
+- Les anciennes versions (v1 à v4) peuvent être supprimées dans Thèmes une fois la v5 validée.
 
 ## Rendus 3D
 Les 13 rendus (`fd3d-*`) sont dans Contenu → Fichiers. Ils sont générés par `dev/renders/` (three.js) et peuvent être recalculés :
@@ -14,8 +14,15 @@ node dev/renders/render.mjs          # → dev/renders/out/*.png
 ```
 Pour poser **ta vraie photo produit** sur un podium : détoure-la (Produits → image → Modifier → Supprimer l'arrière-plan), enregistre-la en PNG, puis choisis-la dans « Photo produit détourée » (hero 3D ou carte catégorie). Elle remplace l'objet 3D.
 
+## Détourer tes photos produits (outil fourni)
+```bash
+pip install rembg onnxruntime
+python3 dev/tools/remove_bg.py dossier/photos dossier/detourees
+```
+Sortie : PNG carrés transparents, centrés, prêts pour « Photo produit détourée » (hero et cartes : la pièce se pose sur la boîte FROST, comme sur Drip Addict). Réglage « Hauteur du dessus du podium » dans la section des cartes si besoin d'ajuster.
+
 ## Photos produits (à faire toi-même)
-Les photos officielles des marques (Dior, Moncler, Burberry…) trouvées sur Google sont protégées : ne les utilise pas sans autorisation écrite de la marque, Shopify peut retirer les fiches signalées. Et en revente, la photo doit montrer la pièce réellement vendue.
+Les photos officielles des marques (Dior, Moncler, Burberry…) trouvées sur Google ou Pinterest sont protégées (Pinterest ne fait que relayer des images, il n'en donne pas les droits) : ne les utilise pas sans autorisation écrite de la marque, Shopify peut retirer les fiches signalées. Et en revente, la photo doit montrer la pièce réellement vendue.
 1. Photographie chaque pièce sur fond uni clair, lumière du jour, 3–5 vues (face, dos, détail logo/étiquette, semelle pour les sneakers).
 2. Ajoute les photos au produit, puis Modifier → **Supprimer l'arrière-plan** (outil gratuit Shopify) et enregistre en PNG.
 3. Pour la mise en avant 3D : choisis la photo détourée dans « Photo produit détourée » (hero 3D ou carte catégorie). Elle se pose sur le podium de glace à la place de l'objet 3D.

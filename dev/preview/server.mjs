@@ -222,6 +222,7 @@ async function renderTemplate(name, scope) {
     const handles = ['dior-b30-black', 'dior-b30-beige', 'dior-b30-light', 'dior-b30-blue'];
     tpl.sections.b30.block_order.forEach((b, i) => { tpl.sections.b30.blocks[b].settings.product = handles[i]; });
     tpl.sections.hero.settings.product = 'doudoune-brillante-capuche';
+    if (process.env.PREVIEW_CUTOUTS) { tpl.sections.hero.settings.cutout = 'cut-jacket-1.png'; tpl.sections.hero.settings.cutout_width = 16; tpl.sections.categories.blocks.c2.settings.cutout = 'cut-jacket-2.png'; }
     ['doudoune-brillante-capuche', 'dior-b30-black', 'cardigan-maille-doudoune'].forEach((h, i) => { tpl.sections.look.blocks['h' + (i + 1)].settings.product = h; });
   }
   let content = '';

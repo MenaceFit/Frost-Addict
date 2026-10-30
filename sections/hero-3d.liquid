@@ -10,7 +10,7 @@
     assign title_tag = 'h1'
   endif
 -%}
-<section class="hero3d" data-hero3d
+<section class="hero3d{% if section.settings.tone == 'light' %} hero3d--light{% endif %}" data-hero3d
   style="--px: {{ section.settings.podium_x | divided_by: 100.0 }}; --podium-x: {{ section.settings.podium_x }}%; --podium-y: {{ section.settings.podium_y }}%; --cutout-w: {{ section.settings.cutout_width }}%"
   {{ section.shopify_attributes }}>
   <div class="hero3d__viewport">
@@ -28,9 +28,11 @@
         </div>
       {%- endif -%}
       {%- if section.settings.cutout -%}
-        <div class="hero3d__cutout hero3d__float" data-depth="22">
-          {%- assign cutout_alt = section.settings.cutout.alt | default: featured.title -%}
-          {{ section.settings.cutout | image_url: width: 1200 | image_tag: loading: 'eager', widths: '500, 800, 1200', sizes: '(min-width: 750px) 30vw, 70vw', alt: cutout_alt }}
+        <div class="hero3d__layer hero3d__cutout-wrap" data-depth="22">
+          <div class="hero3d__cutout"><div class="hero3d__float">
+            {%- assign cutout_alt = section.settings.cutout.alt | default: featured.title -%}
+            {{ section.settings.cutout | image_url: width: 1200 | image_tag: loading: 'eager', widths: '500, 800, 1200', sizes: '(min-width: 750px) 30vw, 70vw', alt: cutout_alt }}
+          </div></div>
         </div>
       {%- elsif section.settings.object -%}
         <div class="hero3d__layer hero3d__float hero3d__float--spin" data-depth="22">
@@ -51,7 +53,7 @@
           <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--accent" data-magnetic>{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
         {%- endif -%}
         {%- if section.settings.button2_label != blank -%}
-          <a href="{{ section.settings.button2_link | default: routes.all_products_collection_url }}" class="btn btn--ghost-light">{{ section.settings.button2_label | escape }}</a>
+          <a href="{{ section.settings.button2_link | default: routes.all_products_collection_url }}" class="btn {% if section.settings.tone == 'light' %}btn--light{% else %}btn--ghost-light{% endif %}">{{ section.settings.button2_label | escape }}</a>
         {%- endif -%}
       </div>
       {%- if featured != blank -%}
@@ -90,6 +92,7 @@
     { "type": "range", "id": "podium_x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Position du podium (horizontale)", "default": 78 },
     { "type": "range", "id": "podium_y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Position du podium (verticale)", "default": 54 },
     { "type": "checkbox", "id": "snow", "label": "Légère chute de neige", "default": true },
+    { "type": "select", "id": "tone", "label": "Ton du décor", "default": "dark", "options": [ { "value": "dark", "label": "Sombre (texte blanc)" }, { "value": "light", "label": "Clair, ciel bleu (texte foncé)" } ] },
     { "type": "header", "content": "Texte" },
     { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "❄ WINTER DROP" },
     { "type": "textarea", "id": "heading", "label": "Titre", "default": "Ton style,\nmême en hiver." },

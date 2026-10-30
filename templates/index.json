@@ -3,11 +3,11 @@
     "hero": {
       "type": "hero-3d",
       "settings": {
-        "bg": "shopify://shop_images/fd3d-x-hero-bg.jpg",
-        "object": "shopify://shop_images/fd3d-x-hero-flake.png",
+        "bg": "shopify://shop_images/fd3d-s-hero-bg.jpg",
+        "object": "shopify://shop_images/fd3d-s-hero-prop.png",
         "cutout_width": 22,
         "podium_x": 71,
-        "podium_y": 67,
+        "podium_y": 59,
         "snow": true,
         "eyebrow": "❄ WINTER DROP",
         "heading": "Ton style,\nmême en hiver.",
@@ -16,7 +16,8 @@
         "button_link": "shopify://collections/doudounes",
         "button2_label": "Voir les nouveautés",
         "button2_link": "shopify://collections/nouveautes",
-        "chip_label": "La pièce du moment"
+        "chip_label": "La pièce du moment",
+        "tone": "light"
       }
     },
     "reassurance": {
@@ -157,8 +158,8 @@
             "collection": "sneakers",
             "title": "Nos sneakers",
             "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg",
-            "bg3d": "shopify://shop_images/fd3d-x-cat-sneakers.jpg",
-            "prop": "shopify://shop_images/fd3d-x-prop-sneakers.png"
+            "bg3d": "shopify://shop_images/fd3d-s-cat-sneakers.jpg",
+            "prop": "shopify://shop_images/fd3d-s-prop-sneakers.png"
           }
         },
         "c2": {
@@ -167,8 +168,8 @@
             "collection": "doudounes",
             "title": "Nos doudounes",
             "image": "shopify://shop_images/fd-col-doudounes.jpg",
-            "bg3d": "shopify://shop_images/fd3d-x-cat-doudounes.jpg",
-            "prop": "shopify://shop_images/fd3d-x-prop-doudounes.png"
+            "bg3d": "shopify://shop_images/fd3d-s-cat-doudounes.jpg",
+            "prop": "shopify://shop_images/fd3d-s-prop-doudounes.png"
           }
         },
         "c3": {
@@ -177,8 +178,8 @@
             "collection": "accessoires",
             "title": "Nos accessoires",
             "image": "shopify://shop_images/photo-1602737131820-eafac4dd6f5e.jpg",
-            "bg3d": "shopify://shop_images/fd3d-x-cat-accessoires.jpg",
-            "prop": "shopify://shop_images/fd3d-x-prop-accessoires.png"
+            "bg3d": "shopify://shop_images/fd3d-s-cat-accessoires.jpg",
+            "prop": "shopify://shop_images/fd3d-s-prop-accessoires.png"
           }
         },
         "c4": {
@@ -187,8 +188,8 @@
             "title": "Nos marques",
             "image": "shopify://shop_images/fd-col-marques.jpg",
             "link": "/collections",
-            "bg3d": "shopify://shop_images/fd3d-x-cat-marques.jpg",
-            "prop": "shopify://shop_images/fd3d-x-prop-marques.png"
+            "bg3d": "shopify://shop_images/fd3d-s-cat-marques.jpg",
+            "prop": "shopify://shop_images/fd3d-s-prop-marques.png"
           }
         }
       },
@@ -207,7 +208,8 @@
         "ratio": "4 / 5",
         "mobile_slider": false,
         "show_count": false,
-        "background": "white"
+        "background": "white",
+        "cutout_y": 55
       }
     },
     "new": {

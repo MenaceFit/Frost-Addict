@@ -7,6 +7,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { buildArena, snowParticles as arenaSnow } from './arena.js';
+import * as SKY from './sky.js';
 
 const TURQ = 0x31c9cc;
 const ICE = 0xb9d8ed;
@@ -313,8 +314,73 @@ function cardArena(c, layer, { w, h }) {
   return { canvas: renderer.domElement, meta: { podiumTop: project(new THREE.Vector3(0, 0.9, 0), camera, w, h) } };
 }
 
+/* ---------------- Winter sky scenes (v5, Drip Addict-style cards) ---------------- */
+const SKY_PROPS = { sneakers: () => { const s = SKY.sneaker(); s.scale.setScalar(0.66); s.rotation.y = -0.35; return s; }, doudounes: () => { const p = pufferSculpture(); p.scale.setScalar(0.55); return p; },
+  accessoires: () => { const b = beanie(); b.scale.setScalar(0.62); return b; }, marques: () => { const g = giftStack(); g.scale.setScalar(0.48); return g; } };
+const SKY_CARD_CAM = { fov: 30, pos: [0, 3.0, 14.5], look: [0, 2.3, 0] };
+
+function skyCard(name, layer, { w, h }) {
+  const renderer = makeRenderer(w, h, layer === 'prop');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(SKY_CARD_CAM.fov, w / h, 0.1, 200); camera.position.set(...SKY_CARD_CAM.pos); camera.lookAt(...SKY_CARD_CAM.look);
+  SKY.skyLights(scene, renderer);
+  const box = SKY.frostBox({ w: 3.0, h: 1.75, d: 2.2 }); box.rotation.y = 0.12;
+  const seed = { sneakers: 3, doudounes: 7, accessoires: 11, marques: 19 }[name];
+  if (layer === 'bg') {
+    scene.background = SKY.skyBackground(...({ marques: ['#0f2d5c', '#2c6bb8', '#9fd0f5'] }[name] || ['#2f86e6', '#62aef0', '#d6eeff']));
+    scene.add(box);
+    const ld = SKY.ladder(2.2); ld.position.set(-1.05, 0, 1.45); scene.add(ld);
+    const base = SKY.cloud(seed, { w: 8, h: 1.0, d: 3, puffs: 52 }); base.position.set(0, -0.75, 1.6); scene.add(base);
+    const r = SKY.rng(seed * 5);
+    [[-3.6, 5.2, -6, 3.2], [3.8, 4.6, -7, 3.6], [-3.2, 1.0, -3, 2.6], [3.4, 1.4, -3.5, 2.4]].forEach(([x, y, z, cw], i) => {
+      const c = SKY.cloud(seed + i * 13, { w: cw, h: 1.2 + r() * 0.6, d: 1.6, puffs: 22 }); c.position.set(x, y, z); scene.add(c);
+    });
+    SKY.snowFlakes(scene, 120, seed, [-5, 5, 0.5, 8, -4, 3]);
+  } else {
+    const catcher = new THREE.Mesh(new THREE.PlaneGeometry(3.1, 2.3), new THREE.ShadowMaterial({ opacity: 0.35 }));
+    catcher.rotation.x = -Math.PI / 2; catcher.rotation.z = 0.12; catcher.position.y = box.userData.top + 0.005; catcher.receiveShadow = true; scene.add(catcher);
+    const prop = SKY_PROPS[name](); prop.position.y = box.userData.top; scene.add(prop);
+  }
+  renderer.render(scene, camera);
+  return { canvas: renderer.domElement, meta: { boxTop: project(new THREE.Vector3(0, box.userData.top, 0), camera, w, h) } };
+}
+
+const SKY_HERO_CAM = { fov: 30, pos: [0, 3.2, 17], look: [0, 3.0, 0] };
+function skyHero(layer, { w, h }) {
+  const renderer = makeRenderer(w, h, layer === 'prop');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(SKY_HERO_CAM.fov, w / h, 0.1, 200); camera.position.set(...SKY_HERO_CAM.pos); camera.lookAt(...SKY_HERO_CAM.look);
+  SKY.skyLights(scene, renderer);
+  const main = SKY.frostBox({ w: 3.4, h: 2.0, d: 2.4 }); main.position.set(3.9, 0, 0); main.rotation.y = -0.18;
+  const side = SKY.frostBox({ w: 2.4, h: 1.3, d: 1.8 }); side.position.set(7.3, 0, -2.8); side.rotation.y = -0.35;
+  if (layer === 'bg') {
+    scene.background = SKY.skyBackground('#2a7fe0', '#5eaaf0', '#d8efff');
+    scene.add(main, side);
+    const ld = SKY.ladder(2.6); ld.position.set(1.9, 0, 1.3); ld.rotation.y = 0.35; scene.add(ld);
+    const base = SKY.cloud(5, { w: 15, h: 1.2, d: 4, puffs: 90 }); base.position.set(5.5, -0.95, 1.8); scene.add(base);
+    const base2 = SKY.cloud(9, { w: 10, h: 1.2, d: 3, puffs: 50 }); base2.position.set(-6, -0.6, 0.5); scene.add(base2);
+    [[-9, 7.5, -10, 5], [1, 8.8, -14, 6], [10.5, 7.2, -9, 4.5], [-4, 4.5, -8, 3.2]].forEach(([x, y, z, cw], i) => {
+      const c = SKY.cloud(31 + i * 7, { w: cw, h: 1.6, d: 2, puffs: 26 }); c.position.set(x, y, z); scene.add(c);
+    });
+    SKY.snowFlakes(scene, 260, 4, [-14, 14, 0.5, 11, -8, 5]);
+  } else {
+    [[main, () => { const p = pufferSculpture(); p.scale.setScalar(0.68); return p; }], [side, () => { const s = SKY.sneaker(); s.scale.setScalar(0.62); s.rotation.y = -0.6; return s; }]].forEach(([b, mk]) => {
+      const catcher = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 2.4), new THREE.ShadowMaterial({ opacity: 0.35 }));
+      catcher.rotation.x = -Math.PI / 2; catcher.rotation.z = b.rotation.y; catcher.position.set(b.position.x, b.userData.top + 0.005, b.position.z); catcher.receiveShadow = true; scene.add(catcher);
+      const p = mk(); p.position.set(b.position.x, b.userData.top, b.position.z); scene.add(p);
+    });
+  }
+  renderer.render(scene, camera);
+  return { canvas: renderer.domElement, meta: { boxTop: project(new THREE.Vector3(main.position.x, main.userData.top, main.position.z), camera, w, h) } };
+}
+
 /* ---------------- Scenes ---------------- */
 export const scenes = {
+  ...Object.fromEntries(['sneakers', 'doudounes', 'accessoires', 'marques'].flatMap((n) => [
+    ['sky-cat-' + n, (o) => skyCard(n, 'bg', o)], ['sky-prop-' + n, (o) => skyCard(n, 'prop', o)],
+  ])),
+  'sky-hero-bg': (o) => skyHero('bg', o),
+  'sky-hero-prop': (o) => skyHero('prop', o),
   'arena-hero-bg': (o) => heroArena('bg', o),
   'arena-hero-flake': (o) => heroArena('flake', o),
   ...Object.fromEntries(CATS.flatMap((c) => [
