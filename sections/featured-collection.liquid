@@ -2,26 +2,18 @@
   assign collection = section.settings.collection
   assign show = true
   if collection == blank or collection.products_count == 0
-    if section.settings.demo_when_empty == false and request.design_mode == false
-      assign show = false
-    endif
+    assign show = false
   endif
 -%}
 {%- if show -%}
 <section class="section{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
   <div class="page-width">
     {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading, align: section.settings.heading_align, link_url: collection.url, link_label: section.settings.view_all_label %}
-    {%- if collection == blank or collection.products_count == 0 -%}
-      <p class="notice" style="margin-bottom:24px;text-align:center">{{ 'products.demo_notice' | t }}</p>
-    {%- endif -%}
     {% render 'product-list',
       collection: collection,
       limit: section.settings.limit,
       layout: section.settings.layout,
       columns: section.settings.columns,
-      demo_count: section.settings.columns,
-      demo_vendor: section.settings.demo_vendor,
-      demo_titles: section.settings.demo_titles,
       label: section.settings.heading
     %}
     {%- if section.settings.view_all_label != blank and collection != blank -%}
@@ -45,10 +37,7 @@
     { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Produits par ligne (ordinateur)", "default": 4 },
     { "type": "text", "id": "view_all_label", "label": "Bouton « voir tout »", "default": "Voir tout" },
     { "type": "select", "id": "background", "label": "Fond", "default": "white", "options": [ { "value": "white", "label": "Blanc" }, { "value": "soft", "label": "Gris clair" } ] },
-    { "type": "header", "content": "Collection vide" },
-    { "type": "checkbox", "id": "demo_when_empty", "label": "Afficher des cartes de démonstration si la collection est vide", "default": true, "info": "Les cartes sont marquées « Démo ». Décochez avant le lancement pour masquer la section quand elle est vide." },
-    { "type": "text", "id": "demo_vendor", "label": "Marque affichée sur les cartes démo" },
-    { "type": "text", "id": "demo_titles", "label": "Titres des cartes démo (séparés par des virgules)" }
+    { "type": "header", "content": "Collection vide" }
   ],
   "presets": [ { "name": "Collection en avant" } ]
 }

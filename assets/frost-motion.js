@@ -296,11 +296,37 @@
     });
   }
 
+  /* ---------- Podium stacks: fan out on tap (touch) or when scrolled into view ---------- */
+  function initPodium(root = document) {
+    const touch = window.matchMedia('(hover: none)').matches;
+    $$('[data-stack]:not([data-stack-bound])', root).forEach((stack) => {
+      stack.dataset.stackBound = '1';
+      const card = stack.closest('a.cat-card');
+      if (touch && 'IntersectionObserver' in window) {
+        let t;
+        new IntersectionObserver(([en]) => {
+          clearTimeout(t);
+          if (en.isIntersecting) t = setTimeout(() => stack.classList.add('is-spread'), 450);
+          else stack.classList.remove('is-spread');
+        }, { threshold: 0.6 }).observe(card || stack.querySelector('.podium-stack__item--center') || stack);
+      }
+      if (card) return; /* inside a link: never block the card navigation */
+      let lastType = 'mouse';
+      stack.addEventListener('pointerdown', (e) => { lastType = e.pointerType; });
+      stack.addEventListener('click', (e) => {
+        if (lastType === 'mouse' || stack.classList.contains('is-spread')) return;
+        e.preventDefault(); stack.classList.add('is-spread'); /* first tap opens, second tap follows the link */
+      }, true);
+      document.addEventListener('pointerdown', (e) => { if (!stack.contains(e.target)) stack.classList.remove('is-spread'); });
+    });
+  }
+
   function init() {
+    initPodium();
     initAnnPause();
     initSplit(); initDepth(); initSnow(); initTilt(); initMagnetic(); initScrollFx();
     initLook(); initCountdown(); initDelivery(); initPopup();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
-  document.addEventListener('shopify:section:load', (e) => { initAnnPause(); initSplit(e.target); initTilt(e.target); initLook(); initCountdown(); });
+  document.addEventListener('shopify:section:load', (e) => { initPodium(e.target); initAnnPause(); initSplit(e.target); initTilt(e.target); initLook(); initCountdown(); });
 })();

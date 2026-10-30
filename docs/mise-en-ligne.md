@@ -1,10 +1,27 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — v6 Winter Motion** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v7 Podium** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=209999659333
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/209999659333/editor
-- Les anciennes versions (v1 à v5) peuvent être supprimées dans Thèmes une fois la v6 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210024137029
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210024137029/editor
+- Les anciennes versions (v1 à v6) peuvent être supprimées dans Thèmes une fois la v7 validée.
+
+## v7 — Podium de glace
+
+- **Landing** : section « Hero podium » avec ton décor montagne + podium. Trois doudounes (Canada Goose,
+  Moncler, Parajumpers) superposées sur le podium ; au survol elles se décalent avec un effet ressort et
+  leur marque s'affiche. Au clavier : à la tabulation. Sur mobile : elles s'écartent seules à l'affichage,
+  un toucher ouvre, un second ouvre la fiche.
+- **Cartes collections** : décor podium vertical, 3 pièces par carte (doudounes, sneakers, sans manches,
+  vestes) qui s'écartent au survol. Réglages par carte : 2e et 3e pièce détourée, largeur des pièces.
+- **Fiches produits** : 1re image = produit posé sur le podium de glace, 2e = fond studio, 3e (sneakers) =
+  photo d'origine.
+- **Qualité d'image** : agrandissement ×4 par IA (Real-ESRGAN x4plus, exécuté localement) sur les deux décors
+  (le décor paysage deux fois : 6880 px, exporté en 3200 px), les 18 vestes et les 6 paires de sneakers,
+  puis nouveau détourage. Les décors reçus faisaient 430 px de large : envoie les fichiers d'origine
+  si tu les as, le rendu sera encore meilleur.
+- **Plus aucun produit démo** : le code des cartes « Démo » a été supprimé du thème (sections, snippets,
+  traductions, styles). Une section sans produit actif ne s'affiche pas.
 
 ## v6 — Produits réels (24 fiches en brouillon)
 

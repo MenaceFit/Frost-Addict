@@ -1,0 +1,62 @@
+{%- comment -%}
+  Three product cutouts stacked on a podium; they fan out on hover / focus / tap.
+  Positions are percentages of the stage (the element that holds the podium background).
+  Params:
+    img1, img2, img3   – transparent cutouts (img2 is the front piece)
+    url1, url2, url3   – product links (omit inside a link, e.g. a category card)
+    label1..3          – short names shown when the stack opens
+    px, py             – podium centre (x) and top surface (y), in % of the stage
+    pw                 – width of one piece, in % of the stage width
+    ph                 – height of the hover area, in % of the stage height
+    sizes              – sizes attribute for the cutouts
+    loading            – 'eager' above the fold (default 'lazy')
+{%- endcomment -%}
+{%- liquid
+  assign pieces = 0
+  if img1 != blank
+    assign pieces = pieces | plus: 1
+  endif
+  if img2 != blank
+    assign pieces = pieces | plus: 1
+  endif
+  if img3 != blank
+    assign pieces = pieces | plus: 1
+  endif
+  assign img_sizes = sizes | default: '(min-width: 990px) 18vw, 40vw'
+  assign img_loading = loading | default: 'lazy'
+-%}
+{%- if pieces > 0 -%}
+<div class="podium-stack" data-stack style="--px: {{ px | default: 50 }}%; --py: {{ py | default: 66 }}%; --pw: {{ pw | default: 18 }}%; --ph: {{ ph | default: 40 }}%">
+  <span class="podium-stack__hit" aria-hidden="true"></span>
+  {%- for n in (1..3) -%}
+    {%- liquid
+      case n
+        when 1
+          assign img = img1
+          assign url = url1
+          assign label = label1
+          assign pos = 'left'
+        when 2
+          assign img = img2
+          assign url = url2
+          assign label = label2
+          assign pos = 'center'
+        when 3
+          assign img = img3
+          assign url = url3
+          assign label = label3
+          assign pos = 'right'
+      endcase
+      assign alt = img.alt | default: label
+    -%}
+    {%- if img != blank -%}
+      {%- if url != blank -%}<a href="{{ url }}" class="podium-stack__item podium-stack__item--{{ pos }}">{%- else -%}<span class="podium-stack__item podium-stack__item--{{ pos }}">{%- endif -%}
+        <span class="podium-stack__float">
+          {{ img | image_url: width: 1000 | image_tag: loading: img_loading, widths: '300, 500, 700, 1000', sizes: img_sizes, alt: alt, class: 'podium-stack__img' }}
+        </span>
+        {%- if label != blank -%}<span class="podium-stack__label">{{ label | escape }}</span>{%- endif -%}
+      {%- if url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+{%- endif -%}

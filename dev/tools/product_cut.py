@@ -2,7 +2,7 @@
 
 Usage: python3 dev/tools/product_cut.py SRC_DIR OUT_DIR [UPSCALE]
 UPSCALE (default 1) enlarges small crops before segmentation (3 for thumbnails).
-With UPSCALE != 1, near-white scraps touching the bottom edge (neighbouring items in a
+With UPSCALE != 1 (or SCRAPS=1 in the environment), near-white scraps touching the bottom edge (neighbouring items in a
 grid photo) are removed. Output: 1600 x 1600 transparent PNGs, object centred.
 """
 import sys, os
@@ -25,7 +25,7 @@ for n in sorted(os.listdir(src)):
         keep = lab == (np.argmax(sizes)+1)
         keep = ndimage.binary_dilation(keep, iterations=3)
         cut.putalpha(Image.fromarray((a*keep).astype('uint8')))
-    if up != 1:
+    if up != 1 or os.environ.get('SCRAPS'):
         rgb = np.asarray(cut.convert('RGB')).astype(int); al = np.asarray(cut.split()[3]).copy()
         wh = (rgb.min(axis=2) > 200) & (al > 0)
         lab2, k2 = ndimage.label(ndimage.binary_dilation(wh, iterations=2))

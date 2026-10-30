@@ -1,25 +1,28 @@
 {
   "sections": {
     "hero": {
-      "type": "hero-3d",
+      "type": "hero-podium",
       "settings": {
-        "bg": "shopify://shop_images/fd3d-s-hero-bg.jpg",
-        "object": "shopify://shop_images/fd3d-s-hero-prop.png",
-        "cutout_width": 16,
-        "podium_x": 71,
-        "podium_y": 59,
+        "bg": "shopify://shop_images/fd-landing-podium.jpg",
+        "podium_x": 50,
+        "podium_y": 66,
+        "piece_width": 17,
         "snow": true,
+        "cutout_1": "shopify://shop_images/fd-hq-canada-goose-parka.png",
+        "product_1": "canada-goose-parka-a-capuche-noire",
+        "cutout_2": "shopify://shop_images/fd-hq-moncler-laquee.png",
+        "product_2": "moncler-doudoune-laquee-noire-a-capuche",
+        "cutout_3": "shopify://shop_images/fd-hq-parajumpers-marine.png",
+        "product_3": "parajumpers-doudoune-a-capuche-bleu-marine",
+        "align": "left",
         "eyebrow": "❄ WINTER DROP",
         "heading": "Ton style,\nmême en hiver.",
-        "text": "Doudounes, sneakers et accessoires pour composer ton outfit de saison.",
+        "text": "Doudounes, sneakers et pièces techniques pour affronter le grand froid.",
         "button_label": "Shop now",
         "button_link": "shopify://collections/doudounes",
         "button2_label": "Découvrir",
         "button2_link": "shopify://collections/nouveautes",
-        "chip_label": "La pièce du moment",
-        "tone": "light",
-        "cutout": "shopify://shop_images/fd-cut-moncler-laquee.png",
-        "product": "moncler-doudoune-laquee-noire-a-capuche"
+        "hint": "Survole le podium"
       }
     },
     "reassurance": {
@@ -181,44 +184,46 @@
         "c1": {
           "type": "card",
           "settings": {
-            "collection": "sneakers",
-            "title": "Nos sneakers",
-            "image": "shopify://shop_images/photo-1705529560121-10e9c1aab2b9.jpg",
-            "bg3d": "shopify://shop_images/fd3d-s-cat-sneakers.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-sneakers.png",
-            "cutout": "shopify://shop_images/fd-cut-air-max-95.png"
+            "collection": "doudounes",
+            "title": "Nos doudounes",
+            "bg3d": "shopify://shop_images/fd-podium.jpg",
+            "cutout_2": "shopify://shop_images/fd-hq-ralph-lauren-capuche.png",
+            "cutout": "shopify://shop_images/fd-hq-burberry-check.png",
+            "cutout_3": "shopify://shop_images/fd-hq-cp-goggle.png"
           }
         },
         "c2": {
           "type": "card",
           "settings": {
-            "collection": "doudounes",
-            "title": "Nos doudounes",
-            "image": "shopify://shop_images/fd-col-doudounes.jpg",
-            "bg3d": "shopify://shop_images/fd3d-s-cat-doudounes.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-doudounes.png",
-            "cutout": "shopify://shop_images/fd-cut-canada-goose-parka.png"
+            "collection": "sneakers",
+            "title": "Nos sneakers",
+            "bg3d": "shopify://shop_images/fd-podium.jpg",
+            "cutout_2": "shopify://shop_images/fd-hq-air-max-95.png",
+            "cutout": "shopify://shop_images/fd-hq-dior-b22.png",
+            "cutout_3": "shopify://shop_images/fd-hq-nike-nocta.png",
+            "piece_width": 44
           }
         },
         "c3": {
           "type": "card",
           "settings": {
-            "collection": "accessoires",
-            "title": "Nos accessoires",
-            "image": "shopify://shop_images/photo-1602737131820-eafac4dd6f5e.jpg",
-            "bg3d": "shopify://shop_images/fd3d-s-cat-accessoires.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-accessoires.png"
+            "collection": "doudounes-sans-manches",
+            "title": "Sans manches",
+            "bg3d": "shopify://shop_images/fd-podium.jpg",
+            "cutout_2": "shopify://shop_images/fd-hq-canada-goose-gilet.png",
+            "cutout": "shopify://shop_images/fd-hq-moncler-gilet.png",
+            "cutout_3": "shopify://shop_images/fd-hq-ralph-lauren-gilet.png"
           }
         },
         "c4": {
           "type": "card",
           "settings": {
-            "title": "Nos marques",
-            "image": "shopify://shop_images/fd-col-marques.jpg",
-            "link": "/collections",
-            "bg3d": "shopify://shop_images/fd3d-s-cat-marques.jpg",
-            "prop": "shopify://shop_images/fd3d-s-prop-marques.png",
-            "cutout": "shopify://shop_images/fd-cut-moncler-gilet.png"
+            "collection": "vestes",
+            "title": "Nos vestes",
+            "bg3d": "shopify://shop_images/fd-podium.jpg",
+            "cutout_2": "shopify://shop_images/fd-hq-arcteryx.png",
+            "cutout": "shopify://shop_images/fd-hq-cp-shell.png",
+            "cutout_3": "shopify://shop_images/fd-hq-parajumpers-hybride.png"
           }
         }
       },
@@ -234,11 +239,13 @@
         "heading": "Nos collections",
         "subheading": "",
         "columns": 4,
-        "ratio": "4 / 5",
+        "ratio": "2 / 3",
         "mobile_slider": false,
         "show_count": false,
         "background": "white",
-        "cutout_y": 55
+        "cutout_y": 55,
+        "podium_y": 63,
+        "piece_width": 34
       }
     },
     "new": {
@@ -254,9 +261,6 @@
         "columns": 4,
         "view_all_label": "Voir tout",
         "background": "white",
-        "demo_when_empty": false,
-        "demo_vendor": "",
-        "demo_titles": "",
         "heading_align": "left"
       }
     },
@@ -287,9 +291,6 @@
         "columns": 4,
         "view_all_label": "Toutes les doudounes",
         "background": "soft",
-        "demo_when_empty": false,
-        "demo_vendor": "",
-        "demo_titles": "",
         "heading_align": "left"
       }
     },
@@ -336,7 +337,6 @@
         "eyebrow": "Sneakers",
         "heading": "Les sneakers du moment",
         "subheading": "Les paires à shopper cet hiver.",
-        "demo_vendor": "",
         "link_label": "Toutes les sneakers",
         "link": "shopify://collections/sneakers",
         "background": "white"
@@ -405,9 +405,6 @@
         "columns": 4,
         "view_all_label": "Tous les accessoires",
         "background": "soft",
-        "demo_when_empty": false,
-        "demo_vendor": "",
-        "demo_titles": "",
         "heading_align": "left"
       }
     },

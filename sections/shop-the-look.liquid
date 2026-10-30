@@ -40,8 +40,6 @@
               {%- else -%}
                 <a href="{{ p.url }}" class="round-arrow" aria-label="{{ 'products.see_options' | t }}">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</a>
               {%- endif -%}
-            {%- else -%}
-              <div class="look__info"><p class="muted">{{ 'products.demo_notice_spotlight' | t }}</p></div>
             {%- endif -%}
           </li>
         {%- endfor -%}

@@ -59,8 +59,9 @@ const CAT = [
   ['nike-veste-zippee-a-capuche-noire', 'Veste zippée à capuche noire', 'Nike', 'nike-hoodie', 0, ['veste']],
 ];
 CAT.forEach(([handle, t, vendor, key, snk, tags]) => add(product({ handle, title: `${vendor} — ${t}`, vendor, price: 0,
-  images: [`fd-${key}-1-studio.jpg`, `fd-${key}-2-frost.jpg`, ...(snk ? [`fd-${key}-3-photo.jpg`] : [])], sizes: snk ? SZ : J, tags })));
+  images: [`fd-${key}-1-podium.jpg`, `fd-${key}-2-studio.jpg`, ...(snk ? [`fd-${key}-3-photo.jpg`] : [])], sizes: snk ? SZ : J, tags })));
 const b30 = CAT.filter((c) => c[4]).map((c) => [c[0]]);
+const sansManches = CAT.filter((c) => /sans-manches|gilet/.test(c[0])).map((c) => products[c[0]]);
 const mkCollection = (handle, title, list, extra = {}) => ({
   handle, title, url: '/collections/' + handle, products: list, products_count: list.length, all_products_count: list.length,
   description: extra.description || '', image: extra.image || null, sort_by: 'manual', default_sort_by: 'manual',
@@ -82,6 +83,7 @@ const filters = [
 const collections = {
   nouveautes: mkCollection('nouveautes', 'Nouveautés', [...sneakers, ...jackets.slice(0, 4)]),
   vestes: mkCollection('vestes', 'Vestes', vestes, { filters }),
+  'doudounes-sans-manches': mkCollection('doudounes-sans-manches', 'Doudounes sans manches', sansManches),
   doudounes: mkCollection('doudounes', 'Doudounes', jackets, { description: '<p>Matelassées, brillantes ou techniques : les doudounes de la saison.</p>', image: img('fd-col-doudounes.jpg'), filters }),
   sneakers: mkCollection('sneakers', 'Sneakers', sneakers, { filters }),
   accessoires: mkCollection('accessoires', 'Accessoires', []),

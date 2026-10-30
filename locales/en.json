@@ -87,9 +87,6 @@
       "one": "{{ count }} colour",
       "other": "{{ count }} colours available"
     },
-    "demo_badge": "Demo",
-    "demo_notice": "Preview: this collection is empty. Demo cards disappear once products are added.",
-    "demo_notice_spotlight": "Preview: pick a product for each colourway in the theme editor to replace the demo cards.",
     "description": "Description",
     "from": "From",
     "in_stock": "In stock, ready to ship",

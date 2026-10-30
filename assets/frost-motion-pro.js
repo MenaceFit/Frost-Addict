@@ -30,14 +30,26 @@
     document.addEventListener('frost:cart:rendered', () => reveal($('[data-cart-drawer]') || document));
 
     /* Hero: staggered entrance + scroll-linked exit */
+    const heroItems = $$('[data-m-hero]');
+    if (heroItems.length) animate(heroItems, { opacity: [0, 1], y: [24, 0] }, { ...springIn, delay: stagger(0.09, { startDelay: 0.35 }) });
     const hero = $('[data-hero3d]');
     if (hero) {
-      const items = $$('[data-m-hero]', hero);
-      if (items.length) animate(items, { opacity: [0, 1], y: [24, 0] }, { ...springIn, delay: stagger(0.09, { startDelay: 0.35 }) });
       const cut = $('.hero3d__cutout img', hero);
       if (cut) animate(cut, { opacity: [0, 1], y: [-60, 0], rotate: [-4, 0] }, { type: 'spring', stiffness: 160, damping: 14, delay: 0.25 });
       const content = $('.hero3d__content', hero);
       if (content) scroll(animate(content, { opacity: [1, 0.15], y: [0, -70] }, { ease: 'linear' }), { target: hero, offset: ['start start', 'end start'] });
+    }
+
+    /* Podium hero: the three pieces drop onto the ice one after the other */
+    const podium = $('[data-podium-hero]');
+    if (podium) {
+      const imgs = $$('.podium-stack__img', podium);
+      if (imgs.length) {
+        const drop = animate(imgs, { opacity: [0, 1], y: [-90, 0] }, { type: 'spring', stiffness: 170, damping: 15, delay: stagger(0.12, { startDelay: 0.3 }) });
+        Promise.resolve(drop.finished || drop).then(() => imgs.forEach((i) => { i.style.transform = ''; }));
+      }
+      const content = $('.podium-hero__content', podium);
+      if (content) scroll(animate(content, { opacity: [1, 0.15], y: [0, -70] }, { ease: 'linear' }), { target: podium, offset: ['start start', 'end start'] });
     }
 
     /* Press feedback on buttons (not magnetic ones: they own their transform) */

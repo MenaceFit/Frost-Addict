@@ -2,7 +2,7 @@
   assign all_tabs = section.blocks | where: 'type', 'tab'
   assign visible_ids = ''
   for block in all_tabs
-    if request.design_mode or block.settings.collection.products_count > 0
+    if block.settings.collection.products_count > 0
       assign visible_ids = visible_ids | append: block.id | append: ','
     endif
   endfor
@@ -38,9 +38,6 @@
           limit: section.settings.limit,
           layout: 'grid',
           columns: section.settings.columns,
-          demo_count: section.settings.columns,
-          demo_vendor: block.settings.label,
-          demo_titles: '',
           label: block.settings.label
         %}
         {%- if block.settings.collection != blank and section.settings.view_all_label != blank -%}

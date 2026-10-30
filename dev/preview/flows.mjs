@@ -48,10 +48,16 @@ const check = (name, ok, extra = '') => results.push(`${ok ? 'PASS' : 'FAIL'}  $
 
   // Hero slide
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.mouse.move(300, 300); await page.mouse.move(1200, 600, { steps: 8 });
-  await page.waitForTimeout(500);
-  const tf = await page.locator('.hero3d [data-depth]').nth(1).evaluate((e) => e.style.transform);
-  check('hero 3D depth follows pointer', /translate3d\(-?[1-9]/.test(tf), tf);
+  await page.mouse.move(5, 400); await page.waitForTimeout(1500);
+  const left = page.locator('.podium-hero .podium-stack__item--left');
+  const x0 = (await left.boundingBox()).x;
+  await page.locator('.podium-hero .podium-stack__item--center').hover({ force: true });
+  await page.waitForTimeout(1200);
+  const x1 = (await left.boundingBox()).x;
+  check('podium: pieces fan out on hover', x0 - x1 > 60, `${Math.round(x0)} -> ${Math.round(x1)}`);
+  await page.mouse.move(5, 400); await page.waitForTimeout(1200);
+  const x2 = (await left.boundingBox()).x;
+  check('podium: pieces stack back', Math.abs(x2 - x0) < 12, `${Math.round(x2)}`);
 
   // Search
   await page.locator('.header__actions [data-search-open]').click();

@@ -30,11 +30,26 @@ const kw = (args) => Object.fromEntries(args.filter(Array.isArray));
 const pos = (args) => args.filter((a) => !Array.isArray(a));
 
 /* ---------------- Images ---------------- */
+// Read real pixel size from PNG / JPEG headers so aspect ratios match Shopify.
+function imageSize(name) {
+  try {
+    const b = fs.readFileSync(path.join(IMAGES, name));
+    if (b.toString('ascii', 1, 4) === 'PNG') return [b.readUInt32BE(16), b.readUInt32BE(20)];
+    let i = 2;
+    while (i < b.length) {
+      const m = b[i + 1]; const len = b.readUInt16BE(i + 2);
+      if (m >= 0xc0 && m <= 0xc3) return [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)];
+      i += 2 + len;
+    }
+  } catch (e) { /* missing file: fall back */ }
+  return [1600, 1200];
+}
 function makeImage(file, alt = '') {
   if (!file) return null;
   if (typeof file === 'object') return file;
   const name = file.replace('shopify://shop_images/', '');
-  return { __image: true, src: '/img/' + name, url: '/img/' + name, alt, width: 1600, height: 1200, aspect_ratio: 1.33,
+  const [w, h] = imageSize(name);
+  return { __image: true, src: '/img/' + name, url: '/img/' + name, alt, width: w, height: h, aspect_ratio: +(w / h).toFixed(4),
     presentation: { focal_point: '50.0% 50.0%' }, toString() { return this.src; } };
 }
 

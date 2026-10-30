@@ -87,9 +87,6 @@
       "one": "{{ count }} couleur",
       "other": "{{ count }} couleurs disponibles"
     },
-    "demo_badge": "Démo",
-    "demo_notice": "Aperçu : cette collection est vide pour l'instant. Les cartes « Démo » disparaîtront dès que des produits y seront ajoutés.",
-    "demo_notice_spotlight": "Aperçu : choisis les produits de chaque coloris dans l'éditeur de thème pour remplacer les cartes « Démo ».",
     "description": "Description",
     "from": "À partir de",
     "in_stock": "En stock, prêt à être expédié",

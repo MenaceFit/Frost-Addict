@@ -2,9 +2,7 @@
   Product card.
   Params:
     product   – a product object
-    demo      – true to render a clearly labelled demo card (no product)
     index     – position in the list (stagger + lazy loading)
-    demo_title, demo_vendor, demo_label – used only for demo cards
     sizes     – image sizes attribute (optional)
 {%- endcomment -%}
 {%- liquid
@@ -22,21 +20,7 @@
   endif
 -%}
 
-{%- if demo or product == blank -%}
-  {%- comment -%} Demo card: shown only while the collection is empty, always labelled as such. {%- endcomment -%}
-  <article class="card card--demo" data-reveal style="--delay: {{ delay }}s; --card-ratio: {{ ratio }}">
-    <div class="card__media">
-      <div class="card__badges"><span class="badge badge--demo">{{ 'products.demo_badge' | t }}</span></div>
-      {%- assign ph = idx | modulo: 6 | plus: 1 -%}
-      {{ 'product-' | append: ph | placeholder_svg_tag: 'placeholder-svg' }}
-    </div>
-    <div class="card__info">
-      {%- if demo_vendor != blank -%}<p class="card__vendor">{{ demo_vendor | escape }}</p>{%- endif -%}
-      <h3 class="card__title">{{ demo_title | default: 'Produit de démonstration' | escape }}</h3>
-      <p class="price muted">{{ demo_label | default: 'Prix à configurer' }}</p>
-    </div>
-  </article>
-{%- else -%}
+{%- if product != blank -%}
   {%- liquid
     assign first_image = product.featured_media.preview_image
     assign first_alt = first_image.alt | default: product.title
