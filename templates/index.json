@@ -6,23 +6,27 @@
         "bg": "shopify://shop_images/fd-landing-podium.jpg",
         "podium_x": 50,
         "podium_y": 66,
-        "piece_width": 17,
+        "piece_width": 19,
         "snow": true,
-        "cutout_1": "shopify://shop_images/fd-hq-canada-goose-parka.png",
+        "cutout_1": "shopify://shop_images/fd-hd-canada-goose-parka.png",
         "product_1": "canada-goose-parka-a-capuche-noire",
-        "cutout_2": "shopify://shop_images/fd-hq-moncler-laquee.png",
+        "cutout_2": "shopify://shop_images/fd-hd-moncler-laquee.png",
         "product_2": "moncler-doudoune-laquee-noire-a-capuche",
-        "cutout_3": "shopify://shop_images/fd-hq-parajumpers-marine.png",
+        "cutout_3": "shopify://shop_images/fd-hd-parajumpers-marine.png",
         "product_3": "parajumpers-doudoune-a-capuche-bleu-marine",
         "align": "left",
-        "eyebrow": "❄ WINTER DROP",
         "heading": "Ton style,\nmême en hiver.",
         "text": "Doudounes, sneakers et pièces techniques pour affronter le grand froid.",
         "button_label": "Shop now",
         "button_link": "shopify://collections/doudounes",
         "button2_label": "Découvrir",
         "button2_link": "shopify://collections/nouveautes",
-        "hint": "Survole le podium"
+        "hint": "Survole le podium",
+        "bg_mobile": "shopify://shop_images/fd-podium.jpg",
+        "podium_x_mobile": 51,
+        "podium_y_mobile": 63,
+        "piece_width_mobile": 40,
+        "brand_text": "FROST ADDICT"
       }
     },
     "reassurance": {
@@ -187,9 +191,9 @@
             "collection": "doudounes",
             "title": "Nos doudounes",
             "bg3d": "shopify://shop_images/fd-podium.jpg",
-            "cutout_2": "shopify://shop_images/fd-hq-ralph-lauren-capuche.png",
-            "cutout": "shopify://shop_images/fd-hq-burberry-check.png",
-            "cutout_3": "shopify://shop_images/fd-hq-cp-goggle.png"
+            "cutout_2": "shopify://shop_images/fd-hd-ralph-lauren-capuche.png",
+            "cutout": "shopify://shop_images/fd-hd-burberry-check.png",
+            "cutout_3": "shopify://shop_images/fd-hd-cp-goggle.png"
           }
         },
         "c2": {
@@ -210,9 +214,9 @@
             "collection": "doudounes-sans-manches",
             "title": "Sans manches",
             "bg3d": "shopify://shop_images/fd-podium.jpg",
-            "cutout_2": "shopify://shop_images/fd-hq-canada-goose-gilet.png",
-            "cutout": "shopify://shop_images/fd-hq-moncler-gilet.png",
-            "cutout_3": "shopify://shop_images/fd-hq-ralph-lauren-gilet.png"
+            "cutout_2": "shopify://shop_images/fd-hd-canada-goose-gilet.png",
+            "cutout": "shopify://shop_images/fd-hd-moncler-gilet.png",
+            "cutout_3": "shopify://shop_images/fd-hd-ralph-lauren-gilet.png"
           }
         },
         "c4": {
@@ -221,9 +225,9 @@
             "collection": "vestes",
             "title": "Nos vestes",
             "bg3d": "shopify://shop_images/fd-podium.jpg",
-            "cutout_2": "shopify://shop_images/fd-hq-arcteryx.png",
-            "cutout": "shopify://shop_images/fd-hq-cp-shell.png",
-            "cutout_3": "shopify://shop_images/fd-hq-parajumpers-hybride.png"
+            "cutout_2": "shopify://shop_images/fd-hd-arcteryx.png",
+            "cutout": "shopify://shop_images/fd-hd-cp-shell.png",
+            "cutout_3": "shopify://shop_images/fd-hd-parajumpers-hybride.png"
           }
         }
       },

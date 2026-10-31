@@ -1,10 +1,22 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — v8 Sneakers HD** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v9 Mobile** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210030788933
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210030788933/editor
-- Les anciennes versions (v1 à v7) peuvent être supprimées dans Thèmes une fois la v8 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210083152197
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210083152197/editor
+- Les anciennes versions (v1 à v8) peuvent être supprimées dans Thèmes une fois la v9 validée.
+
+## v9 — Landing mobile
+
+- Téléphone : décor podium vertical (réglage « Décor téléphone »), podium entier visible, 3 doudounes
+  2× plus grandes, empilées puis écartées automatiquement ; voile blanc passé sous les pièces
+  (il les grisait).
+- Texte : petit logo « FROST ADDICT » (pastille givrée, flocon qui tourne, reflet) + « Ton style, même en
+  hiver. » en italique, plus léger. Un logo image peut remplacer le nom (réglage « Logo »).
+- Animations : lueur froide qui respire sous les pièces, reflet qui balaie la glace, indicateur de scroll.
+- Doudounes : deuxième passage IA + détourage BiRefNet sur les 18 vestes (visuels produits et pièces du
+  hero / des cartes refaits).
+- Téléphone : onglets best-sellers défilables, nom de marque plus répété dans le titre des cartes.
 
 ## v8 — Sneakers HD
 

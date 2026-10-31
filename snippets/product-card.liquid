@@ -107,7 +107,14 @@
       {%- if settings.card_show_vendor and product.vendor != blank -%}
         <p class="card__vendor">{{ product.vendor | escape }}</p>
       {%- endif -%}
-      <h3 class="card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+      {%- liquid
+        assign card_title = product.title
+        if product.vendor != blank
+          assign vendor_prefix = product.vendor | append: ' — '
+          assign card_title = product.title | remove_first: vendor_prefix
+        endif
+      -%}
+      <h3 class="card__title"><a href="{{ product.url }}">{{ card_title | escape }}</a></h3>
       {% render 'price', product: product %}
       {%- if settings.card_show_rating -%}{% render 'rating', product: product %}{%- endif -%}
       {%- if settings.card_show_swatches and color_option and color_option.values.size > 1 -%}

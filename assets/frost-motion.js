@@ -306,7 +306,7 @@
         let t;
         new IntersectionObserver(([en]) => {
           clearTimeout(t);
-          if (en.isIntersecting) t = setTimeout(() => stack.classList.add('is-spread'), 450);
+          if (en.isIntersecting) t = setTimeout(() => stack.classList.add('is-spread'), stack.closest('[data-podium-hero]') ? 1600 : 450);
           else stack.classList.remove('is-spread');
         }, { threshold: 0.6 }).observe(card || stack.querySelector('.podium-stack__item--center') || stack);
       }

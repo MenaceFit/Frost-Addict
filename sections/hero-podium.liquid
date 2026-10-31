@@ -1,12 +1,18 @@
 {%- comment -%}
-  Landing hero: full-bleed winter scene with an ice podium. Three products stand on the
-  podium, stacked; they fan out on hover (tap on touch screens, focus with the keyboard).
+  Landing hero: winter scene with an ice podium. Three products stand on the podium, stacked;
+  they fan out on hover (tap / automatically on touch screens, focus with the keyboard).
+  Phones get their own portrait background so the whole podium stays in view.
 {%- endcomment -%}
 {%- liquid
   assign bg = section.settings.bg
+  assign bg_m = section.settings.bg_mobile | default: bg
   assign ar = 1.7778
   if bg
     assign ar = bg.aspect_ratio
+  endif
+  assign ar_m = ar
+  if bg_m
+    assign ar_m = bg_m.aspect_ratio
   endif
   assign title_tag = 'h2'
   if section.index == 1
@@ -16,25 +22,46 @@
   assign p2 = section.settings.product_2
   assign p3 = section.settings.product_3
 -%}
-<section class="podium-hero{% if section.settings.align == 'center' %} podium-hero--center{% endif %}" data-podium-hero style="--ar: {{ ar }}" {{ section.shopify_attributes }}>
+<section class="podium-hero{% if section.settings.align == 'center' %} podium-hero--center{% endif %}" data-podium-hero
+  style="--ar: {{ ar }}; --ar-m: {{ ar_m }}; --px-m: {{ section.settings.podium_x_mobile }}%; --py-m: {{ section.settings.podium_y_mobile }}%; --pw-m: {{ section.settings.piece_width_mobile }}vw"
+  {{ section.shopify_attributes }}>
   <div class="podium-hero__stage">
     {%- if bg -%}
-      {{ bg | image_url: width: 3200 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '900, 1400, 1920, 2560, 3200', sizes: '(min-width: 750px) 100vw, 240vw', alt: '', class: 'podium-hero__bg' }}
+      <picture>
+        {%- if section.settings.bg_mobile -%}
+          <source media="(max-width: 749px)" sizes="100vw"
+            srcset="{{ bg_m | image_url: width: 750 }} 750w, {{ bg_m | image_url: width: 1100 }} 1100w, {{ bg_m | image_url: width: 1500 }} 1500w">
+        {%- endif -%}
+        {{ bg | image_url: width: 3200 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '900, 1400, 1920, 2560, 3200', sizes: '(min-width: 750px) 100vw, 240vw', alt: '', class: 'podium-hero__bg' }}
+      </picture>
     {%- endif -%}
-    {%- if section.settings.snow -%}<canvas class="podium-hero__snow" data-snow aria-hidden="true"></canvas>{%- endif -%}
+    <span class="podium-hero__haze" aria-hidden="true"></span>
+    <span class="podium-hero__glow" aria-hidden="true"></span>
+    <span class="podium-hero__shine" aria-hidden="true"></span>
     {% render 'podium-stack',
       img1: section.settings.cutout_1, url1: p1.url, label1: p1.vendor,
       img2: section.settings.cutout_2, url2: p2.url, label2: p2.vendor,
       img3: section.settings.cutout_3, url3: p3.url, label3: p3.vendor,
       px: section.settings.podium_x, py: section.settings.podium_y, pw: section.settings.piece_width, ph: 42,
-      sizes: '(min-width: 750px) 22vw, 50vw', loading: 'eager'
+      sizes: '(min-width: 750px) 22vw, 60vw', loading: 'eager'
     %}
+    {%- if section.settings.snow -%}<canvas class="podium-hero__snow" data-snow aria-hidden="true"></canvas>{%- endif -%}
   </div>
   <div class="page-width podium-hero__content">
-    {%- if section.settings.eyebrow != blank -%}<p class="hero__eyebrow" data-m-hero>{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
-    <{{ title_tag }} class="podium-hero__title h-display" data-split>{{ section.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
+    {%- if section.settings.brand_logo or section.settings.brand_text != blank -%}
+      <p class="podium-hero__brand" data-m-hero>
+        {%- if section.settings.brand_logo -%}
+          {{ section.settings.brand_logo | image_url: width: 360 | image_tag: alt: shop.name, widths: '180, 270, 360', sizes: '140px', class: 'podium-hero__brand-logo' }}
+        {%- else -%}
+          <svg class="podium-hero__flake" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2v20M4.2 6.5l15.6 11M4.2 17.5l15.6-11M9.5 3.8 12 6l2.5-2.2M9.5 20.2 12 18l2.5 2.2M3.6 10.4l3.2.9-.6 3.3M20.4 13.6l-3.2-.9.6-3.3M6.2 3.4l.6 3.3-3.2.9M17.8 20.6l-.6-3.3 3.2-.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {%- assign brand_words = section.settings.brand_text | split: ' ' -%}
+          <span class="podium-hero__brand-text">{{ brand_words.first | escape }}{% if brand_words.size > 1 %} <span>{{ brand_words | slice: 1, 9 | join: ' ' | escape }}</span>{% endif %}</span>
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+    <{{ title_tag }} class="podium-hero__title" data-split>{{ section.settings.heading | escape | newline_to_br }}</{{ title_tag }}>
     {%- if section.settings.text != blank -%}<p class="podium-hero__text" data-m-hero>{{ section.settings.text | escape }}</p>{%- endif -%}
-    <div class="hero__buttons" data-m-hero>
+    <div class="hero__buttons podium-hero__buttons" data-m-hero>
       {%- if section.settings.button_label != blank -%}
         <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="btn btn--accent" data-magnetic>{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow-right' %}</a>
       {%- endif -%}
@@ -44,6 +71,7 @@
     </div>
     {%- if section.settings.hint != blank -%}<p class="podium-hero__hint" aria-hidden="true">{{ section.settings.hint | escape }}</p>{%- endif -%}
   </div>
+  <span class="podium-hero__scroll" aria-hidden="true"><span></span></span>
 </section>
 
 {% schema %}
@@ -52,6 +80,10 @@
   "class": "shopify-section--podium-hero",
   "settings": [
     { "type": "image_picker", "id": "bg", "label": "Décor avec podium (paysage, 16:9)" },
+    { "type": "image_picker", "id": "bg_mobile", "label": "Décor téléphone (portrait)", "info": "Podium en format vertical, pour que tout le podium soit visible sur mobile." },
+    { "type": "range", "id": "podium_x_mobile", "min": 20, "max": 80, "step": 1, "unit": "%", "label": "Téléphone : centre du podium", "default": 51 },
+    { "type": "range", "id": "podium_y_mobile", "min": 40, "max": 90, "step": 1, "unit": "%", "label": "Téléphone : dessus du podium", "default": 63 },
+    { "type": "range", "id": "piece_width_mobile", "min": 24, "max": 56, "step": 1, "unit": "vw", "label": "Téléphone : largeur d'une pièce", "default": 42 },
     { "type": "range", "id": "podium_x", "min": 20, "max": 80, "step": 1, "unit": "%", "label": "Centre du podium (horizontal)", "default": 50 },
     { "type": "range", "id": "podium_y", "min": 40, "max": 90, "step": 1, "unit": "%", "label": "Dessus du podium (vertical)", "default": 67 },
     { "type": "range", "id": "piece_width", "min": 8, "max": 24, "step": 1, "unit": "%", "label": "Largeur d'une pièce", "default": 15 },
@@ -66,7 +98,8 @@
     { "type": "product", "id": "product_3", "label": "Pièce 3 — produit" },
     { "type": "header", "content": "Texte" },
     { "type": "select", "id": "align", "label": "Position du texte", "default": "left", "options": [ { "value": "left", "label": "À gauche" }, { "value": "center", "label": "Centré en haut" } ] },
-    { "type": "text", "id": "eyebrow", "label": "Étiquette", "default": "❄ WINTER DROP" },
+    { "type": "image_picker", "id": "brand_logo", "label": "Logo (petit, au-dessus du titre)", "info": "PNG transparent. Sinon le nom ci-dessous s'affiche en logo texte." },
+    { "type": "text", "id": "brand_text", "label": "Nom affiché en logo", "default": "FROST ADDICT" },
     { "type": "textarea", "id": "heading", "label": "Titre", "default": "Ton style,\nmême en hiver." },
     { "type": "text", "id": "text", "label": "Texte" },
     { "type": "text", "id": "button_label", "label": "Bouton principal", "default": "Shop now" },
