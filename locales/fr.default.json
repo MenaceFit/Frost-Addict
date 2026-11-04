@@ -64,7 +64,14 @@
     "add_short": "Ajouter",
     "choose": "Choisir",
     "added_short": "Ajouté ✓",
-    "free_shipping_progress": "Progression vers la livraison offerte"
+    "free_shipping_progress": "Progression vers la livraison offerte",
+    "dock_start": "Livraison offerte dès [montant]",
+    "dock_left": "Plus que [montant]",
+    "dock_left2": "pour la livraison offerte",
+    "dock_done": "Livraison offerte ✓",
+    "dock_shop": "Shop",
+    "dock_add": "Ajouter",
+    "dock_cart": "Panier"
   },
   "collections": {
     "apply": "Appliquer",

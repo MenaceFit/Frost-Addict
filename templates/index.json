@@ -239,26 +239,28 @@
       ],
       "settings": {
         "anchor": "collections",
-        "eyebrow": "Sélection",
+        "eyebrow": "",
         "heading": "Nos collections",
-        "subheading": "",
+        "subheading": "Doudounes • Sneakers • Vestes",
         "columns": 4,
         "ratio": "2 / 3",
-        "mobile_slider": false,
+        "mobile_slider": true,
         "show_count": false,
         "background": "white",
         "cutout_y": 55,
         "podium_y": 63,
-        "piece_width": 34
+        "piece_width": 34,
+        "card_style": "overlay",
+        "cta_label": "Découvrir"
       }
     },
     "new": {
       "type": "featured-collection",
       "settings": {
         "anchor": "nouveautes",
-        "eyebrow": "Fraîchement arrivés",
+        "eyebrow": "",
         "heading": "Nos nouveautés",
-        "subheading": "Les dernières pièces à découvrir.",
+        "subheading": "Fraîchement arrivés • Nouvelle saison",
         "collection": "nouveautes",
         "limit": 10,
         "layout": "carousel",
@@ -286,9 +288,9 @@
       "type": "featured-collection",
       "settings": {
         "anchor": "doudounes",
-        "eyebrow": "Winter selection",
+        "eyebrow": "",
         "heading": "La sélection hiver",
-        "subheading": "Doudounes, gilets et vestes pour affronter le froid.",
+        "subheading": "Doudounes • Gilets • Vestes",
         "collection": "doudounes",
         "limit": 8,
         "layout": "grid",
@@ -330,9 +332,9 @@
       ],
       "settings": {
         "anchor": "sneakers",
-        "eyebrow": "Sneakers",
+        "eyebrow": "",
         "heading": "Les sneakers du moment",
-        "subheading": "Trois silhouettes, trois maisons.",
+        "subheading": "Trois silhouettes • Trois maisons",
         "link_label": "Toutes les sneakers",
         "link": "shopify://collections/sneakers",
         "background": "white"
@@ -378,9 +380,9 @@
       ],
       "settings": {
         "anchor": "best-sellers",
-        "eyebrow": "Top",
+        "eyebrow": "",
         "heading": "Nos best-sellers",
-        "subheading": "",
+        "subheading": "La sélection • Les pièces phares",
         "limit": 8,
         "columns": 4,
         "view_all_label": "Voir tout",
@@ -490,13 +492,25 @@
         "button_link": "shopify://collections/promotions",
         "style": "accent"
       }
+    },
+    "promo": {
+      "type": "promo-card",
+      "settings": {
+        "eyebrow": "Livraison offerte",
+        "heading": "Dès 65 € en France",
+        "text": "Compose ton outfit d'hiver",
+        "link": "shopify://collections/doudounes",
+        "image": "shopify://shop_images/fd-hd-moncler-laquee.png",
+        "style": "night"
+      }
     }
   },
   "order": [
     "hero",
+    "categories",
+    "promo",
     "bestsellers",
     "new",
-    "categories",
     "band1",
     "editorial",
     "jackets",

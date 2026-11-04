@@ -79,7 +79,7 @@ const filters = {
     return `<img src="${url}" ${attrs}${a.alt === undefined ? ' alt=""' : ''}>`;
   },
   placeholder_svg_tag: (name, cls) => `<svg class="${cls || ''}" viewBox="0 0 525 525" xmlns="http://www.w3.org/2000/svg"><rect width="525" height="525"/><text x="50%" y="50%" text-anchor="middle" font-size="22" fill="#9aa0a6" font-family="sans-serif">${name}</text></svg>`,
-  font_face: () => '', font_url: () => '', font_modify: (f, prop, val) => ({ ...f, ...(prop === 'weight' ? { weight: 700 } : { style: val }) }),
+  font_face: (f) => (f && f.__preview_face ? "@font-face{font-family:Oswald;font-weight:700;font-display:swap;src:url(/img/oswald-700.woff2) format('woff2')}" : ''), font_url: () => '', font_modify: (f, prop, val) => ({ ...f, ...(prop === 'weight' ? { weight: 700 } : { style: val }) }),
   color_mix: () => '#6b6e74',
   link_to: (text, url) => `<a href="${url}">${text}</a>`,
   link_to_vendor: (v) => `<a href="/collections/vendors?q=${encodeURIComponent(v)}">${v}</a>`,
@@ -196,6 +196,7 @@ function themeSettings() {
   const s = resolveSettings(defs, data);
   s.type_heading_font = { family: 'Inter', fallback_families: 'sans-serif', weight: 900, style: 'normal' };
   s.type_body_font = { family: 'Inter', fallback_families: 'sans-serif', weight: 400, style: 'normal' };
+  s.type_display_font = { family: 'Oswald', fallback_families: 'sans-serif', weight: 700, style: 'normal', __preview_face: true };
   return s;
 }
 
@@ -255,7 +256,7 @@ async function route(req, res) {
     if (p.startsWith('/assets/')) return send(res, 200, fs.readFileSync(path.join(ROOT, p)), p.endsWith('.css') ? 'text/css' : 'text/javascript');
     if (p.startsWith('/img/')) {
       const f = path.join(IMAGES, path.basename(p));
-      return fs.existsSync(f) ? send(res, 200, fs.readFileSync(f), f.endsWith('.png') ? 'image/png' : 'image/jpeg') : send(res, 404, 'no image', 'text/plain');
+      return fs.existsSync(f) ? send(res, 200, fs.readFileSync(f), f.endsWith('.png') ? 'image/png' : f.endsWith('.woff2') ? 'font/woff2' : 'image/jpeg') : send(res, 404, 'no image', 'text/plain');
     }
     if (p === '/cart/add.js' || p === '/cart/change.js') {
       const body = await readBody(req);

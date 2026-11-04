@@ -1,7 +1,7 @@
 <section class="section{% if section.settings.background == 'soft' %} section--soft{% endif %}" id="{{ section.settings.anchor | default: section.id }}" {{ section.shopify_attributes }}>
   <div class="page-width">
     {% render 'section-head', eyebrow: section.settings.eyebrow, title: section.settings.heading, subtitle: section.settings.subheading %}
-    <div class="cat-grid{% if section.settings.mobile_slider %} cat-grid--slider{% endif %}" style="--cols: {{ section.settings.columns }}; --ratio: {{ section.settings.ratio }}; --cut-y: {{ section.settings.cutout_y }}%">
+    <div class="cat-grid{% if section.settings.mobile_slider %} cat-grid--slider{% endif %}{% if section.settings.card_style == 'overlay' %} cat-grid--overlay{% endif %}" style="--cols: {{ section.settings.columns }}; --ratio: {{ section.settings.ratio }}; --cut-y: {{ section.settings.cutout_y }}%">
       {%- for block in section.blocks -%}
         {%- liquid
           assign link = block.settings.link
@@ -44,7 +44,11 @@
             {%- if section.settings.show_count and block.settings.collection.products_count > 0 -%}
               <p class="cat-card__count">{{ 'collections.product_count' | t: count: block.settings.collection.products_count }}</p>
             {%- endif -%}
-            <span class="round-arrow" aria-hidden="true">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</span>
+            {%- if section.settings.card_style == 'overlay' -%}
+              <span class="cat-card__cta">{{ section.settings.cta_label | default: 'Découvrir' | escape }} {% render 'icon', name: 'arrow-right', stroke: 2.2 %}</span>
+            {%- else -%}
+              <span class="round-arrow" aria-hidden="true">{% render 'icon', name: 'arrow-right', stroke: 2.2 %}</span>
+            {%- endif -%}
           </div>
         </a>
       {%- endfor -%}
@@ -69,6 +73,8 @@
     { "type": "range", "id": "piece_width", "min": 20, "max": 50, "step": 1, "unit": "%", "label": "Largeur d'une pièce (cartes à 3 pièces)", "default": 34 },
     { "type": "range", "id": "cutout_y", "min": 40, "max": 80, "step": 1, "unit": "%", "label": "Hauteur du dessus du podium (photos détourées)", "default": 55 },
     { "type": "checkbox", "id": "mobile_slider", "label": "Carrousel tactile sur mobile", "default": false },
+    { "type": "select", "id": "card_style", "label": "Style des cartes", "default": "overlay", "options": [ { "value": "overlay", "label": "Titre sur l'image + « Découvrir »" }, { "value": "classic", "label": "Titre sous l'image + flèche ronde" } ] },
+    { "type": "text", "id": "cta_label", "label": "Texte du lien (style titre sur l'image)", "default": "Découvrir" },
     { "type": "checkbox", "id": "show_count", "label": "Afficher le nombre de produits", "default": false },
     { "type": "select", "id": "background", "label": "Fond", "default": "white", "options": [ { "value": "white", "label": "Blanc" }, { "value": "soft", "label": "Gris clair" } ] }
   ],

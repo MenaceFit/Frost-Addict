@@ -5,7 +5,7 @@
 {%- endcomment -%}
 {%- assign tag = tag | default: 'h2' -%}
 {%- if title != blank or eyebrow != blank or subtitle != blank -%}
-  <div class="section-head{% if align == 'left' %} section-head--left{% endif %}">
+  <div class="section-head{% if align == 'left' %} section-head--left{% endif %}{% if settings.heading_style == 'ghost' %} section-head--ghost{% endif %}" data-ghost="{{ title | upcase | escape }}">
     <div class="section-head__text">
       {%- if eyebrow != blank -%}<p class="section-head__eyebrow" data-reveal>{{ eyebrow | escape }}</p>{%- endif -%}
       {%- if title != blank -%}<{{ tag }} class="section-head__title h-display" data-split>{{ title | escape }}</{{ tag }}>{%- endif -%}

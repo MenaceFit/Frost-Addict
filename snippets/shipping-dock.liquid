@@ -1,0 +1,27 @@
+{%- comment -%}
+  Floating progress pill (mobile first): progress ring toward the store's real free-shipping
+  threshold (theme settings → Panier). Hidden on product and cart pages, dismissible.
+{%- endcomment -%}
+{%- if settings.shipping_dock and settings.free_shipping_threshold > 0 and cart.currency.iso_code == shop.currency -%}
+  {%- assign show_dock = false -%}
+  {%- case request.page_type -%}
+    {%- when 'index', 'collection', 'list-collections', 'search' -%}
+      {%- assign show_dock = true -%}
+  {%- endcase -%}
+  {%- if show_dock -%}
+    <div class="ship-dock" data-ship-dock hidden
+      data-threshold="{{ settings.free_shipping_threshold | times: 100 }}" data-total="{{ cart.total_price }}"
+      data-zone="{{ settings.free_shipping_zone | escape }}" role="status" aria-live="polite">
+      <span class="ship-dock__ring" aria-hidden="true">
+        <svg viewBox="0 0 44 44"><circle class="ship-dock__track" cx="22" cy="22" r="19"/><circle class="ship-dock__bar" cx="22" cy="22" r="19" pathLength="100"/></svg>
+        <span class="ship-dock__icon">{% render 'icon', name: 'truck' %}</span>
+      </span>
+      <span class="ship-dock__text">
+        <span class="ship-dock__line1" data-ship-dock-l1></span>
+        <span class="ship-dock__line2" data-ship-dock-l2></span>
+      </span>
+      <a class="ship-dock__btn" href="{{ routes.all_products_collection_url }}" data-ship-dock-btn>{{ 'cart.dock_shop' | t }}</a>
+      <button type="button" class="ship-dock__close" data-ship-dock-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+  {%- endif -%}
+{%- endif -%}

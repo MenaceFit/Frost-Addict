@@ -64,7 +64,14 @@
     "add_short": "Add",
     "choose": "Choose",
     "added_short": "Added ✓",
-    "free_shipping_progress": "Progress towards free shipping"
+    "free_shipping_progress": "Progress towards free shipping",
+    "dock_start": "Free shipping from [amount]",
+    "dock_left": "Only [amount] to go",
+    "dock_left2": "for free shipping",
+    "dock_done": "Free shipping ✓",
+    "dock_shop": "Shop",
+    "dock_add": "Add more",
+    "dock_cart": "Cart"
   },
   "collections": {
     "apply": "Apply",

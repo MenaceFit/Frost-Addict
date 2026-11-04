@@ -1,10 +1,21 @@
 # Étapes restantes avant la mise en ligne
 
-Le thème **FROST DISTRICT — v9 Mobile** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
+Le thème **FROST DISTRICT — v10 Drop** est installé sur la boutique comme thème **non publié**. Le thème en ligne n'a pas été modifié.
 
-- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210083152197
-- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210083152197/editor
-- Les anciennes versions (v1 à v8) peuvent être supprimées dans Thèmes une fois la v9 validée.
+- Aperçu : https://fvmz0j-wy.myshopify.com/?preview_theme_id=210425282885
+- Éditeur : https://admin.shopify.com/store/fvmz0j-wy/themes/210425282885/editor
+- Les anciennes versions (v1 à v9) peuvent être supprimées dans Thèmes une fois la v10 validée.
+
+## v10 — Inspiration « drop » (instantmaillot)
+
+- Police condensée Oswald (réglage « Police condensée ») pour les titres de sections, cartes, onglets
+  et bannières ; grand mot fantôme derrière chaque titre (réglage « Style des titres de sections »).
+- Collections juste après le hero : cartes à titre incrusté + « Découvrir → », carrousel tactile sur mobile.
+- Nouvelle section « Bannière promo (carte) » : « Livraison offerte — Dès 65 € en France ».
+- Pastille flottante en bas d'écran (accueil, collections, recherche) : anneau de progression vers la
+  livraison offerte (seuil réel de 65 €), « Plus que X € », « Livraison offerte ✓ », bouton, fermeture.
+  Réglage : Panier → « Pastille flottante ». Une offre type « -30 % dès 3 articles » n'est pas affichée :
+  elle demanderait une vraie remise automatique dans Shopify (Réductions).
 
 ## v9 — Landing mobile
 

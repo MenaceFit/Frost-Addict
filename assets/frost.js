@@ -314,6 +314,7 @@
         const wasOpen = current.classList.contains('is-open');
         $('.drawer__panel', current).replaceWith($('.drawer__panel', fresh));
         current.dataset.count = fresh.dataset.count;
+        current.dataset.total = fresh.dataset.total;
         if (wasOpen) current.classList.add('is-open');
         setCount(Number(fresh.dataset.count));
         document.dispatchEvent(new CustomEvent('frost:cart:rendered'));

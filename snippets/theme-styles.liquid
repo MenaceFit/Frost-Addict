@@ -5,6 +5,7 @@
 {%- liquid
   assign heading_font = settings.type_heading_font
   assign body_font = settings.type_body_font
+  assign display_font = settings.type_display_font
   assign heading_italic = heading_font | font_modify: 'style', 'italic'
   assign body_bold = body_font | font_modify: 'weight', 'bold'
   assign body_italic = body_font | font_modify: 'style', 'italic'
@@ -14,6 +15,7 @@
   {{ heading_font | font_face: font_display: 'swap' }}
   {{ heading_italic | font_face: font_display: 'swap' }}
   {{ body_font | font_face: font_display: 'swap' }}
+  {{ display_font | font_face: font_display: 'swap' }}
   {{ body_bold | font_face: font_display: 'swap' }}
   {{ body_italic | font_face: font_display: 'swap' }}
   {{ body_bold_italic | font_face: font_display: 'swap' }}
@@ -32,6 +34,8 @@
     --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
     --font-heading-weight: {{ heading_font.weight }};
     --font-heading-style: {% if settings.heading_italic %}italic{% else %}normal{% endif %};
+    --font-display: {{ display_font.family }}, {{ display_font.fallback_families }};
+    --font-display-weight: {{ display_font.weight }};
     --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
     --font-body-weight: {{ body_font.weight }};
     --font-body-bold: {{ body_bold.weight | default: 700 }};

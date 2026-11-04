@@ -321,7 +321,58 @@
     });
   }
 
+  /* ---------- Free-shipping dock (floating pill with progress ring) ---------- */
+  function initShipDock() {
+    const dock = $('[data-ship-dock]');
+    if (!dock || dock.dataset.bound) return;
+    dock.dataset.bound = '1';
+    let closed = false;
+    try { closed = sessionStorage.getItem('frost-dock-closed') === '1'; } catch (e) { /* storage blocked */ }
+    if (closed) return;
+    const S = (window.Frost && window.Frost.strings) || {};
+    const threshold = Number(dock.dataset.threshold) || 0;
+    const fmt = (cents) => new Intl.NumberFormat(document.documentElement.lang || 'fr', { style: 'currency', currency: 'EUR', maximumFractionDigits: cents % 100 ? 2 : 0 }).format(cents / 100);
+    const l1 = $('[data-ship-dock-l1]', dock); const l2 = $('[data-ship-dock-l2]', dock); const btn = $('[data-ship-dock-btn]', dock);
+    const render = (total) => {
+      const p = threshold ? Math.min(1, total / threshold) : 0;
+      dock.style.setProperty('--p', p.toFixed(3));
+      dock.classList.toggle('is-done', p >= 1);
+      if (p >= 1) {
+        l1.textContent = S.dockDone; l2.textContent = dock.dataset.zone || '';
+        btn.textContent = S.dockCart; btn.setAttribute('href', (window.Frost && window.Frost.routes.cart) || '/cart'); btn.setAttribute('data-cart-open', '');
+      } else if (total > 0) {
+        l1.textContent = (S.dockLeft || '').replace(/\[(montant|amount)\]/, fmt(threshold - total)); l2.textContent = S.dockLeft2;
+        btn.textContent = S.dockAdd; btn.removeAttribute('data-cart-open');
+      } else {
+        l1.textContent = (S.dockStart || '').replace(/\[(montant|amount)\]/, fmt(threshold)); l2.textContent = dock.dataset.zone || '';
+        btn.textContent = S.dockShop; btn.removeAttribute('data-cart-open');
+      }
+    };
+    render(Number(dock.dataset.total) || 0);
+    document.addEventListener('frost:cart:rendered', () => {
+      const d = $('[data-cart-drawer]'); if (d && d.dataset.total) render(Number(d.dataset.total));
+    });
+    $('[data-ship-dock-close]', dock).addEventListener('click', () => {
+      dock.classList.remove('is-visible');
+      try { sessionStorage.setItem('frost-dock-closed', '1'); } catch (e) { /* storage blocked */ }
+      setTimeout(() => { dock.hidden = true; }, 400);
+    });
+    dock.hidden = false;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const footer = $('.footer, [data-footer]');
+      const nearFooter = footer && footer.getBoundingClientRect().top < window.innerHeight;
+      const drawerOpen = !!$('.drawer.is-open');
+      dock.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.55 && !nearFooter && !drawerOpen);
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    document.addEventListener('frost:cart:opened', update);
+    update();
+  }
+
   function init() {
+    initShipDock();
     initPodium();
     initAnnPause();
     initSplit(); initDepth(); initSnow(); initTilt(); initMagnetic(); initScrollFx();

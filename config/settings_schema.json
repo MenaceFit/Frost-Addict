@@ -110,6 +110,28 @@
         "default": "inter_n9"
       },
       {
+        "type": "font_picker",
+        "id": "type_display_font",
+        "label": "Police condensée (titres de sections, cartes, bannières)",
+        "default": "oswald_n7"
+      },
+      {
+        "type": "select",
+        "id": "heading_style",
+        "label": "Style des titres de sections",
+        "default": "ghost",
+        "options": [
+          {
+            "value": "ghost",
+            "label": "Condensé + grand mot en fond"
+          },
+          {
+            "value": "classic",
+            "label": "Classique"
+          }
+        ]
+      },
+      {
         "type": "checkbox",
         "id": "heading_italic",
         "label": "Titres courts en italique (style streetwear)",
@@ -236,7 +258,12 @@
         "label": "Tag produit pour le badge « Nouveau »",
         "default": "nouveau"
       },
-      { "type": "text", "id": "best_tag", "label": "Tag produit pour le badge « Best-seller »", "default": "best-seller" },
+      {
+        "type": "text",
+        "id": "best_tag",
+        "label": "Tag produit pour le badge « Best-seller »",
+        "default": "best-seller"
+      },
       {
         "type": "select",
         "id": "card_image_ratio",
@@ -302,6 +329,12 @@
         "label": "Livraison offerte dès (€)",
         "default": 65,
         "info": "Doit correspondre à vos tarifs dans Paramètres → Expédition. 0 pour masquer la jauge."
+      },
+      {
+        "type": "checkbox",
+        "id": "shipping_dock",
+        "label": "Pastille flottante « livraison offerte » (accueil, collections)",
+        "default": true
       },
       {
         "type": "text",

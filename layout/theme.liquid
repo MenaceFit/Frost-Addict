@@ -50,7 +50,14 @@
           unavailable: {{ 'products.unavailable' | t | json }},
           added_short: {{ 'cart.added_short' | t | json }},
           copied: {{ 'popup.copied' | t | json }},
-          deliveryBetween: {{ 'products.delivery_between' | t | json }}
+          deliveryBetween: {{ 'products.delivery_between' | t | json }},
+          dockStart: {{ 'cart.dock_start' | t | json }},
+          dockLeft: {{ 'cart.dock_left' | t | json }},
+          dockLeft2: {{ 'cart.dock_left2' | t | json }},
+          dockDone: {{ 'cart.dock_done' | t | json }},
+          dockShop: {{ 'cart.dock_shop' | t | json }},
+          dockAdd: {{ 'cart.dock_add' | t | json }},
+          dockCart: {{ 'cart.dock_cart' | t | json }}
         }
       };
     </script>
@@ -76,6 +83,7 @@
     {%- endif -%}
 
     {% render 'search-modal' %}
+    {% render 'shipping-dock' %}
 
     <div class="toast" id="Toast" role="status" aria-live="polite" hidden></div>
   </body>
